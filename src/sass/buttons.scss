@@ -1,0 +1,313 @@
+@import './colors';
+
+/* Button Color Modifiers */
+@mixin colorModifier {
+
+  &_green {
+    border: 1px solid lighten($green, 30);
+    color: #fff;
+    fill: #fff;
+    background-color: lighten($green, 30);
+
+    &:hover, &:focus {
+      border: 1px solid lighten($green, 20);
+      background-color: lighten($green, 20);
+    }
+
+    &_invert {
+      color: lighten($green, 30);
+      fill: lighten($green, 30);
+      background-color: #fff;
+
+      &:hover, &:focus {
+        border: 1px solid lighten($green, 20);
+        color: lighten($green, 20);
+        fill: lighten($green, 20);
+        background-color: #fff;
+      }
+    }
+
+    &_color-lock {
+      border: 1px solid lighten($green, 30) !important;
+      color: #fff !important;
+      fill: #fff !important;
+      background-color: lighten($green, 30) !important;
+    }
+  }
+
+  &_blue {
+    border: 1px solid lighten($blue, 10);
+    color: #fff;
+    fill: #fff;
+    background-color: lighten($blue, 10);
+
+    &:hover, &:focus {
+      border: 1px solid $blue;
+      background-color: $blue;
+    }
+
+    &_invert {
+      color: lighten($blue, 10);
+      fill: lighten($blue, 10);
+      background-color: #fff;
+
+      &:hover, &:focus {
+        border: 1px solid $blue;
+        color: $blue;
+        fill: $blue;
+        background-color: #fff;
+      }
+    }
+    &_color-lock {
+      border: 1px solid #089cff !important;
+      color: #fff !important;
+      fill: #fff !important;
+      background-color: #089cff !important;
+    }
+  }
+
+  &_red {
+    border: 1px solid $red;
+    color: #fff;
+    fill: #fff;
+    background-color: $red;
+
+    &:hover, &:focus {
+      border: 1px solid darken($red, 10);
+      background-color: darken($red, 10);
+    }
+
+    &_invert {
+      color: $red;
+      fill: $red;
+      background-color: #fff;
+
+      &:hover, &:focus {
+        border: 1px solid darken($red, 10);
+        color: darken($red, 10);
+        fill: darken($red, 10);
+        background-color: #fff;
+      }
+    }
+
+    &_color-lock {
+      border: 1px solid $red !important;
+      color: #fff !important;
+      fill: #fff !important;
+      background-color: $red !important;
+    }
+  }
+
+  &_yellow {
+    border: 1px solid $yellow;
+    color: #fff;
+    fill: #fff;
+    background-color: $yellow;
+
+    &:hover, &:focus {
+      border: 1px solid darken($yellow, 10);
+      background-color: darken($yellow, 10);
+    }
+
+    &_invert {
+      color: $yellow;
+      fill: $yellow;
+      background-color: #fff;
+
+      &:hover, &:focus {
+        border: 1px solid darken($yellow, 10);
+        color: darken($yellow, 10);
+        fill: darken($yellow, 10);
+        background-color: #fff;
+      }
+    }
+
+    &_color-lock {
+      border: 1px solid $yellow !important;
+      color: #fff !important;
+      fill: #fff !important;
+      background-color: $yellow !important;
+    }
+  }
+
+  &_borderless, &_borderless:hover, &_borderless:focus {
+    border: 1px solid transparent;
+  }
+}
+
+/* Pseudo Class Styles */
+@mixin pseudoClass {
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled, &:disabled:hover, &:disabled:focus {
+    border-color: #eee;
+    background-color: #eee;
+    color: #bbb;
+    fill: #bbb;
+    cursor: not-allowed;
+  }
+}
+
+.rect-btn {
+  display: inline-block;
+  padding: 5px 20px;
+  border-radius: 4px;
+  border: none;
+  font-size: 24px;
+  font-weight: 200;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+
+  /* Button Color Modifiers */
+  @include colorModifier;
+
+  /* Pseudo Class Styles */
+  @include pseudoClass;
+
+  /* Button Size Modifiers */
+  &_extra-small {
+    padding: 5px 8px;
+    font-size: 14px;
+  }
+
+  &_small {
+    font-size: 16px;
+  }
+
+  &_medium {
+    font-size: 20px;
+  }
+}
+
+.sq-btn {
+  height: 44px;
+  width: 44px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid $disabledGray;
+  color: $disabledGray;
+  background-color: #fff;
+  cursor: pointer;
+
+  &__icon {
+    position: absolute;
+    font-size: 36px;
+
+    .svg-icon {
+      height: 36px;
+      width: 36px;
+    }
+  }
+
+  /* Button Color Modifiers */
+  @include colorModifier;
+
+  /* Pseudo Class Styles */
+  @include pseudoClass;
+
+  /* Button Size Modifiers */
+  &_large {
+    height: 50px;
+    width: 50px;
+
+    & .sq-btn__icon {
+      font-size: 42px;
+
+      .svg-icon {
+        height: 42px;
+        width: 42px;
+      }
+    }
+  }
+
+  &_medium {
+    height: 36px;
+    width: 36px;
+
+    & .sq-btn__icon {
+      font-size: 28px;
+
+      .svg-icon {
+        height: 28px;
+        width: 28px;
+      }
+    }
+  }
+
+  &_small {
+    height: 28px;
+    width: 28px;
+
+    & .sq-btn__icon {
+      font-size: 20px;
+
+      .svg-icon {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+
+  &_extra-small {
+    height: 22px;
+    width: 22px;
+
+    & .sq-btn__icon {
+      font-size: 14px;
+
+      .svg-icon {
+        height: 14px;
+        width: 14px;
+      }
+    }
+  }
+
+  &__tooltip {
+    display: none;
+    position: absolute;
+    padding: 5px 10px;
+    border-radius: 2px;
+    color: #fff;
+    background-color: lighten($darkGray, 10);
+    font-size: 1rem;
+    white-space: nowrap;
+    z-index: 10;
+
+    &_bottom {
+      bottom: -10px;
+      transform: translateY(100%);
+    }
+
+    &_right {
+      right: -10px;
+      transform: translateX(100%);
+    }
+
+    &_left {
+      left: -10px;
+      transform: translateX(-100%);
+    }
+
+    &_top {
+      top: -10px;
+      transform: translateY(-100%);
+    }
+  }
+
+  &:hover &__tooltip {
+    display: block;
+    animation: fade-out 2s ease forwards;
+  }
+}
+
+@keyframes fade-out {
+  0% {opacity: 1;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
+}

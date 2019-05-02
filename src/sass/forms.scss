@@ -1,0 +1,167 @@
+@import './colors.scss';
+
+.input {
+
+  &-field {
+    position: relative;
+    box-sizing: border-box;
+    min-width: 20px;
+    margin-bottom: 20px;
+
+    &_hint {
+      margin-bottom: 30px;
+    }
+  }
+
+  &-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1rem;
+
+    &_green {
+      color: lighten($green, 20);
+    }
+
+    &_blue {
+      color: darken($blue, 10);
+    }
+
+    &_read-only {
+      color: $disabledGray;
+    }
+  }
+
+  &-hint {
+    display: block;
+    position: absolute;
+    bottom: -18px;
+    left: 4px;
+    font-size: 0.8rem;
+
+    &_right {
+      left: auto;
+      right: 4px;
+    }
+  }
+
+  &-control {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 38px;
+    min-width: 20px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    outline: none;
+
+    &:focus {
+      border: 1px solid #bbb;
+    }
+
+    &_readonly, &_readonly:focus {
+      padding-left: 0;
+      border: none;
+    }
+  }
+
+  &-error {
+    color: #f00;
+  }
+
+  &-disabled {
+    color: $disabledGray;
+  }
+}
+
+/* Form Headings */
+.form-heading {
+  margin: 10px 0 15px;
+  color: darken($blue, 10);
+  font-size: 1.25rem;
+}
+
+/* Form Input Groups */
+.input-group {
+  margin: 0;
+  display: grid;
+  grid-gap: 0 20px;
+
+  &_col-4-max {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+
+    &_col-3, &_col-1-1-1 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    &_col-3-max {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &_col-4 {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    &_col-2-2-2-4 {
+      grid-template-columns: 2fr 2fr 2fr 4fr;
+    }
+
+    &_col-4-max {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    &_col-1-2 {
+      grid-template-columns: 1fr 2fr;
+    }
+
+    &_col-2-1 {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    &_col-5-2-3 {
+      grid-template-columns: 5fr 2fr 3fr;
+    }
+
+    &_col-5-3-2 {
+      grid-template-columns: 5fr 3fr 2fr;
+    }
+
+    &_col-4-3-3 {
+      grid-template-columns: 4fr 3fr 3fr;
+    }
+
+    &_col-4-4-2 {
+       grid-template-columns: 4fr 4fr 2fr;
+     }
+
+    &_col-3-5-2 {
+      grid-template-columns: 3fr 5fr 2fr;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+
+    &_col-3-max {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    &_col-4-max {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    
+  }
+
+  @media screen and (min-width: 825px) {
+
+    &_col-5 {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+  }
+}
