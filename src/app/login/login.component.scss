@@ -1,17 +1,24 @@
 @import '../../sass/colors.scss';
 @import '../../sass/forms.scss';
 @import '../../sass/buttons.scss';
+@import '../../sass/layouts.scss';
 
 .login-form {
-    width: 300px;
-    border: 1px solid $gray-border;
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 30px 20px 20px 20px;
+    width: 316px;
 }
 
 .sign-in-text-container {
     padding: 5px 25px 25px 25px;
     font-size: 24px;
     font-weight: 300;
+}
+
+.create-account-text {
+    cursor: pointer;
+    color: $blue;
+    padding-left: 6px;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }

@@ -11,8 +11,14 @@ import { User, AuthState } from '../../interfaces/User';
 })
 export class LoginComponent implements OnInit {
 
+  views = {
+    login: 'login',
+    createUser: 'createUser'
+  };
+
   uiState = {
-    loginError: false
+    loginError: false,
+    view: 'login'
   };
 
   authState: AuthState;
@@ -124,6 +130,17 @@ export class LoginComponent implements OnInit {
      console.log(err);
      // If failure, console log error and navigate to login page
    });
+  }
+
+  // UI and View State
+  toggleViewState(view): void {
+    this.resetForms();
+    this.uiState.view = view;
+  }
+
+  resetForms(): void {
+    this.loginForm.reset();
+    this.createUserForm.reset();
   }
 
 }
