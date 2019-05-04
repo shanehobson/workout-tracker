@@ -16,10 +16,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const user: User = {
       name: 'Ron Swanson',
-      email: 'ron@swanson.swan',
+      email: 'testing@swanson.son',
       password: 'ronspword'
     }
-    // this.login(user);
   }
 
   createUser(user: User): void {
@@ -42,14 +41,54 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  logout(user: User): void {
-    this.authService.logout(user).then((res) => {
+  logout(): void {
+    this.authService.logout().then((res) => {
       console.log(res);
-       // If success, navigate to home page
+       // If success, navigate to login page
     }).catch((err) => {
       console.log(err);
-      // If failure, emit error message
+       // If failure, console log error and navigate to login page
     });
+  }
+
+  logoutAll(): void {
+    this.authService.logoutAll().then((res) => {
+      console.log(res);
+       // If success, navigate to login page
+    }).catch((err) => {
+      console.log(err);
+      // If failure, console log error and navigate to login page
+    });
+  }
+
+  getUser(): void {
+    this.authService.getUser().then((res) => {
+      console.log(res);
+      // If success, navigate to login page
+   }).catch((err) => {
+     console.log(err);
+     // If failure, console log error and navigate to login page
+   });
+  }
+
+  updateUser(updates): void {
+    this.authService.updateUser(updates).then((res) => {
+      console.log(res);
+      // If success, navigate to login page
+   }).catch((err) => {
+     console.log(err);
+     // If failure, console log error and navigate to login page
+   });
+  }
+
+  deleteUser(): void {
+    this.authService.deleteUser().then((res) => {
+      console.log(res);
+      // If success, navigate to login page
+   }).catch((err) => {
+     console.log(err);
+     // If failure, console log error and navigate to login page
+   });
   }
 
 }

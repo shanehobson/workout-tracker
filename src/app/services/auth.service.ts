@@ -15,6 +15,10 @@ export class AuthService {
    createUserUrl = `${this.globals.serverUrl}/users`;
    loginUrl = `${this.globals.serverUrl}/users/login`;
    logoutUrl = `${this.globals.serverUrl}/users/logout`;
+   logoutAllUrl = `${this.globals.serverUrl}/users/logoutAll`;
+   getUserUrl = `${this.globals.serverUrl}/users/me`;
+   updateUserUrl = `${this.globals.serverUrl}/users/me`;
+   deleteUserUrl = `${this.globals.serverUrl}/users/me`;
 
    private token: string;
    private loggedIn: boolean = false;
@@ -74,14 +78,49 @@ export class AuthService {
     });
   }
 
-  logout(user: User) {
+  logout() {
     return new Promise((resolve, reject) => {
-      this.http.post(this.logoutUrl, user, this.getRequestOptions())
+      this.http.post(this.logoutUrl, {}, this.getRequestOptions())
         .subscribe(response => {
 
           this.saveToken('');
           this.user = null;
           this.loggedIn = false;
+
+          resolve('Logged out.');
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  logoutAll() {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.logoutAllUrl, {}, this.getRequestOptions())
+        .subscribe(response => {
+
+          this.saveToken('');
+          this.user = null;
+          this.loggedIn = false;
+
+          resolve('Logged out of all sessions.');
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  getUser() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.getUserUrl, this.getRequestOptions())
+        .subscribe(response => {
+
+          const user: User = {
+            name: response['name'],
+            email: response['email']
+          }
+
+          this.user = user;
 
           resolve(user);
         }, err => {
@@ -89,6 +128,45 @@ export class AuthService {
         });
     });
   }
+
+  updateUser(updates) {
+    return new Promise((resolve, reject) => {
+      this.http.patch(this.updateUserUrl, updates, this.getRequestOptions())
+        .subscribe(response => {
+
+          const user: User = {
+            name: response['name'],
+            email: response['email']
+          }
+
+          this.user = user;
+
+          resolve(user);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  deleteUser() {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.deleteUserUrl, this.getRequestOptions())
+        .subscribe(response => {
+
+          this.saveToken('');
+          this.user = null;
+          this.loggedIn = false;
+
+          resolve('User successfully deleted.');
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  public get isLoggedIn(): boolean {
+    return this.loggedIn;
+   }
 
   private saveToken(token: string): void {
     localStorage.setItem('workout-app-token', token);
@@ -113,10 +191,6 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': this.getToken()
     });
-  }
-
-  public get isLoggedIn(): boolean {
-   return this.loggedIn;
   }
 
 }
