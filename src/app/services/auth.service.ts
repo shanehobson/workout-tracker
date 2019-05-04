@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Globals } from '../globals';
 import { User } from '../../interfaces/User';
@@ -19,6 +20,11 @@ export class AuthService {
    getUserUrl = `${this.globals.serverUrl}/users/me`;
    updateUserUrl = `${this.globals.serverUrl}/users/me`;
    deleteUserUrl = `${this.globals.serverUrl}/users/me`;
+
+   public authState = new BehaviorSubject({
+    loggedIn: false,
+    user: null
+  });
 
    private token: string;
    private loggedIn: boolean = false;
@@ -45,7 +51,7 @@ export class AuthService {
             email
           }
 
-          this.user = user;
+          this.authState.next({ loggedIn: true, user });
 
           resolve(user);
         }, err => {
@@ -68,8 +74,7 @@ export class AuthService {
             email
           }
 
-          this.user = user;
-          this.loggedIn = true;
+          this.authState.next({ loggedIn: true, user });
 
           resolve(user);
         }, err => {
@@ -84,8 +89,7 @@ export class AuthService {
         .subscribe(response => {
 
           this.saveToken('');
-          this.user = null;
-          this.loggedIn = false;
+          this.authState.next({ loggedIn: false, user: null });
 
           resolve('Logged out.');
         }, err => {
@@ -100,8 +104,7 @@ export class AuthService {
         .subscribe(response => {
 
           this.saveToken('');
-          this.user = null;
-          this.loggedIn = false;
+          this.authState.next({ loggedIn: false, user: null });
 
           resolve('Logged out of all sessions.');
         }, err => {
@@ -120,7 +123,7 @@ export class AuthService {
             email: response['email']
           }
 
-          this.user = user;
+          this.authState.next({ loggedIn: true, user });
 
           resolve(user);
         }, err => {
@@ -139,7 +142,7 @@ export class AuthService {
             email: response['email']
           }
 
-          this.user = user;
+          this.authState.next({ loggedIn: true, user });
 
           resolve(user);
         }, err => {
@@ -154,8 +157,7 @@ export class AuthService {
         .subscribe(response => {
 
           this.saveToken('');
-          this.user = null;
-          this.loggedIn = false;
+          this.authState.next({ loggedIn: false, user: null });
 
           resolve('User successfully deleted.');
         }, err => {
@@ -163,10 +165,6 @@ export class AuthService {
         });
     });
   }
-
-  public get isLoggedIn(): boolean {
-    return this.loggedIn;
-   }
 
   private saveToken(token: string): void {
     localStorage.setItem('workout-app-token', token);

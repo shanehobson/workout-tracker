@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CanActivateViaAuthGuard } from './services/canActivateAuth.service';
 import { ColorService } from './services/color.service';
 import { Globals } from './globals';
@@ -17,6 +18,8 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule
   ],

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { User } from '../../interfaces/User';
+import { User, AuthState } from '../../interfaces/User';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +11,51 @@ import { User } from '../../interfaces/User';
 })
 export class LoginComponent implements OnInit {
 
+  uiState = {
+    loginError: false
+  };
+
+  authState: AuthState;
+
+  loginForm: FormGroup;
+  createUserForm: FormGroup;
+
   constructor(
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private router: Router,
+    private fb: FormBuilder,
+  ) {
+    this.loginForm = this.fb.group({
+      name: ['', Validators.required],
+      password: ['']
+    });
+    this.createUserForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['']
+    });
+   }
 
   ngOnInit() {
-    const user: User = {
-      name: 'Ron Swanson',
-      email: 'testing@swanson.son',
-      password: 'ronspword'
-    }
+    this.subscribeToAuthState();
+    // this.login({
+    //     name: 'Shane',
+    //     email: 'testing@shane.shane',
+    //     password: 'TestingPword69'
+    //   });
+
+    this.getUser().then((user) => {
+      console.log('Logged in');
+      this.router.navigate(['home']);
+    }).catch(() => {
+      console.log('Not logged in');
+    })
+  }
+
+  subscribeToAuthState(): void {
+    this.authService.authState.subscribe((authState) => {
+      this.authState = authState;
+    })
   }
 
   createUser(user: User): void {
@@ -33,10 +70,8 @@ export class LoginComponent implements OnInit {
 
   login(user: User): void {
     this.authService.login(user).then((res) => {
-      console.log(res);
        // If success, navigate to home page
     }).catch((err) => {
-      console.log(err);
       // If failure, emit error message
     });
   }
@@ -61,14 +96,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  getUser(): void {
-    this.authService.getUser().then((res) => {
-      console.log(res);
-      // If success, navigate to login page
-   }).catch((err) => {
-     console.log(err);
-     // If failure, console log error and navigate to login page
-   });
+  getUser(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.authService.getUser().then((res) => {
+        resolve(res);
+     }).catch((err) => {
+       reject(err);
+     });
+    });
   }
 
   updateUser(updates): void {

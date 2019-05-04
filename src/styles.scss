@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+@import './sass/colors';
+
+body {
+  background-color: $off-white;
+}
+
+// Flexbox
+.d-flex {
+    display: flex;
+  }
+  
+  .j-center {
+    justify-content: center;
+  }
+  
+  .flex-column {
+    flex-direction: column;
+  }
+  
+  .j-space-between {
+    justify-content: space-between;
+  }
+  
+  .j-start {
+    justify-content: flex-start;
+  }
+  
+  .j-end {
+    justify-content: flex-end;
+  }
+  
+  .align-center {
+    align-items: center;
+  }
+  
+  .align-start {
+    align-items: flex-start;
+  }
+  
+  .align-end {
+    align-items: flex-end;
+  }
