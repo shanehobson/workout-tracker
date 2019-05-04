@@ -1,23 +1,82 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Globals } from '../globals';
+import { User } from '../../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
-   loginUrl = '';
-   private token: string;
-   private loggedIn: boolean = true;
+   createUserUrl = `${this.globals.serverUrl}/users`;
+   loginUrl = `${this.globals.serverUrl}/users/login`;
 
-  constructor(private http: HttpClient, private router: Router) { }
+   private token: string;
+   private loggedIn: boolean = false;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private globals: Globals
+  ) { }
+
+  user: User;
+
+  createUser(user: User) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.createUserUrl, user)
+        .subscribe(response => {
+          const token = response['token'];;
+          const { name, email } = response['user'];
+
+          this.saveToken(token);
+
+          const user: User = {
+            name,
+            email
+          }
+
+          this.user = user;
+
+          resolve(user);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  login(user: User) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.loginUrl, user, this.getRequestOptions())
+        .subscribe(response => {
+          const token = response['token'];;
+          const { name, email } = response['user'];
+
+          this.saveToken(token);
+
+          const user: User = {
+            name,
+            email
+          }
+
+          this.user = user;
+          this.loggedIn = true;
+
+          resolve(user);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
 
   private saveToken(token: string): void {
     localStorage.setItem('workout-app-token', token);
     this.token = token;
+    console.log('Token saved');
   }
 
   private getToken(): string {
@@ -27,8 +86,17 @@ export class AuthService {
     return this.token;
   }
 
-  public login() {
-      // login
+  getRequestOptions() {
+    return {
+        headers: this.getHeadersWithAuthToken()                                                                                                                                                                               
+    };
+  }
+
+  getHeadersWithAuthToken() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.getToken()
+    });
   }
 
   public logout() {
