@@ -1,4 +1,10 @@
-<div class="d-flex j-center align-center" style="width: 100%; height: 70vh;">
+<div class="d-flex flex-column j-center align-center" style="width: 100%; height: 65vh;">
+  <div class="sign-in-image-container">
+      <img src="../../../assets/logo.png" style="height: 60px; width: 80px">
+  </div>
+  <div class="sign-in-text-container">
+    Sign In To Workout Tracker
+  </div>
   <form [formGroup]="loginForm"
         class="login-form">
 
@@ -28,7 +34,7 @@
               type="button"
               [disabled]="!loginForm.valid"
               (click)="submitLoginForm(loginForm.value)">
-              Login
+              Sign In
           </button>
         </div>
         
