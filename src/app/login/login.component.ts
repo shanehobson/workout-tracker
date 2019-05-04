@@ -18,7 +18,9 @@ export class LoginComponent implements OnInit {
 
   uiState = {
     loginError: false,
-    view: 'login'
+    createUserError: false,
+    view: 'login',
+    createUserErrorMessage: 'Unable to create user profile.'
   };
 
   authState: AuthState;
@@ -32,54 +34,78 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.loginForm = this.fb.group({
-      name: ['', Validators.required],
-      password: ['']
+      name: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
     this.createUserForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['']
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
    }
 
   ngOnInit() {
     this.subscribeToAuthState();
-    // this.login({
-    //     name: 'Shane',
-    //     email: 'testing@shane.shane',
-    //     password: 'TestingPword69'
-    //   });
 
     this.getUser().then((user) => {
       console.log('Logged in');
-      this.router.navigate(['home']);
+      this.router.navigate(['/home']);
     }).catch(() => {
       console.log('Not logged in');
     })
   }
 
-  subscribeToAuthState(): void {
-    this.authService.authState.subscribe((authState) => {
-      this.authState = authState;
+  // Form Submission 
+  submitLoginForm(form): void {
+    const { name, password } = form;
+    const user: User = { name, password };
+
+    this.resetUIErrorState();
+
+    this.login(user).then(res => {
+      this.router.navigate(['/home']);
+    })
+    .catch((err) => {
+      console.log(err);
+      this.uiState.loginError = true;
     })
   }
 
-  createUser(user: User): void {
-    this.authService.createUser(user).then((res) => {
+  submitCreateUserForm(form): void {
+    const { name, email, password } = form;
+    const user: User = { name, email, password };
+
+    this.resetUIErrorState();
+
+    this.createUser(user).then(res => {
       console.log(res);
-       // If success, navigate to home page
-    }).catch((err) => {
+      this.router.navigate(['home']);
+    })
+    .catch((err) => {
       console.log(err);
-      // If failure, emit error message
+      this.uiState.createUserError = true;
+    })
+  }
+
+  // CRUD Operations
+  createUser(user: User): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.authService.createUser(user).then((res) => {
+        resolve(res);
+      }).catch((err) => {
+        reject(err);
+      });
     });
   }
 
-  login(user: User): void {
-    this.authService.login(user).then((res) => {
-       // If success, navigate to home page
-    }).catch((err) => {
-      // If failure, emit error message
-    });
+  login(user: User): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.authService.login(user).then((res) => {
+        resolve(res);
+     }).catch((err) => {
+       reject(err);
+     });
+    })
   }
 
   logout(): void {
@@ -132,15 +158,34 @@ export class LoginComponent implements OnInit {
    });
   }
 
+  isTouchedInvalid(formName: string, controlName: string) {
+    const controlTouched = this[formName].controls[controlName].touched;
+    const controlValid = this[formName].controls[controlName].valid;
+    return controlTouched && !controlValid;
+  }
+
   // UI and View State
   toggleViewState(view): void {
     this.resetForms();
+    this.resetUIErrorState();
     this.uiState.view = view;
   }
 
   resetForms(): void {
     this.loginForm.reset();
     this.createUserForm.reset();
+  }
+
+  resetUIErrorState(): void {
+    this.uiState.loginError = false;
+    this.uiState.createUserError = false;
+  }
+
+   // Auth State
+   subscribeToAuthState(): void {
+    this.authService.authState.subscribe((authState) => {
+      this.authState = authState;
+    })
   }
 
 }

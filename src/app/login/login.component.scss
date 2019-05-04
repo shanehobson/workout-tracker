@@ -15,10 +15,22 @@
 
 .create-account-text {
     cursor: pointer;
+    color: lighten($green, 20);
+    padding-left: 6px;
+
+    &:hover {
+        color: $blue;
+        text-decoration: underline;
+    }
+}
+
+.login-text {
+    cursor: pointer;
     color: $blue;
     padding-left: 6px;
 
     &:hover {
+        color: lighten($green, 20);
         text-decoration: underline;
     }
 }

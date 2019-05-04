@@ -20,7 +20,10 @@
 
         <div class="d-flex j-center">
             <div class="input-field">
-              <label class="input-label" style="font-weight: 500">Username</label>
+              <label class="input-label" style="font-weight: 500"
+              [ngClass]="{'input-error': isTouchedInvalid('loginForm', 'name')}">
+                Username
+              </label>
               <input class="input-control"
                       type="text"
                       formControlName="name"
@@ -30,12 +33,23 @@
 
         <div class="d-flex j-center">
             <div class="input-field">
-              <label class="input-label" style="font-weight: 500">Password</label>
+              <label class="input-label"
+              style="font-weight: 500"
+              [ngClass]="{'input-error': isTouchedInvalid('loginForm', 'password')}">
+                Password
+              </label>
               <input class="input-control"
-                      type="text"
+              type="password"
                       formControlName="password"
                       required/>
             </div>
+        </div>
+
+        <!--  Password length error message -->
+        <div *ngIf="isTouchedInvalid('loginForm', 'password')" 
+        style="padding: 0 10px 15px 10px; text-align: center;"
+              class="d-flex j-center">
+          <span class="error-message">Password must be at least eight (8) characters.</span>
         </div>
 
         <div class="d-flex j-center">
@@ -46,6 +60,10 @@
               Sign In
           </button>
         </div>
+
+        <div class="d-flex j-center" style="padding-top: 15px;">
+          <span *ngIf="uiState.loginError" class="error-message">We couldn't find a user with that username and password combination. Please try again.</span>
+        </div>
   </form>
 
    <!-- Sign Up Form -->
@@ -55,17 +73,11 @@
 
     <div class="d-flex j-center">
         <div class="input-field">
-          <label class="input-label" style="font-weight: 500">Username</label>
-          <input class="input-control"
-                  type="text"
-                  formControlName="name"
-                  required/>
-        </div>
-    </div>
-
-    <div class="d-flex j-center">
-        <div class="input-field">
-          <label class="input-label" style="font-weight: 500">Email</label>
+          <label class="input-label"
+          style="font-weight: 500"
+          [ngClass]="{'input-error': isTouchedInvalid('createUserForm', 'email')}">
+            Email
+          </label>
           <input class="input-control"
                   type="text"
                   formControlName="email"
@@ -75,21 +87,50 @@
 
     <div class="d-flex j-center">
         <div class="input-field">
-          <label class="input-label" style="font-weight: 500">Password</label>
+          <label class="input-label"
+          style="font-weight: 500"
+          [ngClass]="{'input-error': isTouchedInvalid('createUserForm', 'name')}">
+            Username
+          </label>
           <input class="input-control"
                   type="text"
-                  formControlName="password"
+                  formControlName="name"
                   required/>
         </div>
     </div>
 
     <div class="d-flex j-center">
+        <div class="input-field">
+          <label class="input-label"
+          style="font-weight: 500"
+          [ngClass]="{'input-error': isTouchedInvalid('createUserForm', 'password')}">
+            Password
+          </label>
+          <input class="input-control"
+                  type="password"
+                  formControlName="password"
+                  required/>
+        </div>
+    </div>
+
+    <!--  Password length error message -->
+    <div *ngIf="isTouchedInvalid('createUserForm', 'password')" 
+          style="padding: 0 10px 15px 10px; text-align: center;"
+          class="d-flex j-center">
+      <span class="error-message">Password must be at least eight (8) characters.</span>
+    </div>
+
+    <div class="d-flex j-center">
         <button class="rect-btn rect-btn_green"
           type="button"
-          [disabled]="!loginForm.valid"
+          [disabled]="!createUserForm.valid"
           (click)="submitCreateUserForm(createUserForm.value)">
           Sign Up
       </button>
+    </div>
+
+    <div class="d-flex j-center" style="padding-top: 15px;">
+        <span *ngIf="uiState.createUserError" class="error-message">{{uiState.createUserErrorMessage}}</span>
     </div>
   </form>
 
@@ -107,7 +148,7 @@
     class="d-flex j-center align-center" style="padding: 20px;">
     <div class="card d-flex j-center align-center" style="padding: 15px; width: 316px;">
       Already Have An Account? 
-      <span (click)="toggleViewState('login')" class="create-account-text">
+      <span (click)="toggleViewState('login')" class="login-text">
         Sign In
       </span>
     </div>
