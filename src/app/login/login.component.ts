@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
       email: 'ron@swanson.swan',
       password: 'ronspword'
     }
-    this.createUser(user);
+    // this.login(user);
   }
 
   createUser(user: User): void {
@@ -34,6 +34,16 @@ export class LoginComponent implements OnInit {
 
   login(user: User): void {
     this.authService.login(user).then((res) => {
+      console.log(res);
+       // If success, navigate to home page
+    }).catch((err) => {
+      console.log(err);
+      // If failure, emit error message
+    });
+  }
+
+  logout(user: User): void {
+    this.authService.logout(user).then((res) => {
       console.log(res);
        // If success, navigate to home page
     }).catch((err) => {

@@ -14,6 +14,7 @@ export class AuthService {
   
    createUserUrl = `${this.globals.serverUrl}/users`;
    loginUrl = `${this.globals.serverUrl}/users/login`;
+   logoutUrl = `${this.globals.serverUrl}/users/logout`;
 
    private token: string;
    private loggedIn: boolean = false;
@@ -30,7 +31,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.http.post(this.createUserUrl, user)
         .subscribe(response => {
-          const token = response['token'];;
+          const token = response['token'];
           const { name, email } = response['user'];
 
           this.saveToken(token);
@@ -53,7 +54,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.http.post(this.loginUrl, user, this.getRequestOptions())
         .subscribe(response => {
-          const token = response['token'];;
+          const token = response['token'];
           const { name, email } = response['user'];
 
           this.saveToken(token);
@@ -73,10 +74,25 @@ export class AuthService {
     });
   }
 
+  logout(user: User) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.logoutUrl, user, this.getRequestOptions())
+        .subscribe(response => {
+
+          this.saveToken('');
+          this.user = null;
+          this.loggedIn = false;
+
+          resolve(user);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
   private saveToken(token: string): void {
     localStorage.setItem('workout-app-token', token);
     this.token = token;
-    console.log('Token saved');
   }
 
   private getToken(): string {
@@ -97,10 +113,6 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': this.getToken()
     });
-  }
-
-  public logout() {
-      // logout
   }
 
   public get isLoggedIn(): boolean {
