@@ -1,0 +1,32 @@
+@import '../../sass/colors';
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $jet-black;
+    padding: 16px 2%;
+    height: 32px;
+    font-size: 14px;
+
+    &-section-left {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    &-section-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &-navlink {
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            color: lighten($green, 25);
+        }
+    }
+
+}

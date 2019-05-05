@@ -49,7 +49,9 @@ export class LoginComponent implements OnInit {
 
     this.getUser().then(() => {
       this.router.navigate(['/home']);
-    });
+    }).catch((err) => {
+      console.log('User not authenticated.');
+    })
   }
 
   // Form Submission 
