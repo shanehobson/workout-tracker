@@ -35,8 +35,6 @@ export class AuthService {
     private globals: Globals
   ) { }
 
-  user: User;
-
   createUser(user: User) {
     return new Promise((resolve, reject) => {
       this.http.post(this.createUserUrl, user)
@@ -171,7 +169,7 @@ export class AuthService {
     this.token = token;
   }
 
-  private getToken(): string {
+   getToken(): string {
     if (!this.token) {
       this.token = localStorage.getItem('workout-app-token');
     }

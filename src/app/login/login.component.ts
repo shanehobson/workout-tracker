@@ -47,12 +47,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.subscribeToAuthState();
 
-    this.getUser().then((user) => {
-      console.log('Logged in');
+    this.getUser().then(() => {
       this.router.navigate(['/home']);
-    }).catch(() => {
-      console.log('Not logged in');
-    })
+    });
   }
 
   // Form Submission 

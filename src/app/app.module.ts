@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExerciseService } from './services/exercise.service';
+import { AuthService } from './services/auth.service';
 import { CanActivateViaAuthGuard } from './services/canActivateAuth.service';
 import { ColorService } from './services/color.service';
 import { Globals } from './globals';
