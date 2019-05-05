@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTabsModule} from '@angular/material/tabs';
 import { ExerciseService } from './services/exercise.service';
 import { AuthService } from './services/auth.service';
 import { CanActivateViaAuthGuard } from './services/canActivateAuth.service';
@@ -25,7 +27,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule,
+    BrowserAnimationsModule
   ],
   providers: [ Globals, ColorService, CanActivateViaAuthGuard ],
   bootstrap: [AppComponent]

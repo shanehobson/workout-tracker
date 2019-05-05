@@ -47,8 +47,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.subscribeToAuthState();
 
-    this.getUser().then(() => {
-      this.router.navigate(['/home']);
+    this.getUser().then((res) => {
+      console.log(res);
+      this.router.navigate(['/', 'home']);
     }).catch((err) => {
       console.log('User not authenticated.');
     })
