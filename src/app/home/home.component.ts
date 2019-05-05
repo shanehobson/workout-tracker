@@ -10,6 +10,11 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  viewState = {
+    record: true,
+    analyze: false
+  }
+
   authState: AuthState;
 
   constructor(
@@ -21,15 +26,30 @@ export class HomeComponent implements OnInit {
     this.subscribeToAuthState();
   }
 
-     // Auth State
-     subscribeToAuthState(): void {
-      this.authService.authState.subscribe((authState) => {
-        if (!authState.loggedIn) {
-          this.router.navigate(['/', 'login']);
-        }
-        this.authState = authState;
-        // test
-      })
+  // View State 
+  setView(view: string): void {
+    for (let item in this.viewState) {
+      if (item === view) {
+        this.viewState[item] = true;
+      } else {
+        this.viewState[item] = false;
+      } 
     }
+  }
+
+  isCurrentView(view: string): boolean {
+    return this.viewState[view];
+  }
+
+  // Auth State
+  subscribeToAuthState(): void {
+  this.authService.authState.subscribe((authState) => {
+    if (!authState.loggedIn) {
+      this.router.navigate(['/', 'login']);
+    }
+    this.authState = authState;
+    // test
+  })
+}
 
 }

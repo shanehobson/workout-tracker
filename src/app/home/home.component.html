@@ -6,11 +6,23 @@
 
     <!-- Tabs -->
     <div class="tabs">
-        <div class="tabs-tab tabs-tab_selected">
-
+        <div (click)="setView('record')"
+             class="tabs-tab"
+             [ngClass]="isCurrentView('record') ? 'tabs-tab_selected' : ''">
+            <span [ngClass]="isCurrentView('record') ? 'selected' : ''">Record</span>
         </div>
-        <div class="tabs-tab">
-
+        <div (click)="setView('analyze')"
+             class="tabs-tab"
+             [ngClass]="isCurrentView('analyze') ? 'tabs-tab_selected' : ''">
+            <span [ngClass]="isCurrentView('analyze') ? 'selected' : ''">Analyze</span>
         </div>
+    </div>
+
+    <div class="record-and-analyze-content-container">
+        <!-- Record -->
+        <app-record *ngIf="isCurrentView('record')"></app-record>
+
+        <!-- Analyze -->
+        <app-analyze *ngIf="isCurrentView('analyze')"></app-analyze>
     </div>
 </div>

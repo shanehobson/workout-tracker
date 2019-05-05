@@ -9,13 +9,14 @@
 
 .main-content {
     width: 100%;
-    margin-top: 150px;
+    margin-top: 70px;
     padding: 20px;
 }
 
 .tabs {
     width: 500px;
     margin: 20px auto;
+    padding-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -23,9 +24,27 @@
     &-tab {
         width: 250px;
         border-bottom: 2px solid darken($gray-border, 10);
+        text-align: center;
+        font-size: 26px;
+        cursor: pointer;
 
         &_selected {
             border-bottom: 4px solid lighten($green, 20) !important;
         }
+
+        > span {
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        > span.selected {
+            padding-bottom: 8px;
+            display: inline-block;
+        }
     }
+}
+
+.record-and-analyze-content-container {
+    margin: 30px auto;
+    max-width: 1000px;
 }
