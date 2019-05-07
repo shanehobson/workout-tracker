@@ -96,4 +96,8 @@ export class ExerciseService {
     });
   }
 
+  get bodyParts(): Array<string> {
+    return ['Shoulders', 'Chest', 'Biceps', 'Triceps', 'Lats', 'Upper Back', 'Lower Back', 'Abs', 'Legs'];
+  }
+
 }

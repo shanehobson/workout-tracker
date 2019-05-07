@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { DateService } from '../services/date.service';
 import { User, AuthState } from '../../interfaces/User';
 import { Router } from '@angular/router';
 
@@ -19,11 +20,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private dateService: DateService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.subscribeToAuthState();
+    
   }
 
   // View State 
@@ -48,7 +51,6 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/', 'login']);
     }
     this.authState = authState;
-    // test
   })
 }
 

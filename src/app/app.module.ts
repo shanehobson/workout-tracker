@@ -7,6 +7,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ExerciseService } from './services/exercise.service';
 import { AuthService } from './services/auth.service';
 import { CanActivateViaAuthGuard } from './services/canActivateAuth.service';
+import { DateService } from './services/date.service';
 import { ColorService } from './services/color.service';
 import { Globals } from './globals';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +36,7 @@ import { AnalyzeComponent } from './analyze/analyze.component';
     MatTabsModule,
     BrowserAnimationsModule
   ],
-  providers: [ Globals, ColorService, CanActivateViaAuthGuard ],
+  providers: [ Globals, ColorService, CanActivateViaAuthGuard, DateService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
