@@ -51,6 +51,54 @@ export class DateService {
 
   }
 
+  parseDateIntoISO(val): string {
+    if (!val.date) { return ''; }
+    const date = val.date.toString();
+    const tempMonth = date.slice(4, 7).toLowerCase();
+    const day = date.slice(8, 10);
+    const year = date.slice(11, 15);
+    let month = '';
+    switch (tempMonth) {
+      case 'jan':
+        month = '01';
+        break;
+      case 'feb':
+        month = '02';
+        break;
+      case 'mar':
+        month = '03';
+        break;
+      case 'apr':
+        month = '04';
+        break;
+      case 'may':
+        month = '05';
+        break;
+      case 'jun':
+        month = '06';
+        break;
+      case 'jul':
+        month = '07';
+        break;
+      case 'aug':
+        month = '08';
+        break;
+      case 'sep':
+        month = '09';
+        break;
+      case 'oct':
+        month = '10';
+        break;
+      case 'nov':
+        month = '11';
+        break;
+      case 'dec':
+        month = '12';
+        break;
+    }
+    return `${year}-${month}-${day}`;
+  }
+
   getCurrentTimeISO() {
     const date = new Date();
     return this.today + 'T' + ((date.getHours() < 10) ? '0' + date.getHours().toString() : date.getHours().toString()) + ':' + ((date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes()) + ':' + ((date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds()) + ':' + date.getMilliseconds();
