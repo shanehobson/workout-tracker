@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExerciseService } from '../services/exercise.service';
 import { DateService } from '../services/date.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-record',
@@ -11,7 +10,9 @@ import * as moment from 'moment';
 })
 export class RecordComponent implements OnInit {
 
-  // @ViewChild('dateElement') dateElement: ElementRef;
+  uiState = {
+    showDateInput: false
+  };
 
   date;
   dateForm: FormGroup;
@@ -29,14 +30,12 @@ export class RecordComponent implements OnInit {
       date: [{}, Validators.required]
     });
     this.createLiftingExerciseForm = this.fb.group({
-      // date: ['', Validators.required],
       type: ['', Validators.required],
       name: ['', Validators.required],
       sets: ['', Validators.required],
       reps: ['', Validators.required]
     });
     this.createCardioExerciseForm = this.fb.group({
-      // date: ['', Validators.required],
       type: ['', Validators.required],
       name: ['', Validators.required],
       miles: ['', Validators.required]
@@ -44,9 +43,13 @@ export class RecordComponent implements OnInit {
   }
 
   ngOnInit() {
-    const ngbDate = this.parseDateIntoNGB(this.dateService.getTodaysDate());
-    this.dateForm.controls.date.setValue(ngbDate);
-    console.log(this.date);
+    this.date = this.parseDateIntoNGB(this.dateService.getTodaysDate());
+    this.dateForm.controls.date.setValue(this.date);
+    this.listenToDateFormChanges();
+  }
+
+  toggleShowDateInput() {
+    this.uiState.showDateInput = !this.uiState.showDateInput;
   }
 
   parseDateIntoNGB(date) {
@@ -57,8 +60,15 @@ export class RecordComponent implements OnInit {
     }
   }
 
-  onDateSelect() {
-    console.log(this.date);
+  parsedateIntoISO(date) {
+    return `${date.year}-${date.month}-${date.day}`;
+  }
+
+  listenToDateFormChanges() {
+    this.dateForm.controls.date.valueChanges.subscribe(val => {
+      console.log(val);
+      this.date = val;
+    });
   }
 
 }

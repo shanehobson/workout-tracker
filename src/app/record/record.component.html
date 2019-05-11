@@ -1,29 +1,26 @@
 <div class="record-section-container">
-   <!-- Date Picker -->
-   <div class="d-flex j-center" style="margin: 0 auto;">
-      <form [formGroup]="dateForm">
-        <div class="d-flex j-space-between align-start" style="width: 322px;">
-            <input
-              class="input-field date-input"
-              type="text"
-              formControlName="date"
-              ngbDatepicker
-              #d="ngbDatepicker"/>
-              <button class="rect-btn rect-btn_green rect-btn_small date-picker-button"
-                      (click)="d.toggle()">
-                Change Date
-              </button>
+
+  <!-- Title -->
+  <div class="d-flex j-center">
+    <span class="record-page-title">Your Workout for {{parsedateIntoISO(date) | date}}</span>
+  </div>
+
+  <!-- Date Picker -->
+  <div class="d-flex j-center" style="margin: 20px auto;">
+    <form [formGroup]="dateForm">
+      <div style="position: relative;">
+          <input
+            [ngStyle]="{ display: uiState.showDateInput ? 'block' : 'none' }"
+            class="input-field date-input"
+            type="text"
+            formControlName="date"
+            ngbDatepicker
+            #d="ngbDatepicker"/>
+            <button class="rect-btn rect-btn_green rect-btn_small date-picker-button"
+                    (click)="d.toggle(); toggleShowDateInput()">
+              Change Date
+            </button>
         </div>
       </form>
-    <!-- <form [formGroup]="dateForm">
-        <mat-form-field>
-          <input matInput
-                 [matDatepicker]="picker"
-                 formControlName="date"
-                 placeholder="Search by date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-    </form> -->
   </div>
 </div>
