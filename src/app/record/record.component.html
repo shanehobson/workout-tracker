@@ -1,26 +1,42 @@
 <div class="record-section-container">
 
-  <!-- Title -->
-  <div class="d-flex j-center">
-    <span class="record-page-title">Your Workout for {{parsedateIntoISO(date) | date}}</span>
-  </div>
+  <!--  Title and Datepicker Container -->
+  <div class="title-and-datepicker-container">
 
-  <!-- Date Picker -->
-  <div class="d-flex j-center" style="margin: 20px auto;">
-    <form [formGroup]="dateForm">
-      <div style="position: relative;">
+    <!-- Title -->
+    <div class="d-flex j-center" style="position: absolute; top: 0; left: 130px;">
+      <span class="record-page-title">{{parsedateIntoISO(date) | date}}</span>
+    </div>
+
+    <!-- Date Picker -->
+    <div class="d-flex j-center" style="position: absolute; top: 8px; right: 70px;">
+      <form [formGroup]="dateForm">
+        <div style="position: relative;">
           <input
-            [ngStyle]="{ display: uiState.showDateInput ? 'block' : 'none' }"
             class="input-field date-input"
             type="text"
             formControlName="date"
             ngbDatepicker
             #d="ngbDatepicker"/>
-            <button class="rect-btn rect-btn_green rect-btn_small date-picker-button"
-                    (click)="d.toggle(); toggleShowDateInput()">
-              Change Date
-            </button>
+            <i class="fa fa-calendar-alt date-picker-button" (click)="d.toggle(); toggleShowDateInput()"></i>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!--  Controls -->
+  <div style="padding-top: 60px;">
+    <div class="controls-container">
+      <div class="add-exercise-controls">
+          <button class="rect-btn rect-btn_green rect-btn_small"
+                  (click)="toggleAddExerciseForm('weights')">
+            Weights <i class="fa fa-plus"></i>
+          </button>
+          <button class="rect-btn rect-btn_blue rect-btn_small"
+          (click)="toggleAddExerciseForm('cardio')">
+            Cardio <i class="fa fa-plus"></i>
+          </button>
+      </div>
+    </div>
   </div>
 </div>

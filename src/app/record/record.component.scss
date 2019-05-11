@@ -6,8 +6,14 @@
     padding: 0 20px;
 }
 
+.title-and-datepicker-container {
+    margin: 0 auto;
+    position: relative;
+    width: 450px;
+}
+
 .record-page-title {
-    font-size: 22px;
+    font-size: 28px;
 }
 
 .date-input {
@@ -17,8 +23,8 @@
     border-radius: 4px;
     padding: 6px;
     position: absolute;
-    top: 5px;
-    left: -120px;
+    top: -34px;
+    left: 22px;
     z-index: -1;
     visibility: hidden;
 }
@@ -26,7 +32,26 @@
 .date-picker-button {
     height: 32px;
     position: absolute;
-    top: 0;
+    top: -3px;
     left: -70px;
     z-index: 5;
+    color: lighten($green, 20);
+    font-size: 22px;
+}
+
+.controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 68px;
+    background-color: #fff;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+
+.add-exercise-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
 }

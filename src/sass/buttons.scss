@@ -169,8 +169,9 @@
 
   /* Button Size Modifiers */
   &_extra-small {
-    padding: 5px 8px;
-    font-size: 14px;
+    padding: 2px 6px;
+    font-size: 12px;
+    height: 22px !important;
   }
 
   &_small {
