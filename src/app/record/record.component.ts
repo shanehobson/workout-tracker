@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDatepicker, MatDialog, MatDialogConfig } from '@angular/material';
-import { MatFormField } from '@angular/material';
-import { MatInput } from '@angular/material';
 import { ExerciseService } from '../services/exercise.service';
 import { DateService } from '../services/date.service';
 import * as moment from 'moment';
@@ -14,7 +11,9 @@ import * as moment from 'moment';
 })
 export class RecordComponent implements OnInit {
 
-  date: string;
+  // @ViewChild('dateElement') dateElement: ElementRef;
+
+  date;
   dateForm: FormGroup;
   createLiftingExerciseForm: FormGroup;
   createCardioExerciseForm: FormGroup;
@@ -27,17 +26,17 @@ export class RecordComponent implements OnInit {
     private dateService: DateService
   ) { 
     this.dateForm = this.fb.group({
-      date: [''],
+      date: [{}, Validators.required]
     });
     this.createLiftingExerciseForm = this.fb.group({
-      date: ['', Validators.required],
+      // date: ['', Validators.required],
       type: ['', Validators.required],
       name: ['', Validators.required],
       sets: ['', Validators.required],
       reps: ['', Validators.required]
     });
     this.createCardioExerciseForm = this.fb.group({
-      date: ['', Validators.required],
+      // date: ['', Validators.required],
       type: ['', Validators.required],
       name: ['', Validators.required],
       miles: ['', Validators.required]
@@ -45,24 +44,21 @@ export class RecordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.date = this.dateService.getTodaysDate();
+    const ngbDate = this.parseDateIntoNGB(this.dateService.getTodaysDate());
+    this.dateForm.controls.date.setValue(ngbDate);
     console.log(this.date);
-    this.populateDateForm();
-    this.listenToDateFormChanges();
   }
 
-    /* Date Form */
-    populateDateForm(): void {
-      const date = moment(this.date).toDate();
-      this.dateForm.controls['date'].setValue(date);
+  parseDateIntoNGB(date) {
+    return {
+        year: parseInt(date.slice(0, 4)),
+        month: parseInt(date.slice(5, 7)),
+        day: parseInt(date.slice(8, 10))
     }
+  }
 
-    listenToDateFormChanges(): void {
-      this.dateForm.valueChanges.subscribe(val => {
-        this.date = this.dateService.parseDateIntoISO(val);
-        console.log(this.date);
-        // get exercises for this date
-      });
-    }
+  onDateSelect() {
+    console.log(this.date);
+  }
 
 }

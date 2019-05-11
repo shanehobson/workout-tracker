@@ -1,7 +1,21 @@
 <div class="record-section-container">
    <!-- Date Picker -->
-   <div class="d-flex j-center" style="margin: 25px auto 0 auto;">
-    <form [formGroup]="dateForm">
+   <div class="d-flex j-center" style="margin: 0 auto;">
+      <form [formGroup]="dateForm">
+        <div class="d-flex j-space-between align-start" style="width: 322px;">
+            <input
+              class="input-field date-input"
+              type="text"
+              formControlName="date"
+              ngbDatepicker
+              #d="ngbDatepicker"/>
+              <button class="rect-btn rect-btn_green rect-btn_small date-picker-button"
+                      (click)="d.toggle()">
+                Change Date
+              </button>
+        </div>
+      </form>
+    <!-- <form [formGroup]="dateForm">
         <mat-form-field>
           <input matInput
                  [matDatepicker]="picker"
@@ -10,6 +24,6 @@
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-    </form>
+    </form> -->
   </div>
 </div>

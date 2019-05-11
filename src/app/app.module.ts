@@ -23,11 +23,7 @@ import { Globals } from './globals';
     CoreModule
   ],
   providers: [ Globals, ColorService, CanActivateViaAuthGuard, DateService ],
-  exports: [
-    AppRoutingModule,
-    AngularMaterialModule,
-    CoreModule
-  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

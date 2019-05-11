@@ -1,3 +1,19 @@
+@import '../../sass/colors';
+@import '../../sass/forms';
+@import '../../sass/buttons';
+
 .record-section-container {
-    padding: 20px;
+    padding: 0 20px;
+}
+
+.date-input {
+    height: 32px;
+    width: 170px;
+    font-size: 20px;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.date-picker-button {
+    height: 32px;
 }

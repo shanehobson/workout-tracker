@@ -5,9 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../shared/angular-material.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Components
-
 import { HomeComponent } from '../home/home.component';
 import { LoginComponent } from '../login/login.component';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -30,6 +30,7 @@ import { AnalyzeComponent } from '../analyze/analyze.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgbModule
   ],
   exports: [
     CommonModule,
@@ -38,7 +39,8 @@ import { AnalyzeComponent } from '../analyze/analyze.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ]
 })
 export class CoreModule { }
