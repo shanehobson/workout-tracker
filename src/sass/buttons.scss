@@ -4,34 +4,34 @@
 @mixin colorModifier {
 
   &_green {
-    border: 1px solid lighten($green, 30);
+    border: 1px solid lighten($green, 18);
     color: #fff;
     fill: #fff;
-    background-color: lighten($green, 30);
+    background-color: lighten($green, 18);
 
     &:hover, &:focus {
-      border: 1px solid lighten($green, 20);
-      background-color: lighten($green, 20);
+      border: 1px solid lighten($green, 8);
+      background-color: lighten($green, 8);
     }
 
     &_invert {
-      color: lighten($green, 30);
-      fill: lighten($green, 30);
+      color: lighten($green, 18);
+      fill: lighten($green, 18);
       background-color: #fff;
 
       &:hover, &:focus {
-        border: 1px solid lighten($green, 20);
-        color: lighten($green, 20);
-        fill: lighten($green, 20);
+        border: 1px solid lighten($green, 8);
+        color: lighten($green, 8);
+        fill: lighten($green, 8);
         background-color: #fff;
       }
     }
 
     &_color-lock {
-      border: 1px solid lighten($green, 30) !important;
+      border: 1px solid lighten($green, 15) !important;
       color: #fff !important;
       fill: #fff !important;
-      background-color: lighten($green, 30) !important;
+      background-color: lighten($green, 15) !important;
     }
   }
 
@@ -130,10 +130,43 @@
     }
   }
 
-  &_borderless, &_borderless:hover, &_borderless:focus {
-    border: 1px solid transparent;
+ &_purple {
+  border: 1px solid $purple;
+  color: #fff;
+  fill: #fff;
+  background-color: $purple;
+
+  &:hover, &:focus {
+    border: 1px solid darken($purple, 10);
+    background-color: darken($purple, 10);
+  }
+
+  &_invert {
+    color: $purple;
+    fill: $purple;
+    background-color: #fff;
+
+    &:hover, &:focus {
+      border: 1px solid darken($purple, 10);
+      color: darken($purple, 10);
+      fill: darken($purple, 10);
+      background-color: #fff;
+    }
+  }
+
+  &_color-lock {
+    border: 1px solid $purple !important;
+    color: #fff !important;
+    fill: #fff !important;
+    background-color: $purple !important;
   }
 }
+
+&_borderless, &_borderless:hover, &_borderless:focus {
+  border: 1px solid transparent;
+}
+}
+
 
 /* Pseudo Class Styles */
 @mixin pseudoClass {

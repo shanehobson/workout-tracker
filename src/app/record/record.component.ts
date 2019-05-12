@@ -69,8 +69,8 @@ export class RecordComponent implements OnInit {
     if (this.uiState.showForm === type) {
       this.uiState.showForm = '';
     } else {
-      this.uiState.showForm = type;
       this.resetExerciseData();
+      this.uiState.showForm = type;
     }
   }
 
@@ -101,6 +101,7 @@ export class RecordComponent implements OnInit {
     return new Promise((resolve) => {
       this.exerciseService.addExercise(exercise).then((res) => {
         this.setSuccessMessage('Exercise added!');
+        this.uiState.showForm = '';
         resolve(true);
       }).catch(e => {
           this.setErrorMessage('Unable to add exercise due to network or server error.');

@@ -29,11 +29,11 @@
   <div style="padding-top: 75px;">
     <div class="controls-container">
       <div class="add-exercise-controls">
-          <button class="rect-btn rect-btn_blue rect-btn_small"
+          <button class="rect-btn rect-btn_green rect-btn_small"
                   (click)="toggleAddExerciseForm('weights')">
             Weights <i class="fa fa-plus"></i>
           </button>
-          <button class="rect-btn rect-btn_green rect-btn_small"
+          <button class="rect-btn rect-btn_purple rect-btn_small"
           (click)="toggleAddExerciseForm('cardio')">
             Cardio <i class="fa fa-plus"></i>
           </button>
@@ -183,7 +183,7 @@
             </div>
         
             <div class="d-flex j-center" style="margin-left: auto; margin-right: auto;">
-              <button class="rect-btn rect-btn_green"
+              <button class="rect-btn rect-btn_purple"
                       type="button"
                       [disabled]="!createCardioExerciseForm.dirty || !createCardioExerciseForm.valid"
                       (click)="submitExercise(createCardioExerciseForm.value, 'cardio')">
