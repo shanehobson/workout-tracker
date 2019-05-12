@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 // Components
 import { HomeComponent } from '../home/home.component';
@@ -30,7 +31,8 @@ import { AnalyzeComponent } from '../analyze/analyze.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    ClickOutsideModule
   ],
   exports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { AnalyzeComponent } from '../analyze/analyze.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    ClickOutsideModule
   ]
 })
 export class CoreModule { }

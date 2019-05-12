@@ -1,42 +1,47 @@
 <div class="record-section-container">
 
+  <div class="top-row-controls-container card">
   <!--  Title and Datepicker Container -->
   <div class="title-and-datepicker-container">
 
-    <!-- Title -->
-    <div class="d-flex j-center"
-         style="position: absolute; top: 7px; left: 123px;">
-      <span class="record-page-title">{{parseDateIntoISO(date) | date}}</span>
+      <!-- Title -->
+      <div class="d-flex j-center"
+           style="position: absolute; top: 11px; left: 20px">
+        <span class="record-page-title">{{parseDateIntoISO(date) | date}}</span>
+      </div>
+  
+      <!-- Date Picker -->
+      <div class="d-flex j-center" style="position: absolute; top: 5px; right: 0;">
+        <form [formGroup]="dateForm">
+          <div style="position: relative;">
+            <input
+              class="input-field date-input"
+              type="text"
+              formControlName="date"
+              ngbDatepicker
+              (clickOutside)="closeDatepicker($event)"
+              #d="ngbDatepicker"/>
+              <i class="fa fa-calendar-alt date-picker-button"
+              [ngClass]="uiState.showDateInput ? 'purple-icon' : 'black-icon'"
+              (click)="d.toggle(); toggleShowDateInput()"></i>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <!-- Date Picker -->
-    <div class="d-flex j-center" style="position: absolute; top: 1px; right: 93px;">
-      <form [formGroup]="dateForm">
-        <div style="position: relative;">
-          <input
-            class="input-field date-input"
-            type="text"
-            formControlName="date"
-            ngbDatepicker
-            #d="ngbDatepicker"/>
-            <i class="fa fa-calendar-alt date-picker-button" (click)="d.toggle(); toggleShowDateInput()"></i>
+  
+    <!--  Controls -->
+    <div>
+      <div class="controls-container">
+        <div class="add-exercise-controls">
+            <button class="rect-btn rect-btn_green rect-btn_small"
+                    (click)="toggleAddExerciseForm('weights')">
+              Weights <i class="fa fa-plus"></i>
+            </button>
+            <button class="rect-btn rect-btn_purple rect-btn_small"
+            (click)="toggleAddExerciseForm('cardio')">
+              Cardio <i class="fa fa-plus"></i>
+            </button>
         </div>
-      </form>
-    </div>
-  </div>
-
-  <!--  Controls -->
-  <div style="padding-top: 75px;">
-    <div class="controls-container">
-      <div class="add-exercise-controls">
-          <button class="rect-btn rect-btn_green rect-btn_small"
-                  (click)="toggleAddExerciseForm('weights')">
-            Weights <i class="fa fa-plus"></i>
-          </button>
-          <button class="rect-btn rect-btn_purple rect-btn_small"
-          (click)="toggleAddExerciseForm('cardio')">
-            Cardio <i class="fa fa-plus"></i>
-          </button>
       </div>
     </div>
   </div>

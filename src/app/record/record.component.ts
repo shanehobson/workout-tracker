@@ -61,7 +61,12 @@ export class RecordComponent implements OnInit {
 
   // UI State
   toggleShowDateInput() {
-    this.uiState.showDateInput = !this.uiState.showDateInput;
+   this.uiState.showDateInput = !this.uiState.showDateInput;
+    this.uiState = Object.assign(this.uiState, {
+      showForm: '',
+      successMessage: '',
+      errorMessage: ''
+    });
   }
 
   toggleAddExerciseForm(type) {
@@ -80,6 +85,16 @@ export class RecordComponent implements OnInit {
 
   toggleSelectBodyPart(i) {
     this.bodyParts[i].selected = !this.bodyParts[i].selected;
+  }
+
+  closeDatepicker(e) {
+    for (let item of e.target.classList) {
+      if (item === 'date-picker-button') { return; }
+    }
+
+    this.uiState = Object.assign(this.uiState, {
+      showDateInput: false
+    });
   }
 
   // Exercise Forms
