@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExerciseService } from '../services/exercise.service';
 import { DateService } from '../services/date.service';
 import { BodyPart } from '../../interfaces/bodyPart';
+import { Exercise } from '../../interfaces/exercise';
 
 @Component({
   selector: 'app-record',
@@ -13,20 +14,23 @@ export class RecordComponent implements OnInit {
 
   uiState = {
     showDateInput: false,
-    showForm: ''
+    showForm: '',
+    successMessage: '',
+    errorMessage: ''
   };
 
-  date;
-  dateForm: FormGroup;
-  createLiftingExerciseForm: FormGroup;
-  createCardioExerciseForm: FormGroup;
-
+  exercises;
   bodyParts = this.parseBodyParts(this.exerciseService.bodyParts);
   defaultExerciseObject = {
     sets: 0,
     reps: 0,
     miles: 0
   }
+
+  date;
+  dateForm: FormGroup;
+  createLiftingExerciseForm: FormGroup;
+  createCardioExerciseForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -37,16 +41,15 @@ export class RecordComponent implements OnInit {
       date: [{}, Validators.required]
     });
     this.createLiftingExerciseForm = this.fb.group({
-      type: ['', Validators.required],
       name: ['', Validators.required],
-      sets: ['', Validators.required],
-      reps: ['', Validators.required],
+      sets: [0, Validators.required],
+      reps: [0, Validators.required],
       bodyParts: [[]]
     });
     this.createCardioExerciseForm = this.fb.group({
-      type: ['', Validators.required],
       name: ['', Validators.required],
-      miles: ['', Validators.required]
+      miles: [0, Validators.required],
+      bodyParts: [[]]
     });
   }
 
@@ -62,7 +65,13 @@ export class RecordComponent implements OnInit {
   }
 
   toggleAddExerciseForm(type) {
-    this.uiState.showForm = this.uiState.showForm === type ? '' : type;
+    this.clearSuccessAndErrorMessages();
+    if (this.uiState.showForm === type) {
+      this.uiState.showForm = '';
+    } else {
+      this.uiState.showForm = type;
+      this.resetExerciseData();
+    }
   }
 
   activeFormView(type): boolean {
@@ -73,42 +82,44 @@ export class RecordComponent implements OnInit {
     this.bodyParts[i].selected = !this.bodyParts[i].selected;
   }
 
-  // Helper functions
-  parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {
-    return bodyParts.map(bodyPart => {
-      return { bodyPart, selected: false };
-    });
-  }
-
-  unParseBodyParts(bodyParts: Array<BodyPart>): Array<string> {
-    const filteredArray = bodyParts.filter(el => el.selected);
-    return filteredArray.map(el => el.bodyPart)
-  }
-
-  parseDateIntoNGB(date) {
-    return {
-        year: parseInt(date.slice(0, 4)),
-        month: parseInt(date.slice(5, 7)),
-        day: parseInt(date.slice(8, 10))
-    }
-  }
-
-  parseDateIntoISO(date) {
-    return `${date.year}-${date.month}-${date.day}`;
-  }
-
   // Exercise Forms
   submitExercise(form, type) {
+    this.clearSuccessAndErrorMessages();
+
     const exercise = Object.assign(this.defaultExerciseObject, form);
     exercise['date'] = this.parseDateIntoISO(this.date);
     exercise['bodyParts'] = this.unParseBodyParts(this.bodyParts);
     exercise['type'] = type;
-    this.exerciseService.addExercise(exercise).then((res) => {
-      console.log(res);
-    })
-      .catch(e => {
-        console.log(e);
+
+    this.addExercise(exercise).then(() => {
+      this.resetExerciseData();
+      this.getExercises();
     });
+  }
+
+  addExercise(exercise): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.exerciseService.addExercise(exercise).then((res) => {
+        this.setSuccessMessage('Exercise added!');
+        resolve(true);
+      }).catch(e => {
+          this.setErrorMessage('Unable to add exercise due to network or server error.');
+          resolve(false)
+      });
+    });
+  }
+
+  getExercises() {
+    this.exerciseService.getExercises().then((exercises) => {
+      console.log(exercises);
+      this.exercises = exercises;
+    });
+  }
+
+  resetExerciseData() {
+    this.createLiftingExerciseForm.reset();
+    this.createCardioExerciseForm.reset();
+    this.bodyParts = this.parseBodyParts(this.exerciseService.bodyParts);
   }
 
   // Date form
@@ -118,5 +129,51 @@ export class RecordComponent implements OnInit {
       this.date = val;
     });
   }
+
+    // Helper functions
+    parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {
+      return bodyParts.map(bodyPart => {
+        return { bodyPart, selected: false };
+      });
+    }
+  
+    unParseBodyParts(bodyParts: Array<BodyPart>): Array<string> {
+      const filteredArray = bodyParts.filter(el => el.selected);
+      return filteredArray.map(el => el.bodyPart)
+    }
+  
+    parseDateIntoNGB(date) {
+      return {
+          year: parseInt(date.slice(0, 4)),
+          month: parseInt(date.slice(5, 7)),
+          day: parseInt(date.slice(8, 10))
+      }
+    }
+  
+    parseDateIntoISO(date) {
+      return `${date.year}-${date.month}-${date.day}`;
+    }
+  
+    setSuccessMessage(successMessage) {
+      this.uiState = Object.assign(this.uiState, {
+        successMessage,
+        errorMessage: ''
+      });
+    }
+  
+    setErrorMessage(errorMessage) {
+      this.uiState = Object.assign(this.uiState, {
+        successMessage: '',
+        errorMessage
+      });
+    }
+  
+    clearSuccessAndErrorMessages(){
+      this.uiState = Object.assign(this.uiState, {
+        successMessage: '',
+        errorMessage: ''
+      });
+    }
+  
 
 }
