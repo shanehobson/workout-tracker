@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExerciseService } from '../services/exercise.service';
 import { DateService } from '../services/date.service';
+import { BodyPart } from '../../interfaces/bodyPart';
 
 @Component({
   selector: 'app-record',
@@ -73,12 +74,15 @@ export class RecordComponent implements OnInit {
   }
 
   // Helper functions
-  parseBodyParts(bodyParts: Array<string>): Array<any> {
-    const parsedArray = bodyParts.map(bodyPart => {
+  parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {
+    return bodyParts.map(bodyPart => {
       return { bodyPart, selected: false };
     });
-    console.log(parsedArray);
-    return parsedArray;
+  }
+
+  unParseBodyParts(bodyParts: Array<BodyPart>): Array<string> {
+    const filteredArray = bodyParts.filter(el => el.selected);
+    return filteredArray.map(el => el.bodyPart)
   }
 
   parseDateIntoNGB(date) {
@@ -94,15 +98,23 @@ export class RecordComponent implements OnInit {
   }
 
   // Exercise Forms
-  submitExercise(form) {
+  submitExercise(form, type) {
     const exercise = Object.assign(this.defaultExerciseObject, form);
     exercise['date'] = this.parseDateIntoISO(this.date);
+    exercise['bodyParts'] = this.unParseBodyParts(this.bodyParts);
+    exercise['type'] = type;
+    this.exerciseService.addExercise(exercise).then((res) => {
+      console.log(res);
+    })
+      .catch(e => {
+        console.log(e);
+    });
   }
 
   // Date form
   listenToDateFormChanges() {
     this.dateForm.controls.date.valueChanges.subscribe(val => {
-      console.log(val);
+      console.log('Selected date: ' + val);
       this.date = val;
     });
   }

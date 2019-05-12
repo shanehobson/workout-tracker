@@ -110,7 +110,7 @@
             <button class="rect-btn rect-btn_green"
                     type="button"
                     [disabled]="!createLiftingExerciseForm.dirty && !createLiftingExerciseForm.valid"
-                    (click)="submitExercise(addLiftingExerciseForm.value)">
+                    (click)="submitExercise(createLiftingExerciseForm.value, 'weights')">
               Submit
             </button>
           </div>
