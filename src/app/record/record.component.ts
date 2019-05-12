@@ -11,7 +11,8 @@ import { DateService } from '../services/date.service';
 export class RecordComponent implements OnInit {
 
   uiState = {
-    showDateInput: false
+    showDateInput: false,
+    showForm: ''
   };
 
   date;
@@ -19,7 +20,12 @@ export class RecordComponent implements OnInit {
   createLiftingExerciseForm: FormGroup;
   createCardioExerciseForm: FormGroup;
 
-  bodyParts = this.exerciseService.bodyParts;
+  bodyParts = this.parseBodyParts(this.exerciseService.bodyParts);
+  defaultExerciseObject = {
+    sets: 0,
+    reps: 0,
+    miles: 0
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +39,8 @@ export class RecordComponent implements OnInit {
       type: ['', Validators.required],
       name: ['', Validators.required],
       sets: ['', Validators.required],
-      reps: ['', Validators.required]
+      reps: ['', Validators.required],
+      bodyParts: [[]]
     });
     this.createCardioExerciseForm = this.fb.group({
       type: ['', Validators.required],
@@ -48,8 +55,30 @@ export class RecordComponent implements OnInit {
     this.listenToDateFormChanges();
   }
 
+  // UI State
   toggleShowDateInput() {
     this.uiState.showDateInput = !this.uiState.showDateInput;
+  }
+
+  toggleAddExerciseForm(type) {
+    this.uiState.showForm = this.uiState.showForm === type ? '' : type;
+  }
+
+  activeFormView(type): boolean {
+    return this.uiState.showForm === type;
+  }
+
+  toggleSelectBodyPart(i) {
+    this.bodyParts[i].selected = !this.bodyParts[i].selected;
+  }
+
+  // Helper functions
+  parseBodyParts(bodyParts: Array<string>): Array<any> {
+    const parsedArray = bodyParts.map(bodyPart => {
+      return { bodyPart, selected: false };
+    });
+    console.log(parsedArray);
+    return parsedArray;
   }
 
   parseDateIntoNGB(date) {
@@ -60,10 +89,17 @@ export class RecordComponent implements OnInit {
     }
   }
 
-  parsedateIntoISO(date) {
+  parseDateIntoISO(date) {
     return `${date.year}-${date.month}-${date.day}`;
   }
 
+  // Exercise Forms
+  submitExercise(form) {
+    const exercise = Object.assign(this.defaultExerciseObject, form);
+    exercise['date'] = this.parseDateIntoISO(this.date);
+  }
+
+  // Date form
   listenToDateFormChanges() {
     this.dateForm.controls.date.valueChanges.subscribe(val => {
       console.log(val);

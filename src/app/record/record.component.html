@@ -4,12 +4,13 @@
   <div class="title-and-datepicker-container">
 
     <!-- Title -->
-    <div class="d-flex j-center" style="position: absolute; top: 0; left: 130px;">
-      <span class="record-page-title">{{parsedateIntoISO(date) | date}}</span>
+    <div class="d-flex j-center"
+         style="position: absolute; top: 7px; left: 123px;">
+      <span class="record-page-title">{{parseDateIntoISO(date) | date}}</span>
     </div>
 
     <!-- Date Picker -->
-    <div class="d-flex j-center" style="position: absolute; top: 8px; right: 70px;">
+    <div class="d-flex j-center" style="position: absolute; top: 1px; right: 93px;">
       <form [formGroup]="dateForm">
         <div style="position: relative;">
           <input
@@ -25,18 +26,97 @@
   </div>
 
   <!--  Controls -->
-  <div style="padding-top: 60px;">
+  <div style="padding-top: 75px;">
     <div class="controls-container">
       <div class="add-exercise-controls">
-          <button class="rect-btn rect-btn_green rect-btn_small"
+          <button class="rect-btn rect-btn_blue rect-btn_small"
                   (click)="toggleAddExerciseForm('weights')">
             Weights <i class="fa fa-plus"></i>
           </button>
-          <button class="rect-btn rect-btn_blue rect-btn_small"
+          <button class="rect-btn rect-btn_green rect-btn_small"
           (click)="toggleAddExerciseForm('cardio')">
             Cardio <i class="fa fa-plus"></i>
           </button>
       </div>
     </div>
   </div>
+
+  <!-- Weights Form -->
+  <div *ngIf="activeFormView('weights')" class="record-form-container">
+    <section class="accordion-card"
+              style="margin-left: auto; margin-right: auto; max-width: 400px;">
+
+      <section class="accordion-card-body">
+
+        <h2 class="page-title page-title_h2 page-title_green"
+            style="margin: 20px auto; text-align: center; font-weight: normal;">
+          Weight Training
+        </h2>
+
+        <!-- Form -->
+        <form [formGroup]="createLiftingExerciseForm">
+        
+          <!--  Name  -->
+          <div class="input-field">
+            <label class="input-label">
+              Exercise Name *
+            </label>
+            <input class="input-control"
+                    type="text"
+                    formControlName="name">
+          </div>
+         
+
+          <div class="input-group">
+            <!-- Sets  -->
+            <div class="input-field">
+              <label class="input-label">
+                Sets *
+              </label>
+              <input class="input-control"
+                      type="number"
+                      formControlName="sets">
+            </div>
+
+
+            <!-- Reps -->
+            <div class="input-field">
+              <label class="input-label">
+                Reps *
+              </label>
+              <input class="input-control"
+                      type="number"
+                      formControlName="reps">
+            </div>
+
+          </div>
+          
+          <!-- Body Parts -->
+          <div class="input-field">
+              <label class="d-flex j-center" style="width: 100%; padding-bottom: 10px;">
+                Body Parts:
+              </label>
+              <div class="checkbox-grid-container">
+                <div *ngFor="let bodyPart of bodyParts; let i = index;" class="input-checkbox">
+                    <input  type="checkbox"
+                            [checked]="bodyPart.selected"
+                            (change)="toggleSelectBodyPart(i)">
+                      {{bodyPart.bodyPart}}
+                </div>
+              </div>
+          </div>
+      
+          <div class="d-flex j-center" style="margin-left: auto; margin-right: auto;">
+            <button class="rect-btn rect-btn_green"
+                    type="button"
+                    [disabled]="!createLiftingExerciseForm.dirty && !createLiftingExerciseForm.valid"
+                    (click)="submitExercise(addLiftingExerciseForm.value)">
+              Submit
+            </button>
+          </div>
+        </form>
+      </section>
+    </section>
+  </div>
+
 </div>

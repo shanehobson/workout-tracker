@@ -1,6 +1,7 @@
 @import '../../sass/colors';
 @import '../../sass/forms';
 @import '../../sass/buttons';
+@import '../../sass/layouts';
 
 .record-section-container {
     padding: 0 20px;
@@ -13,7 +14,9 @@
 }
 
 .record-page-title {
-    font-size: 28px;
+    font-size: 22px;
+    border-bottom: 3px solid $jet-black;
+    padding: 5px 50px 5px 10px;
 }
 
 .date-input {
@@ -32,11 +35,12 @@
 .date-picker-button {
     height: 32px;
     position: absolute;
-    top: -3px;
-    left: -70px;
+    top: 2px;
+    left: -75px;
     z-index: 5;
-    color: lighten($green, 20);
-    font-size: 22px;
+    color: $jet-black;
+    font-size: 34px;
+    cursor: pointer;
 }
 
 .controls-container {
@@ -47,11 +51,28 @@
     height: 68px;
     background-color: #fff;
     margin: 0 auto;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .add-exercise-controls {
     display: flex;
     justify-content: space-between;
     width: 250px;
+}
+
+.record-form-container {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.checkbox-grid-container {
+    display: grid;
+    grid-template-columns: 175px 175px;
+
+    .input-checkbox {
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 30px;
+        width: calc(100% - 30px);
+    }
 }

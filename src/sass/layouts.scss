@@ -1,6 +1,54 @@
 .card {
     border: 1px solid $gray-border;
-    border-radius: 5px;
+    border-radius: 6px;
+    box-shadow: 0 0 6px 2px #3331;
     background-color: #fff;
     padding: 20px 15px;
 }
+
+.accordion-card {
+    margin: 0 0 30px;
+    box-shadow: 0 0 6px 2px #3331;
+    background-color: #fff;
+    border-radius: 6px;
+  
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0;
+      padding: 20px 25px 25px;
+    }
+  
+    &-header-small {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0;
+      padding: 5px 25px 5px 25px;
+    }
+  
+    &-title {
+      margin: 0;
+      font-size: 2rem;
+    }
+  
+    &-subtitle {
+      margin: 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
+  
+    &-body {
+      max-height: 5000px; // Allow Lengthy Content - Temp Solution
+      margin: 0;
+      padding: 0 25px 25px;
+      overflow-y: auto;
+      transition: max-height 0.5s linear;
+  
+      &_collapsed {
+        max-height: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
