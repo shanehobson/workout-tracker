@@ -88,8 +88,9 @@ export class RecordComponent implements OnInit {
   }
 
   closeDatepicker(e) {
+    console.log(e);
     for (let item of e.target.classList) {
-      if (item === 'date-picker-button') { return; }
+      if (item === 'date-picker-button' || item.includes('ngb') || item.includes('custom-select')) { return; }
     }
 
     this.uiState = Object.assign(this.uiState, {
