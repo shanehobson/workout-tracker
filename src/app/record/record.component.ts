@@ -55,6 +55,7 @@ export class RecordComponent implements OnInit {
 
   ngOnInit() {
     this.date = this.parseDateIntoNGB(this.dateService.getTodaysDate());
+    this.getExercisesByDate(this.date);
     this.dateForm.controls.date.setValue(this.date);
     this.listenToDateFormChanges();
   }
@@ -108,7 +109,7 @@ export class RecordComponent implements OnInit {
 
     this.addExercise(exercise).then(() => {
       this.resetExerciseData();
-      this.getExercises();
+      this.getExercisesByDate(this.date);
     });
   }
 
@@ -132,6 +133,16 @@ export class RecordComponent implements OnInit {
     });
   }
 
+  getExercisesByDate(date) {
+    const today = this.parseDateIntoExtendedISO(date);
+    this.exerciseService.getExercisesByDateRange(today, today).then((exercises) => {
+      this.exercises = exercises;
+    })
+    .catch( e => {
+      console.log(e)
+  });
+  }
+
   resetExerciseData() {
     this.createLiftingExerciseForm.reset();
     this.createCardioExerciseForm.reset();
@@ -143,6 +154,7 @@ export class RecordComponent implements OnInit {
     this.dateForm.controls.date.valueChanges.subscribe(val => {
       console.log('Selected date: ' + val);
       this.date = val;
+      this.getExercisesByDate(this.date);
     });
   }
 

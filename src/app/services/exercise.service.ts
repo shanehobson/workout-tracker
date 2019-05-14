@@ -19,6 +19,7 @@ export class ExerciseService {
   getExercisesUrl = `${this.globals.serverUrl}/exercises`;
   updateExerciseUrl = `${this.globals.serverUrl}/exercises`;
   deleteExercisesUrl = `${this.globals.serverUrl}/exercises`;
+  getExercisesByDateRangeUrl = `${this.globals.serverUrl}/exercisesByDateRange?startDate=`;
 
   constructor(
     private http: HttpClient,
@@ -52,6 +53,17 @@ export class ExerciseService {
   getExerciseById(id: string) {
     return new Promise((resolve, reject) => {
       this.http.get(`this.getExercisesUrl/${id}`, this.getRequestOptions())
+        .subscribe(response => {
+          resolve(response);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  getExercisesByDateRange(startDate: string, endDate: string) {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${this.getExercisesByDateRangeUrl}${startDate}&endDate=${endDate}`, this.getRequestOptions())
         .subscribe(response => {
           resolve(response);
         }, err => {
