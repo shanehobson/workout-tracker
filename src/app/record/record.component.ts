@@ -88,7 +88,6 @@ export class RecordComponent implements OnInit {
   }
 
   closeDatepicker(e) {
-    console.log(e);
     for (let item of e.target.classList) {
       if (item === 'date-picker-button' || item.includes('ngb') || item.includes('custom-select')) { return; }
     }
@@ -103,7 +102,7 @@ export class RecordComponent implements OnInit {
     this.clearSuccessAndErrorMessages();
 
     const exercise = Object.assign(this.defaultExerciseObject, form);
-    exercise['date'] = this.parseDateIntoISO(this.date);
+    exercise['date'] = this.parseDateIntoExtendedISO(this.date);
     exercise['bodyParts'] = this.unParseBodyParts(this.bodyParts);
     exercise['type'] = type;
 
@@ -168,7 +167,20 @@ export class RecordComponent implements OnInit {
     }
   
     parseDateIntoISO(date) {
-      return `${date.year}-${date.month}-${date.day}`;
+      const month = this.addLeadingZero(date.month);
+      const day = this.addLeadingZero(date.day);
+      return `${date.year}-${month}-${day}`;
+    }
+
+    parseDateIntoExtendedISO(date) {
+      const month = this.addLeadingZero(date.month);
+      const day = this.addLeadingZero(date.day);
+      return `${date.year}-${month}-${day}T00:00:00.000Z`;
+    }
+
+    addLeadingZero(num) {
+      const str = num.toString();
+      return str.length === 1 ? `0${str}` : str;
     }
   
     setSuccessMessage(successMessage) {
