@@ -16,7 +16,7 @@ import { ColorService } from './services/color.service';
 import { Globals } from './globals';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [ AppComponent ],
   imports: [
     AppRoutingModule,
     AngularMaterialModule,
@@ -24,6 +24,6 @@ import { Globals } from './globals';
   ],
   providers: [ Globals, ColorService, CanActivateViaAuthGuard, DateService ],
   exports: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

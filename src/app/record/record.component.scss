@@ -13,8 +13,9 @@
     justify-content: space-between;
     width: 546px;
     margin: 0 auto;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+    padding: 25px 20px;
+    // padding-top: 5px !important;
+    // padding-bottom: 5px !important;
 }
 
 .title-and-datepicker-container {
@@ -126,7 +127,10 @@
     margin: 20px auto;
     display: flex;
     flex-direction: column;
-    &-exercise {
+    justify-content: center;
+    align-items: center;
 
+    &-exercise {
+        padding: 10px;
     }
 }

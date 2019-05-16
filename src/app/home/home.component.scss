@@ -8,24 +8,31 @@
 }
 
 .main-content {
-    width: 100%;
-    margin-top: 60px;
-    padding: 20px;
+    width: 1000px;
+    margin: 120px auto 60px auto;
+    padding: 0;
+    background-color: $background-gray;
+    border-radius: 130px 130px 0 0;
 }
 
 .tabs {
     width: 500px;
-    margin: 20px auto 0 auto;
+    margin: 0 auto 0 auto;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    background-color: $background-gray;
+    width: 100%;
+    border-radius: 120px 120px 0 0;
+    padding-top: 60px;
 
     &-tab {
-        width: 250px;
-        border-bottom: 2px solid darken($gray-border, 10);
+        width: 320px;
+        height: 100px;
         text-align: center;
-        font-size: 28px;
+        font-size: 50px;
         cursor: pointer;
+        border-bottom: 4px solid lighten($jet-black, 20);
 
         &_selected {
             border-bottom: 4px solid lighten($green, 20) !important;
@@ -34,6 +41,7 @@
         > span {
             padding-bottom: 10px;
             display: inline-block;
+            font-weight: 500;
         }
 
         > span.selected {
@@ -46,4 +54,5 @@
 .record-and-analyze-content-container {
     margin: 30px auto;
     max-width: 1000px;
+    background-color: $background-gray;
 }

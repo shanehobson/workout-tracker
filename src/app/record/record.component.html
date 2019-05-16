@@ -1,7 +1,6 @@
 <div class="record-section-container">
 
   <div class="top-row-controls-container card">
-  <!--  Title and Datepicker Container -->
   <div class="title-and-datepicker-container">
 
       <!-- Title -->
@@ -203,7 +202,7 @@
   <!-- Exercises Display -->
   <div class="exercises-display">
     <div *ngFor="let exercise of exercises" class="exercises-display-exercise">
-        {{exercise.name}}
+        <app-exercise-item [exercise]="exercise"></app-exercise-item>
     </div>
   </div>
 

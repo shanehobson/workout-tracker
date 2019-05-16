@@ -98,6 +98,27 @@ export class RecordComponent implements OnInit {
     });
   }
 
+  setSuccessMessage(successMessage) {
+    this.uiState = Object.assign(this.uiState, {
+      successMessage,
+      errorMessage: ''
+    });
+  }
+
+  setErrorMessage(errorMessage) {
+    this.uiState = Object.assign(this.uiState, {
+      successMessage: '',
+      errorMessage
+    });
+  }
+
+  clearSuccessAndErrorMessages(){
+    this.uiState = Object.assign(this.uiState, {
+      successMessage: '',
+      errorMessage: ''
+    });
+  }
+
   // Exercise Forms
   submitExercise(form, type) {
     this.clearSuccessAndErrorMessages();
@@ -128,15 +149,15 @@ export class RecordComponent implements OnInit {
 
   getExercises() {
     this.exerciseService.getExercises().then((exercises) => {
-      console.log(exercises);
-      this.exercises = exercises;
+      this.exercises = this.sortExercises(exercises);
     });
   }
 
   getExercisesByDate(date) {
     const today = this.parseDateIntoExtendedISO(date);
     this.exerciseService.getExercisesByDateRange(today, today).then((exercises) => {
-      this.exercises = exercises;
+      this.exercises = this.sortExercises(exercises);
+      console.log(this.exercises);
     })
     .catch( e => {
       console.log(e)
@@ -149,6 +170,14 @@ export class RecordComponent implements OnInit {
     this.bodyParts = this.parseBodyParts(this.exerciseService.bodyParts);
   }
 
+  sortExercises(exercises) {
+    return exercises.sort((a, b) => {
+      const aDate = this.stripDashes(a.createdAt);
+      const bDate = this.stripDashes(b.createdAt);
+      return aDate > bDate;
+    });
+  }
+
   // Date form
   listenToDateFormChanges() {
     this.dateForm.controls.date.valueChanges.subscribe(val => {
@@ -158,63 +187,48 @@ export class RecordComponent implements OnInit {
     });
   }
 
-    // Helper functions
-    parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {
-      return bodyParts.map(bodyPart => {
-        return { bodyPart, selected: false };
-      });
-    }
-  
-    unParseBodyParts(bodyParts: Array<BodyPart>): Array<string> {
-      const filteredArray = bodyParts.filter(el => el.selected);
-      return filteredArray.map(el => el.bodyPart)
-    }
-  
-    parseDateIntoNGB(date) {
-      return {
-          year: parseInt(date.slice(0, 4)),
-          month: parseInt(date.slice(5, 7)),
-          day: parseInt(date.slice(8, 10))
-      }
-    }
-  
-    parseDateIntoISO(date) {
-      const month = this.addLeadingZero(date.month);
-      const day = this.addLeadingZero(date.day);
-      return `${date.year}-${month}-${day}`;
-    }
+  // Helper functions
+  parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {
+    return bodyParts.map(bodyPart => {
+      return { bodyPart, selected: false };
+    });
+  }
 
-    parseDateIntoExtendedISO(date) {
-      const month = this.addLeadingZero(date.month);
-      const day = this.addLeadingZero(date.day);
-      return `${date.year}-${month}-${day}T00:00:00.000Z`;
-    }
+  unParseBodyParts(bodyParts: Array<BodyPart>): Array<string> {
+    const filteredArray = bodyParts.filter(el => el.selected);
+    return filteredArray.map(el => el.bodyPart)
+  }
 
-    addLeadingZero(num) {
-      const str = num.toString();
-      return str.length === 1 ? `0${str}` : str;
+  parseDateIntoNGB(date) {
+    return {
+        year: parseInt(date.slice(0, 4)),
+        month: parseInt(date.slice(5, 7)),
+        day: parseInt(date.slice(8, 10))
     }
-  
-    setSuccessMessage(successMessage) {
-      this.uiState = Object.assign(this.uiState, {
-        successMessage,
-        errorMessage: ''
-      });
-    }
-  
-    setErrorMessage(errorMessage) {
-      this.uiState = Object.assign(this.uiState, {
-        successMessage: '',
-        errorMessage
-      });
-    }
-  
-    clearSuccessAndErrorMessages(){
-      this.uiState = Object.assign(this.uiState, {
-        successMessage: '',
-        errorMessage: ''
-      });
-    }
-  
+  }
+
+  parseDateIntoISO(date) {
+    const month = this.addLeadingZero(date.month);
+    const day = this.addLeadingZero(date.day);
+    return `${date.year}-${month}-${day}`;
+  }
+
+  parseDateIntoExtendedISO(date) {
+    const month = this.addLeadingZero(date.month);
+    const day = this.addLeadingZero(date.day);
+    return `${date.year}-${month}-${day}T00:00:00.000Z`;
+  }
+
+  addLeadingZero(num) {
+    const str = num.toString();
+    return str.length === 1 ? `0${str}` : str;
+  }
+
+  stripDashes(input: string): number {
+    const year = input.slice(0, 4);
+    const month = input.slice(5, 7);
+    const day = input.slice(8, 10);
+    return parseInt(`${year}${month}${day}`);
+  }  
 
 }

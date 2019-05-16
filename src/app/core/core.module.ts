@@ -14,6 +14,7 @@ import { LoginComponent } from '../login/login.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RecordComponent } from '../record/record.component';
 import { AnalyzeComponent } from '../analyze/analyze.component';
+import { ExerciseItemComponent } from '../exercise-item/exercise-item.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AnalyzeComponent } from '../analyze/analyze.component';
     LoginComponent,
     NavbarComponent,
     RecordComponent,
-    AnalyzeComponent
+    AnalyzeComponent,
+    ExerciseItemComponent
   ],
   imports: [
     CommonModule,
