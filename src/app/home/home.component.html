@@ -5,20 +5,22 @@
 <div class="main-content">
 
     <!-- Tabs -->
-    <div class="tabs">
+    <div class="tabs" style="margin-bottom: 0; padding-bottom: 0;">
+        <div class="tabs-tab tabs-tab_buffer"></div>
         <div (click)="setView('record')"
              class="tabs-tab"
              [ngClass]="isCurrentView('record') ? 'tabs-tab_selected' : ''">
-            <span [ngClass]="isCurrentView('record') ? 'selected' : ''">Journal</span>
+            <span [ngClass]="isCurrentView('record') ? 'selected' : ''">Tracker</span>
         </div>
         <div (click)="setView('analyze')"
              class="tabs-tab"
              [ngClass]="isCurrentView('analyze') ? 'tabs-tab_selected' : ''">
             <span [ngClass]="isCurrentView('analyze') ? 'selected' : ''">Analytics</span>
         </div>
+        <div class="tabs-tab tabs-tab_buffer"></div>
     </div>
 
-    <div class="record-and-analyze-content-container">
+    <div class="record-and-analyze-content-container" style="margin-top: 0; padding-top: 0;">
         <!-- Record -->
         <app-record *ngIf="isCurrentView('record')"></app-record>
 

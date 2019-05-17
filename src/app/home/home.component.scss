@@ -11,7 +11,6 @@
     width: 1000px;
     margin: 120px auto 60px auto;
     padding: 0;
-    background-color: $background-gray;
     border-radius: 130px 130px 0 0;
 }
 
@@ -21,38 +20,46 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    background-color: $background-gray;
     width: 100%;
     border-radius: 120px 120px 0 0;
     padding-top: 60px;
 
     &-tab {
-        width: 320px;
+        width: 350px;
         height: 100px;
         text-align: center;
-        font-size: 50px;
+        font-size: 36px;
         cursor: pointer;
-        border-bottom: 4px solid lighten($jet-black, 20);
+        border-bottom: 3px solid lighten($jet-black, 20);
+        border-radius: 6px 6px 0 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &_selected {
-            border-bottom: 4px solid lighten($green, 20) !important;
+            border: 3px solid lighten($jet-black, 20);
+            border-bottom: none;
+            background-color: $background-gray;
         }
 
         > span {
             padding-bottom: 10px;
             display: inline-block;
-            font-weight: 500;
         }
 
         > span.selected {
             padding-bottom: 8px;
             display: inline-block;
         }
+
+        &_buffer {
+            cursor: default;
+        }
     }
 }
 
 .record-and-analyze-content-container {
-    margin: 30px auto;
+    margin: 0 auto;
     max-width: 1000px;
     background-color: $background-gray;
 }
