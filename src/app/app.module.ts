@@ -14,10 +14,9 @@ import { CanActivateViaAuthGuard } from './services/canActivateAuth.service';
 import { DateService } from './services/date.service';
 import { ColorService } from './services/color.service';
 import { Globals } from './globals';
-import { CalendarHoverDirective } from './directives/calendar-hover.directive';
 
 @NgModule({
-  declarations: [ AppComponent, CalendarHoverDirective ],
+  declarations: [ AppComponent ],
   imports: [
     AppRoutingModule,
     AngularMaterialModule,

@@ -5,6 +5,7 @@ import { ColorService } from '../services/color.service';
 import { DateService } from '../services/date.service';
 import { BodyPart } from '../../interfaces/bodyPart';
 import { Exercise } from '../../interfaces/exercise';
+import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
 
 @Component({
   selector: 'app-record',

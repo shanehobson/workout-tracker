@@ -16,6 +16,9 @@ import { RecordComponent } from '../record/record.component';
 import { AnalyzeComponent } from '../analyze/analyze.component';
 import { ExerciseItemComponent } from '../exercise-item/exercise-item.component';
 
+// Directives
+import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -23,7 +26,8 @@ import { ExerciseItemComponent } from '../exercise-item/exercise-item.component'
     NavbarComponent,
     RecordComponent,
     AnalyzeComponent,
-    ExerciseItemComponent
+    ExerciseItemComponent,
+    CalendarHoverDirective
   ],
   imports: [
     CommonModule,
@@ -45,7 +49,8 @@ import { ExerciseItemComponent } from '../exercise-item/exercise-item.component'
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    CalendarHoverDirective
   ]
 })
 export class CoreModule { }

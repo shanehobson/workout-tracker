@@ -11,13 +11,13 @@ export class CalendarHoverDirective {
     private colorService: ColorService
   ) { }
 
-  @HostListener('mouseenter') onEnter() {
+  @HostListener('mouseover') onEnter() {
     console.log('enter');
     this.colorService.pushCalendarHoverState(true);
   }
 
-  @HostListener('mouseexit') onExit() {
-    console.log('exit);')
+  @HostListener('mouseout') onExit() {
+    console.log('exit');
     this.colorService.pushCalendarHoverState(false);
   }
 
