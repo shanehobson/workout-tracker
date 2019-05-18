@@ -12,12 +12,10 @@ export class CalendarHoverDirective {
   ) { }
 
   @HostListener('mouseover') onEnter() {
-    console.log('enter');
     this.colorService.pushCalendarHoverState(true);
   }
 
   @HostListener('mouseout') onExit() {
-    console.log('exit');
     this.colorService.pushCalendarHoverState(false);
   }
 

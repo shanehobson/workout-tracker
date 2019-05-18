@@ -39,7 +39,7 @@
     border-radius: 4px;
     padding: 6px;
     position: absolute;
-    top: 50px;
+    top: 85px;
     left: -100px;
     z-index: -1;
     visibility: hidden;
@@ -131,5 +131,9 @@
 
     &-exercise {
         padding: 10px;
+    }
+
+    &_lowered {
+        margin-top: 280px;
     }
 }

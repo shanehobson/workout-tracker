@@ -19,7 +19,8 @@ export class RecordComponent implements OnInit {
     showForm: '',
     successMessage: '',
     errorMessage: '',
-    calendarHover: false
+    calendarHover: false,
+    exerciseBeingEdited: ''
   };
 
   exercises;
@@ -85,6 +86,24 @@ export class RecordComponent implements OnInit {
     }
   }
 
+  openEditExerciseForm(exercise: Exercise) {
+    if (exercise.type === 'weights') {
+      const { name, sets, reps, bodyParts } = exercise;
+      this.createLiftingExerciseForm.setValue({ name, sets, reps, bodyParts });
+    } else {
+      const { name, miles, bodyParts } = exercise;
+      this.createCardioExerciseForm.setValue({ name, miles, bodyParts });
+    }
+
+    this.uiState = Object.assign(this.uiState, {
+      showForm: exercise.type,
+      exerciseBeingEdited: exercise._id,
+      showDateInput: false,
+      successMessage: '',
+      errorMessage: ''
+    });
+  }
+
   subscribeToCalendarHoverState() {
     const component = this;
     this.colorService.getCalendarHoverState().subscribe({
@@ -142,10 +161,18 @@ export class RecordComponent implements OnInit {
     exercise['bodyParts'] = this.unParseBodyParts(this.bodyParts);
     exercise['type'] = type;
 
-    this.addExercise(exercise).then(() => {
-      this.resetExerciseData();
-      this.getExercisesByDate(this.date);
-    });
+    if (this.uiState.exerciseBeingEdited) {
+      exercise['_id'] = this.uiState.exerciseBeingEdited;
+      this.editExercise(exercise).then(() => {
+        this.resetExerciseData();
+        this.getExercisesByDate(this.date);
+      })
+    } else {
+      this.addExercise(exercise).then(() => {
+        this.resetExerciseData();
+        this.getExercisesByDate(this.date);
+      });
+    }
   }
 
   addExercise(exercise): Promise<boolean> {
@@ -158,6 +185,30 @@ export class RecordComponent implements OnInit {
           this.setErrorMessage('Unable to add exercise due to network or server error.');
           resolve(false)
       });
+    });
+  }
+
+  editExercise(exercise: Exercise): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const id = exercise._id;
+      delete exercise.createdAt;
+      delete exercise._id;
+  
+      this.exerciseService.updateExercise(id, exercise).then((res) => {
+        this.setSuccessMessage('Exercise added!');
+        this.uiState.showForm = '';
+        resolve(true);
+      });
+    });
+  }
+
+  deleteExercise(exercise: Exercise) {
+    const id = exercise._id;
+    delete exercise.createdAt;
+    delete exercise._id;
+
+    this.exerciseService.deleteExercise(id).then((res) => {
+      this.getExercisesByDate(this.date);
     });
   }
 
@@ -182,6 +233,7 @@ export class RecordComponent implements OnInit {
     this.createLiftingExerciseForm.reset();
     this.createCardioExerciseForm.reset();
     this.bodyParts = this.parseBodyParts(this.exerciseService.bodyParts);
+    this.uiState.exerciseBeingEdited = '';
   }
 
   sortExercises(exercises) {

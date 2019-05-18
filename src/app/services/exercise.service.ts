@@ -74,7 +74,7 @@ export class ExerciseService {
 
   updateExercise(id: string, updates) {
     return new Promise((resolve, reject) => {
-      this.http.patch(`this.updateExerciseUrl/${id}`, updates, this.getRequestOptions())
+      this.http.patch(`${this.updateExerciseUrl}/${id}`, updates, this.getRequestOptions())
         .subscribe(response => {
           resolve(response);
         }, err => {
@@ -85,7 +85,7 @@ export class ExerciseService {
 
   deleteExercise(id: string) {
     return new Promise((resolve, reject) => {
-      this.http.delete(`this.deleteExercisesUrl/${id}`, this.getRequestOptions())
+      this.http.delete(`${this.deleteExercisesUrl}/${id}`, this.getRequestOptions())
         .subscribe(response => {
           resolve(response);
         }, err => {

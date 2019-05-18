@@ -1,6 +1,75 @@
+@import '../../sass/colors';
+
 .exercise-card {
     width: 546px;
     margin: 0 auto;
-    height: 50px;
+    height: 90px;
     background-color: #fff;
+    position: relative;
+    border-radius: 6px;
+
+    &-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 90px; width: 100px;
+        border-radius: 6px 0 0 6px;
+    }
+
+    &-body {
+        width: 369px;
+        position: absolute;
+        top: 0;
+        left: 100px;
+        padding-right: 77px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+        &-header {
+            text-align: center;
+            color: #fff;
+            padding: 5px 10px;
+            max-width: 280px;
+            min-width: 140px;
+            border-radius: 0 0 6px 6px;
+
+            &_red {
+                background-color: $red;
+            }
+
+            &_green {
+                background-color: $green;
+            }
+        }
+    }
+
+    &-content {
+        position: absolute;
+        top: 50px;
+        left: 140px;
+        font-family: monospace;
+        font-size: 18px;
+        font-weight: 550;
+        width: 290px;
+        text-align: center;
+        padding-right: 116px;
+    }
+
+    &-buttons {
+        position: absolute;
+        top: 12px;
+        right: 20px;
+        display: flex;
+        justify-content: space-between;
+        width: 50px;
+        color: $gray;
+        cursor: pointer;
+
+        i {
+            &:hover {
+                color: $light-slate-gray;
+            }
+        }
+    }
 }

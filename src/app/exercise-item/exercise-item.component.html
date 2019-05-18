@@ -1,3 +1,22 @@
 <div class="card exercise-card">
-  {{exercise.name}}
+  <img class="exercise-card-image" src="{{exercise.imageUrl}}">
+  <div class="exercise-card-body">
+    <div class="exercise-card-body-header" [ngClass]="exercise.type === 'cardio' ? 'exercise-card-body-header_red' : 'exercise-card-body-header_green'">
+      <span [ngStyle]="{
+        'font-size': exercise.name.length > 20 ? '18px' : '22px'
+      }">
+      {{exercise.name}}
+    </span>
+    </div>
+  </div>
+  <div *ngIf="exercise.type === 'weights'" class="exercise-card-content">
+    Sets: {{exercise.sets}} | Reps: {{exercise.reps}}
+  </div>
+  <div *ngIf="exercise.type === 'cardio'" class="exercise-card-content">
+    Miles: {{exercise.miles}}
+  </div>
+  <div class="exercise-card-buttons">
+      <i class="fa fa-edit" (click)="onEditExercise()"></i>
+      <i class="fa fa-trash" (click)="onDeleteExercise()"></i>
+  </div>
 </div>

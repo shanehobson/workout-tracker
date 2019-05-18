@@ -5,5 +5,7 @@ export interface Exercise {
     sets: number,
     reps: number,
     miles: number,
-    bodyParts: Array<string>
+    bodyParts: Array<string>,
+    _id?: string,
+    createdAt?: string
 }

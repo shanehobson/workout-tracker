@@ -204,9 +204,14 @@
     </div>
 
   <!-- Exercises Display -->
-  <div class="exercises-display">
+  <div class="exercises-display"
+       [ngClass]="uiState.showDateInput ? 'exercises-display_lowered' : ''">
     <div *ngFor="let exercise of exercises" class="exercises-display-exercise">
-        <app-exercise-item [exercise]="exercise"></app-exercise-item>
+        <app-exercise-item
+        [exercise]="exercise"
+        (editExercise)="openEditExerciseForm($event)"
+        (deleteExercise)="deleteExercise($event)">
+      </app-exercise-item>
     </div>
   </div>
 
