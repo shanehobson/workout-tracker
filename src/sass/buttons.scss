@@ -4,34 +4,34 @@
 @mixin colorModifier {
 
   &_green {
-    border: 1px solid lighten($green, 18);
+    border: 1px solid $green;
     color: #fff;
     fill: #fff;
-    background-color: lighten($green, 18);
+    background-color: $green;
 
     &:hover, &:focus {
-      border: 1px solid lighten($green, 8);
-      background-color: lighten($green, 8);
+      border: 1px solid $green;
+      background-color: $green;
     }
 
     &_invert {
-      color: lighten($green, 18);
-      fill: lighten($green, 18);
+      color: $green;
+      fill: $green;
       background-color: #fff;
 
       &:hover, &:focus {
-        border: 1px solid lighten($green, 8);
-        color: lighten($green, 8);
-        fill: lighten($green, 8);
+        border: 1px solid $green;
+        color: $green;
+        fill: $green;
         background-color: #fff;
       }
     }
 
     &_color-lock {
-      border: 1px solid lighten($green, 15) !important;
+      border: 1px solid $green !important;
       color: #fff !important;
       fill: #fff !important;
-      background-color: lighten($green, 15) !important;
+      background-color: $green !important;
     }
   }
 

@@ -8,10 +8,9 @@
 }
 
 .main-content {
-    width: 1000px;
-    margin: 120px auto 60px auto;
+    width: 1070px;
+    margin: 50px auto 60px auto;
     padding: 0;
-    border-radius: 130px 130px 0 0;
 }
 
 .tabs {
@@ -26,40 +25,47 @@
 
     &-tab {
         width: 350px;
-        height: 100px;
+        height: 70px;
         text-align: center;
-        font-size: 36px;
+        font-size: 32px;
         cursor: pointer;
-        border-bottom: 3px solid lighten($jet-black, 20);
         border-radius: 6px 6px 0 0;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-bottom: none;
+        padding-top: 10px;
 
         &_selected {
-            border: 3px solid lighten($jet-black, 20);
-            border-bottom: none;
-            background-color: $background-gray;
+            border-bottom-color: transparent;
+            background-color: $light-slate-gray;
+            margin-bottom: -3px;
+            border-bottom: 3px solid transparent;
         }
 
         > span {
             padding-bottom: 10px;
             display: inline-block;
+            color: darken($light-slate-gray, 7);
         }
 
         > span.selected {
             padding-bottom: 8px;
             display: inline-block;
+            color: #fff;
         }
 
         &_buffer {
             cursor: default;
+            border-top: none;
+            border-left: none;
+            border-right: none;
         }
     }
 }
 
 .record-and-analyze-content-container {
     margin: 0 auto;
-    max-width: 1000px;
-    background-color: $background-gray;
+    background-color: $light-slate-gray;
+    border-radius: 6px 6px 0 0;
 }

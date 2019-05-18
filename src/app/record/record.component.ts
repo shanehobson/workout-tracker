@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExerciseService } from '../services/exercise.service';
+import { ColorService } from '../services/color.service';
 import { DateService } from '../services/date.service';
 import { BodyPart } from '../../interfaces/bodyPart';
 import { Exercise } from '../../interfaces/exercise';
@@ -16,7 +17,8 @@ export class RecordComponent implements OnInit {
     showDateInput: false,
     showForm: '',
     successMessage: '',
-    errorMessage: ''
+    errorMessage: '',
+    calendarHover: false
   };
 
   exercises;
@@ -35,7 +37,8 @@ export class RecordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private exerciseService: ExerciseService,
-    private dateService: DateService
+    private dateService: DateService,
+    private colorService: ColorService
   ) { 
     this.dateForm = this.fb.group({
       date: [{}, Validators.required]
@@ -58,6 +61,7 @@ export class RecordComponent implements OnInit {
     this.getExercisesByDate(this.date);
     this.dateForm.controls.date.setValue(this.date);
     this.listenToDateFormChanges();
+    this.subscribeToCalendarHoverState();
   }
 
   // UI State
@@ -78,6 +82,15 @@ export class RecordComponent implements OnInit {
       this.resetExerciseData();
       this.uiState.showForm = type;
     }
+  }
+
+  subscribeToCalendarHoverState() {
+    const component = this;
+    this.colorService.getCalendarHoverState().subscribe({
+      next(state) {
+        component.uiState.calendarHover = state.hover;
+      }
+    });
   }
 
   activeFormView(type): boolean {

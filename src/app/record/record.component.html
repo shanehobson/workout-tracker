@@ -1,12 +1,15 @@
 <div class="record-section-container">
 
   <div class="top-row-controls-container card">
-  <div class="title-and-datepicker-container">
+    <div class="title-and-datepicker-container">
 
       <!-- Title -->
       <div class="d-flex j-center"
            style="position: absolute; top: 11px; left: 20px">
-        <span class="record-page-title">{{parseDateIntoISO(date) | date}}</span>
+        <span class="record-page-title" 
+          [ngClass]="uiState.showDateInput || uiState.calendarHover ? 'record-page-title_selected' : ''">
+          {{parseDateIntoISO(date) | date}}
+        </span>
       </div>
   
       <!-- Date Picker -->
@@ -20,8 +23,9 @@
               ngbDatepicker
               (clickOutside)="closeDatepicker($event)"
               #d="ngbDatepicker"/>
-              <i class="fa fa-calendar-alt date-picker-button"
-              [ngClass]="uiState.showDateInput ? 'purple-icon' : 'black-icon'"
+              <i class="fa fa-calendar-alt calendar-icon date-picker-button"
+              appCalendarHover
+              [ngClass]="uiState.showDateInput || uiState.calendarHover ? 'date-picker-button_selected' : ''"
               (click)="d.toggle(); toggleShowDateInput()"></i>
           </div>
         </form>
@@ -36,7 +40,7 @@
                     (click)="toggleAddExerciseForm('weights')">
               Weights <i class="fa fa-plus"></i>
             </button>
-            <button class="rect-btn rect-btn_purple rect-btn_small"
+            <button class="rect-btn rect-btn_red rect-btn_small"
             (click)="toggleAddExerciseForm('cardio')">
               Cardio <i class="fa fa-plus"></i>
             </button>

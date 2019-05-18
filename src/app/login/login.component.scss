@@ -15,7 +15,7 @@
 
 .create-account-text {
     cursor: pointer;
-    color: lighten($green, 20);
+    color: $green;
     padding-left: 6px;
 
     &:hover {
@@ -30,7 +30,7 @@
     padding-left: 6px;
 
     &:hover {
-        color: lighten($green, 20);
+        color: $green;
         text-decoration: underline;
     }
 }

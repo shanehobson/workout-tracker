@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: $jet-black;
+    background-color: $light-slate-gray;
     padding: 16px 2%;
     height: 32px;
     font-size: 14px;
@@ -25,7 +25,7 @@
         cursor: pointer;
 
         &:hover {
-            color: lighten($green, 25);
+            color: $green;
         }
     }
 

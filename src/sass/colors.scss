@@ -1,7 +1,8 @@
-$blue: #0077be;
-$green: darken(#32CD32, 27);
+$blue: lighten(#778899, 10);
+// $green: darken(#32CD32, 27);
+$green: darken(#b5d2b5, 22);
 $yellow: gold;
-$red: 	#DC143C;
+$red: #C25B56;
 $purple: darken(#9102ff, 10);
 $dark-blue: #364051;
 $gray: #666;
@@ -10,5 +11,6 @@ $jet-black: #24292e;
 $off-white: darken(#f9f9f9, 5);
 $gray-border: #d8dee2;
 $disabledGray: #ddd;
+$light-slate-gray: darken(#778899, 8);
 // $background-gray: #708090;
 $background-gray: lighten(#696969, 33);

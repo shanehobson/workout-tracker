@@ -4,7 +4,7 @@
 @import '../../sass/layouts';
 
 .record-section-container {
-    padding: 0 20px;
+    padding: 40px;
     min-height: 1000px;
 }
 
@@ -13,7 +13,7 @@
     justify-content: space-between;
     width: 546px;
     margin: 40px auto 20px auto;
-    padding: 0;
+    padding: 25px;
 }
 
 .title-and-datepicker-container {
@@ -24,8 +24,12 @@
 
 .record-page-title {
     font-size: 22px;
-    border-bottom: 3px solid $jet-black;
+    border-bottom: 3px solid darken($light-slate-gray, 7);
     padding: 5px 50px 5px 10px;
+
+    &_selected {
+        border-bottom: 3px solid darken($blue, 5);
+    }
 }
 
 .date-input {
@@ -49,18 +53,15 @@
     z-index: 5;
     font-size: 34px;
     cursor: pointer;
-}
-
-.black-icon {
-    color: $jet-black;
+    color: darken($light-slate-gray, 7);
 
     &:hover {
-        color: $purple;
+        color: darken($blue, 5);
     }
-}
 
-.purple-icon {
-    color: $purple;
+    &_selected {
+        color: darken($blue, 5);
+    }
 }
 
 .controls-container {
@@ -114,7 +115,7 @@
 }
 
 .success-message-container {
-    color: lighten($green, 20);
+    color: $green;
 }
 
 .error-message-container {

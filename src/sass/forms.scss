@@ -24,7 +24,7 @@
     font-size: 1rem;
 
     &_green {
-      color: lighten($green, 20);
+      color: $green;
     }
 
     &_blue {
