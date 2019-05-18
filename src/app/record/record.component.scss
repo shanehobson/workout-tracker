@@ -4,7 +4,7 @@
 @import '../../sass/layouts';
 
 .record-section-container {
-    padding: 40px;
+    padding: 30px;
     min-height: 1000px;
 }
 
@@ -128,6 +128,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &-title {
+        text-align: center;
+        font-size: 32px;
+        color: #fff;
+        padding-bottom: 20px;
+    }
 
     &-exercise {
         padding: 10px;
