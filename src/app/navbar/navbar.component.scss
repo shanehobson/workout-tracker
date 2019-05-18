@@ -24,9 +24,12 @@
         font-weight: 400;
         font-size: 17px;
         cursor: pointer;
+        padding: 5px 10px;
 
         &:hover {
-            color: $green;
+            background-color: #fff;
+            color: $light-slate-gray;
+            border-radius: 6px;
         }
     }
 

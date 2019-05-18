@@ -2,10 +2,10 @@
 
   <!--  Top Image -->
   <div *ngIf="uiState.view === 'login'" class="sign-in-image-container">
-      <img src="../../../assets/logo.png" style="height: 60px; width: 80px">
+      <img src="../../../assets/logo-blue-alt.png" style="height: 60px; width: 80px">
   </div>
   <div *ngIf="uiState.view === 'createUser'" class="sign-in-image-container">
-      <img src="../../../assets/logo-purple.png" style="height: 60px; width: 80px">
+      <img src="../../../assets/logo-green-alt.png" style="height: 60px; width: 80px">
   </div>
 
   <div class="sign-in-text-container">
@@ -55,14 +55,14 @@
         <div class="d-flex j-center">
             <button class="rect-btn rect-btn_green"
               type="button"
-              [disabled]="!loginForm.valid"
+              
               (click)="submitLoginForm(loginForm.value)">
               Sign In
           </button>
         </div>
 
         <div class="d-flex j-center" style="padding-top: 15px;">
-          <span *ngIf="uiState.loginError" class="error-message">We couldn't find a user with that username and password combination. Please try again.</span>
+          <span *ngIf="uiState.loginError" class="error-message" style="padding: 10px; text-align: center;">Incorrect username and password combination.</span>
         </div>
   </form>
 

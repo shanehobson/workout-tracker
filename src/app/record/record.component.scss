@@ -123,7 +123,7 @@
 }
 
 .exercises-display {
-    margin: 20px auto;
+    margin: 30px auto 20px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -134,6 +134,6 @@
     }
 
     &_lowered {
-        margin-top: 280px;
+        margin-top: 290px;
     }
 }

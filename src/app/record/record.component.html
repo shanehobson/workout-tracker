@@ -49,18 +49,14 @@
     </div>
   </div>
 
-  <div class="success-and-error-message-container">
-
-    <!--  Success Message -->
+   <!-- <div class="success-and-error-message-container">
     <div *ngIf="uiState.successMessage && !uiState.errorMessage" class="success-message-container">
         {{uiState.successMessage}}
     </div>
-
-    <!--  Success Message -->
     <div *ngIf="uiState.errorMessage && uiState.successMessage" class="error-message-container">
       {{uiState.errorMessage}}
     </div>
-  </div>
+  </div> -->
 
   <!-- Weights Form -->
   <div *ngIf="activeFormView('weights')" class="record-form-container">
@@ -71,7 +67,7 @@
 
         <h2 class="page-title page-title_h2 page-title_green"
             style="margin: 20px auto; text-align: center; font-weight: normal;">
-          Add Lifting Exercise
+          Lifting Exercise
         </h2>
 
         <!-- Form -->
@@ -149,7 +145,7 @@
   
           <h2 class="page-title page-title_h2 page-title_green"
               style="margin: 20px auto; text-align: center; font-weight: normal;">
-            Add Cardio Exercise
+            Cardio Exercise
           </h2>
   
           <!-- Form -->
@@ -191,7 +187,7 @@
             </div>
         
             <div class="d-flex j-center" style="margin-left: auto; margin-right: auto;">
-              <button class="rect-btn rect-btn_purple"
+              <button class="rect-btn rect-btn_red"
                       type="button"
                       [disabled]="!createCardioExerciseForm.dirty || !createCardioExerciseForm.valid"
                       (click)="submitExercise(createCardioExerciseForm.value, 'cardio')">
