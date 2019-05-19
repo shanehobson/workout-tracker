@@ -11,9 +11,9 @@
 .top-row-controls-container {
     display: flex;
     justify-content: space-between;
-    width: 546px;
+    width: 536px;
     margin: 40px auto 20px auto;
-    padding: 38px;
+    padding: 22px 20px;
 }
 
 .title-and-datepicker-container {
@@ -39,7 +39,7 @@
     border-radius: 4px;
     padding: 6px;
     position: absolute;
-    top: 85px;
+    top: 72px;
     left: -100px;
     z-index: -1;
     visibility: hidden;
@@ -48,8 +48,8 @@
 .date-picker-button {
     height: 32px;
     position: absolute;
-    top: 2px;
-    left: -75px;
+    top: 4px;
+    left: -60px;
     z-index: 5;
     font-size: 34px;
     cursor: pointer;
@@ -123,7 +123,7 @@
 }
 
 .exercises-display {
-    margin: 50px auto 20px auto;
+    margin: 60px auto 20px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -194,7 +194,7 @@
   <div class="exercises-display"
         *ngIf="exercises && exercises.length > 0"
        [ngClass]="uiState.showDateInput ? 'exercises-display_lowered' : ''">
-    <div class="divider" style="margin-bottom: 50px;"></div>
+    <div class="divider" style="margin-bottom: 35px; width: 64%;"></div>
     <div *ngFor="let exercise of exercises" class="exercises-display-exercise">
         <app-exercise-item
         [exercise]="exercise"
