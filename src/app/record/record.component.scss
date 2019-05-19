@@ -86,6 +86,18 @@
     margin-top: 0;
 }
 
+.add-exercise-icon {
+    position: absolute;
+    top: 0;
+    left: 115px;
+    background-color: $light-slate-gray;
+    color: #fff;
+    border-radius: 100%;
+    padding: 3px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .checkbox-grid-container {
     display: grid;
     grid-template-columns: 175px 175px;

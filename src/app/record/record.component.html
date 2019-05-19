@@ -66,16 +66,29 @@
         
           <!--  Name  -->
           <div class="input-field">
-            <label class="input-label">
-              Exercise Name *
+            <label class="input-label" style="position: relative;">
+              Exercise Name
+              <i class="fa fa-plus add-exercise-icon" (click)="toggleAddExerciseInput('lifting')"></i>
             </label>
-            <input class="input-control"
-                    type="text"
-                    formControlName="name">
+
+            <input *ngIf="uiState.addExerciseInput === 'lifting'"
+                class="input-control"
+                style="margin-bottom: 15px; margin-top: 10px;"
+                formControlName="addExercise"
+                (keyup.enter)="addExerciseToUserData('lifting')"
+                type="text">
+
+            <select class="input-control"
+                formControlName="name">
+              <option *ngFor="let exercise of liftingExercises"
+                  [value]="exercise">
+                {{exercise}}
+              </option>
+            </select>
           </div>
-         
 
           <div class="input-group">
+
             <!-- Sets  -->
             <div class="input-field">
               <label class="input-label">
@@ -144,12 +157,25 @@
           
             <!--  Name  -->
             <div class="input-field">
-              <label class="input-label">
-                Exercise Name *
+              <label class="input-label" style="position: relative;">
+                Exercise Name
+                <i class="fa fa-plus add-exercise-icon" (click)="toggleAddExerciseInput('cardio')"></i>
               </label>
-              <input class="input-control"
-                      type="text"
-                      formControlName="name">
+
+              <input *ngIf="uiState.addExerciseInput === 'cardio'"
+                class="input-control"
+                style="margin-bottom: 15px; margin-top: 10px;"
+                formControlName="addExercise"
+                (keyup.enter)="addExerciseToUserData('cardio')"
+                type="text">
+
+              <select class="input-control"
+                  formControlName="name">
+                <option *ngFor="let exercise of cardioExercises"
+                    [value]="exercise">
+                  {{exercise}}
+                </option>
+              </select>
             </div>
            
             <!-- Miles  -->

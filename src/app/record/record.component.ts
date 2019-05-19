@@ -5,6 +5,7 @@ import { ColorService } from '../services/color.service';
 import { DateService } from '../services/date.service';
 import { BodyPart } from '../../interfaces/bodyPart';
 import { Exercise } from '../../interfaces/exercise';
+import { UserData } from '../../interfaces/UserData';
 import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
 
 @Component({
@@ -20,16 +21,21 @@ export class RecordComponent implements OnInit {
     successMessage: '',
     errorMessage: '',
     calendarHover: false,
-    exerciseBeingEdited: ''
+    exerciseBeingEdited: '',
+    addExerciseInput: ''
   };
 
   exercises;
-  bodyParts = this.parseBodyParts(this.exerciseService.bodyParts);
   defaultExerciseObject = {
     sets: 0,
     reps: 0,
     miles: 0
   }
+
+  // Data for select boxes
+  bodyParts = [];
+  liftingExercises: Array<string> = [];
+  cardioExercises: Array<string> = [];
 
   date;
   dateForm: FormGroup;
@@ -49,12 +55,16 @@ export class RecordComponent implements OnInit {
       name: ['', Validators.required],
       sets: [0, Validators.required],
       reps: [0, Validators.required],
-      bodyParts: [[]]
+      bodyParts: [[]],
+      addExercise: [''],
+      addBodyPart: ['']
     });
     this.createCardioExerciseForm = this.fb.group({
       name: ['', Validators.required],
       miles: [0, Validators.required],
-      bodyParts: [[]]
+      bodyParts: [[]],
+      addExercise: [''],
+      addBodyPart: ['']
     });
   }
 
@@ -62,6 +72,7 @@ export class RecordComponent implements OnInit {
     this.date = this.parseDateIntoNGB(this.dateService.getTodaysDate());
     this.getExercisesByDate(this.date);
     this.dateForm.controls.date.setValue(this.date);
+    this.getUserData();
     this.listenToDateFormChanges();
     this.subscribeToCalendarHoverState();
   }
@@ -152,6 +163,10 @@ export class RecordComponent implements OnInit {
     });
   }
 
+  toggleAddExerciseInput(type) {
+    this.uiState.addExerciseInput = this.uiState.addExerciseInput === type ? '' : type;
+  }
+
   // Exercise Forms
   submitExercise(form, type) {
     this.clearSuccessAndErrorMessages();
@@ -212,6 +227,23 @@ export class RecordComponent implements OnInit {
     });
   }
 
+  addExerciseToUserData(type) {
+    if (type === 'lifting') {
+      const exercise = this.createLiftingExerciseForm.controls.addExercise.value;
+      this.liftingExercises.push(exercise);
+      this.createLiftingExerciseForm.controls.name.setValue(exercise);
+      this.createLiftingExerciseForm.controls.addExercise.setValue('');
+      this.updateUserData({ liftingExercises: this.liftingExercises })
+    } else if (type === 'cardio') {
+      const exercise = this.createCardioExerciseForm.controls.addExercise.value;
+      this.cardioExercises.push(exercise);
+      this.createCardioExerciseForm.controls.name.setValue(exercise);
+      this.createCardioExerciseForm.controls.addExercise.setValue('');
+      this.updateUserData({ cardioExercises: this.cardioExercises })
+    }
+    this.uiState.addExerciseInput = '';
+  }
+
   getExercises() {
     this.exerciseService.getExercises().then((exercises) => {
       this.exercises = this.sortExercises(exercises);
@@ -222,17 +254,31 @@ export class RecordComponent implements OnInit {
     const today = this.parseDateIntoExtendedISO(date);
     this.exerciseService.getExercisesByDateRange(today, today).then((exercises) => {
       this.exercises = this.sortExercises(exercises);
-      console.log(this.exercises);
     })
     .catch( e => {
       console.log(e)
-  });
+    });
+  }
+
+  getUserData() {
+    this.exerciseService.getUserData().then((userData: UserData) => {
+      const { bodyParts, liftingExercises, cardioExercises } = userData;
+      this.bodyParts = this.parseBodyParts(bodyParts);
+      this.liftingExercises = liftingExercises;
+      this.cardioExercises = cardioExercises;
+    });
+  }
+
+  updateUserData(updates: UserData) {
+    this.exerciseService.updateUserData(updates).then((res) => {
+      console.log(res);
+    });
   }
 
   resetExerciseData() {
     this.createLiftingExerciseForm.reset();
     this.createCardioExerciseForm.reset();
-    this.bodyParts = this.parseBodyParts(this.exerciseService.bodyParts);
+    this.bodyParts.forEach(bodyPart => bodyPart.selected = false);
     this.uiState.exerciseBeingEdited = '';
   }
 

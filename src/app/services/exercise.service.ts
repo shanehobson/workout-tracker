@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Globals } from '../globals';
 import { User } from '../../interfaces/User';
 import { Exercise } from '../../interfaces/Exercise';
+import { UserData } from '../../interfaces/UserData';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -20,6 +21,8 @@ export class ExerciseService {
   updateExerciseUrl = `${this.globals.serverUrl}/exercises`;
   deleteExercisesUrl = `${this.globals.serverUrl}/exercises`;
   getExercisesByDateRangeUrl = `${this.globals.serverUrl}/exercisesByDateRange?startDate=`;
+  getUserDataUrl = `${this.globals.serverUrl}/userData`;
+  updateUserDataUrl = `${this.globals.serverUrl}/userData`;
 
   constructor(
     private http: HttpClient,
@@ -94,6 +97,28 @@ export class ExerciseService {
     });
   }
 
+  getUserData() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.getUserDataUrl, this.getRequestOptions())
+        .subscribe(response => {
+          resolve(response);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  updateUserData(updates: UserData) {
+    return new Promise((resolve, reject) => {
+      this.http.patch(this.getUserDataUrl, updates, this.getRequestOptions())
+        .subscribe(response => {
+          resolve(response);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
   // Auth Headers
   getRequestOptions() {
     return {
@@ -108,8 +133,8 @@ export class ExerciseService {
     });
   }
 
-  get bodyParts(): Array<string> {
-    return ['Shoulders', 'Chest', 'Biceps', 'Triceps', 'Lats', 'Upper Back', 'Lower Back', 'Abs', 'Legs'];
-  }
+  // get bodyParts(): Array<string> {
+  //   return ['Shoulders', 'Chest', 'Biceps', 'Triceps', 'Lats', 'Upper Back', 'Lower Back', 'Abs', 'Legs'];
+  // }
 
 }
