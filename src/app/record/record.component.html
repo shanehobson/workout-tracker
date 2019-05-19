@@ -49,15 +49,6 @@
     </div>
   </div>
 
-   <!-- <div class="success-and-error-message-container">
-    <div *ngIf="uiState.successMessage && !uiState.errorMessage" class="success-message-container">
-        {{uiState.successMessage}}
-    </div>
-    <div *ngIf="uiState.errorMessage && uiState.successMessage" class="error-message-container">
-      {{uiState.errorMessage}}
-    </div>
-  </div> -->
-
   <!-- Weights Form -->
   <div *ngIf="activeFormView('weights')" class="record-form-container">
     <section class="accordion-card"
@@ -203,10 +194,7 @@
   <div class="exercises-display"
         *ngIf="exercises && exercises.length > 0"
        [ngClass]="uiState.showDateInput ? 'exercises-display_lowered' : ''">
-    <div class="divider" style="margin-bottom: 30px;"></div>
-    <!-- <div *ngIf="exercises && exercises.length > 0" class="exercises-display-title">
-      Today's Workout
-    </div> -->
+    <div class="divider" style="margin-bottom: 50px;"></div>
     <div *ngFor="let exercise of exercises" class="exercises-display-exercise">
         <app-exercise-item
         [exercise]="exercise"
