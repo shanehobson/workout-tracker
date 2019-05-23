@@ -156,3 +156,39 @@
         margin-top: 290px;
     }
 }
+
+.add-exercise-button {
+    border-radius: 6px;
+    padding: 2px 4px;
+    color: #fff;
+    width: 75px;
+    height: 38px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &_green {
+        background-color: darken($green, 5);
+        border: 1px solid darken($green, 5);
+
+        &:hover {
+            background-color: darken($green, 10);
+        }
+    }
+
+    &_red {
+        background-color: $red;
+        border: 1px solid $red;
+
+        &:hover {
+            background-color: darken($red, 5);
+        }
+    }
+
+    &:disabled, &:disabled:hover, &:disabled:focus {
+        border-color: #eee;
+        background-color: #eee;
+        color: #bbb;
+        fill: #bbb;
+        cursor: not-allowed;
+    }
+}

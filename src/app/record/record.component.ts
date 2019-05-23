@@ -113,6 +113,7 @@ export class RecordComponent implements OnInit {
       successMessage: '',
       errorMessage: ''
     });
+    console.log(this.uiState);
   }
 
   subscribeToCalendarHoverState() {
@@ -300,6 +301,10 @@ export class RecordComponent implements OnInit {
   }
 
   // Helper functions
+  isFormFieldPopulated(form: FormGroup, field: string): boolean {
+    return !form.controls[field].value;
+  }
+
   parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {
     return bodyParts.map(bodyPart => {
       return { bodyPart, selected: false };

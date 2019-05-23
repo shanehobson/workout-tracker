@@ -71,12 +71,23 @@
               <i class="fa fa-plus add-exercise-icon" (click)="toggleAddExerciseInput('lifting')"></i>
             </label>
 
-            <input *ngIf="uiState.addExerciseInput === 'lifting'"
-                class="input-control"
-                style="margin-bottom: 15px; margin-top: 10px;"
-                formControlName="addExercise"
-                (keyup.enter)="addExerciseToUserData('lifting')"
-                type="text">
+            <div *ngIf="uiState.addExerciseInput === 'lifting'"
+                  class="d-flex align-start"
+                  style="margin-bottom: 10px;">
+              <input
+              class="input-control"
+              style="margin-bottom: 5px; margin-top: 5px;"
+              formControlName="addExercise"
+              (keyup.enter)="addExerciseToUserData('lifting')"
+              type="text">
+              <div class="d-flex j-center align-center" style="padding: 5px;">
+                <button class="add-exercise-button add-exercise-button_green"
+                  [disabled]="isFormFieldPopulated(createLiftingExerciseForm, 'addExercise')">
+                  Add <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            
 
             <select class="input-control"
                 formControlName="name">
@@ -103,7 +114,7 @@
             <!-- Reps -->
             <div class="input-field">
               <label class="input-label">
-                Reps *
+                Total Reps *
               </label>
               <input class="input-control"
                       type="number"
