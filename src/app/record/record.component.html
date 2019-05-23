@@ -173,12 +173,23 @@
                 <i class="fa fa-plus add-exercise-icon" (click)="toggleAddExerciseInput('cardio')"></i>
               </label>
 
-              <input *ngIf="uiState.addExerciseInput === 'cardio'"
-                class="input-control"
-                style="margin-bottom: 15px; margin-top: 10px;"
-                formControlName="addExercise"
-                (keyup.enter)="addExerciseToUserData('cardio')"
-                type="text">
+
+            <div *ngIf="uiState.addExerciseInput === 'cardio'"
+              class="d-flex align-start"
+              style="margin-bottom: 10px;">
+              <input
+              class="input-control"
+              style="margin-bottom: 5px; margin-top: 5px;"
+              formControlName="addExercise"
+              (keyup.enter)="addExerciseToUserData('cardio')"
+              type="text">
+              <div class="d-flex j-center align-center" style="padding: 5px;">
+                <button class="add-exercise-button add-exercise-button_red"
+                  [disabled]="isFormFieldPopulated(createCardioExerciseForm, 'addExercise')">
+                  Add <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
 
               <select class="input-control"
                   formControlName="name">
