@@ -1,0 +1,54 @@
+@import './colors';
+
+.status {
+    position: relative;
+    cursor: default;
+  
+    &:last-child {
+      margin-right: 0;
+    }
+  
+    &__tooltip {
+      display: none;
+      position: absolute;
+      padding: 5px 10px;
+      border-radius: 2px;
+      color: #fff;
+      background-color: $light-slate-gray;
+      white-space: nowrap;
+      z-index: 10;
+  
+      &_bottom {
+        bottom: -5px;
+        transform: translateY(100%);
+      }
+
+      &_green {
+        background-color: $green;
+      }
+
+      &_red {
+        background-color: $red;
+      }
+  
+      &_right {
+        right: 210px;
+        top: -5px;
+        transform: translateX(100%);
+      }
+  
+      &_left {
+        left: -5px;
+        transform: translateX(-100%);
+      }
+  
+      &_top {
+        top: -5px;
+        transform: translateY(-100%);
+      }
+    }
+  
+    &:hover &__tooltip {
+      display: block;
+    }
+  }

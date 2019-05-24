@@ -66,9 +66,12 @@
         
           <!--  Name  -->
           <div class="input-field">
-            <label class="input-label" style="position: relative;">
+            <label class="input-label status" style="position: relative;">
               Exercise Name
-              <i class="fa fa-plus add-exercise-icon" (click)="toggleAddExerciseInput('lifting')"></i>
+              <i class="fa fa-plus add-exercise-icon status" (click)="toggleAddExerciseInput('lifting')"></i>
+              <div class="status__tooltip status__tooltip_right">
+                <i class="fa fa-arrow-left" style="color: #fff"></i> Add new exercise.
+                </div>
             </label>
 
             <div *ngIf="uiState.addExerciseInput === 'lifting'"
@@ -88,7 +91,6 @@
               </div>
             </div>
             
-
             <select class="input-control"
                 formControlName="name">
               <option *ngFor="let exercise of liftingExercises"
@@ -168,9 +170,12 @@
           
             <!--  Name  -->
             <div class="input-field">
-              <label class="input-label" style="position: relative;">
+              <label class="input-label status" style="position: relative;">
                 Exercise Name
                 <i class="fa fa-plus add-exercise-icon" (click)="toggleAddExerciseInput('cardio')"></i>
+                <div class="status__tooltip status__tooltip_right">
+                    <i class="fa fa-arrow-left" style="color: #fff"></i> Add new exercise.
+                </div>
               </label>
 
 
