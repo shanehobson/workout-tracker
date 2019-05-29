@@ -13,6 +13,8 @@ export class AnalyzeComponent implements OnInit {
 
   exercises: Array<Exercise>;
 
+  trackerDates = [];
+
   constructor(
     private exerciseService: ExerciseService,
     private dateService: DateService
@@ -20,6 +22,7 @@ export class AnalyzeComponent implements OnInit {
 
   ngOnInit() {
     this.getExercises();
+    this.constructTrackerDates();
   }
 
   getExercises() {
@@ -31,6 +34,14 @@ export class AnalyzeComponent implements OnInit {
       console.log(exercises);
       this.exercises = exercises;
     });
-   
   }
+
+  constructTrackerDates() {
+    const trackerDates = [];
+    for (let i = 0; i < 366; i++) {
+      trackerDates.push(i);
+    }
+    this.trackerDates = trackerDates;
+  }
+   
 }

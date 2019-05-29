@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  viewState = {
-    record: true,
-    analyze: false
+  viewState = { // change before prod
+    record: false,
+    analyze: true
   }
 
   authState: AuthState;
