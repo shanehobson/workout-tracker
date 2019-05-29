@@ -10,8 +10,8 @@
     background-color: $green;
 
     &:hover, &:focus {
-      border: 1px solid $green;
-      background-color: $green;
+      border: 1px solid darken($green, 10);
+      background-color: darken($green, 10);
     }
 
     &_invert {
@@ -20,9 +20,9 @@
       background-color: #fff;
 
       &:hover, &:focus {
-        border: 1px solid $green;
-        color: $green;
-        fill: $green;
+        border: 1px solid darken($green, 10);
+        color: darken($green, 10);
+        fill: darken($green, 10);
         background-color: #fff;
       }
     }

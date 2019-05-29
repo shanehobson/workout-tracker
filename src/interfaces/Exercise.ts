@@ -7,5 +7,6 @@ export interface Exercise {
     miles: number,
     bodyParts: Array<string>,
     _id?: string,
-    createdAt?: string
+    createdAt?: string,
+    updatedAt?: string
 }
