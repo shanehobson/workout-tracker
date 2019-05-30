@@ -12,8 +12,10 @@ import { Exercise } from '../../interfaces/exercise';
 export class AnalyzeComponent implements OnInit {
 
   exercises: Array<Exercise>;
-
   trackerDates = [];
+
+  currentDate: string;
+  oneYearAgo: string;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -21,27 +23,52 @@ export class AnalyzeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getExercises();
-    this.constructTrackerDates();
+    this.setDateInformation();
+    this.getExercisesForPastYear();
+    this.trackerDates = this.constructTrackerDates();
+    console.log(this.trackerDates);
   }
 
-  getExercises() {
-    this.exerciseService.getExercises().then(response => {
-      let exercises = [];
-      for (let key in response) {
-        exercises.push(response[key]);
-      }
+  setDateInformation() {
+    this.currentDate = this.dateService.getCurrentDate();
+    this.oneYearAgo = this.dateService.getCurrentDateMinusXDays(365);
+  }
+
+  getExercisesForPastYear() {
+    this.exerciseService.getExercisesByDateRange(this.oneYearAgo, this.currentDate).then(response => {    
+      const exercises = this.parseServerResponseIntoArray(response);
       console.log(exercises);
       this.exercises = exercises;
     });
   }
 
-  constructTrackerDates() {
+  constructTrackerDates(): Array<any> {
     const trackerDates = [];
-    for (let i = 0; i < 366; i++) {
-      trackerDates.push(i);
+    for (let i = 364; i >= 0; i--) {
+      const date = this.dateService.getCurrentDateMinusXDays(i);
+      trackerDates.push(date);
     }
-    this.trackerDates = trackerDates;
+    return trackerDates;
+  }
+
+  parseServerResponseIntoArray(response): Array<any> {
+    let exercises = [];
+    for (let key in response) {
+      exercises.push(response[key]);
+    }
+    return exercises;
+  }
+
+  calculateOneYearAgo(currentDate: string): string {
+    const currentDateArray = currentDate.split('');
+    const oneYearAgoDateArray = currentDateArray.map((char, i) => {
+      if (i === 3) {
+        return (parseInt(char) - 1).toString();
+      } else {
+        return char;
+      }
+    });
+    return oneYearAgoDateArray.join('');
   }
    
 }

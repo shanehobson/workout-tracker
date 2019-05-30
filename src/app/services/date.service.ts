@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 @Injectable()
 export class DateService {
@@ -104,11 +105,20 @@ export class DateService {
     return this.today + 'T' + ((date.getHours() < 10) ? '0' + date.getHours().toString() : date.getHours().toString()) + ':' + ((date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes()) + ':' + ((date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds()) + ':' + date.getMilliseconds();
   }
 
-  getTodaysDate() {
+  getCurrentDate() {
     return this.today;
   }
 
-  getTodaysDateTwoDigitNumber() {
+  getCurrentDateMoment() {
+    return moment(this.today);
+  }
+
+  getCurrentDateMinusXDays(x: number): string {
+    const moment = this.getCurrentDateMoment().subtract(x, 'days');
+    return moment.format('YYYY-MM-DD');
+  }
+
+  getcurrentDateTwoDigitNumber() {
     return this.today.substr(8, 2);
   }
 

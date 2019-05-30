@@ -69,7 +69,7 @@ export class RecordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.date = this.parseDateIntoNGB(this.dateService.getTodaysDate());
+    this.date = this.parseDateIntoNGB(this.dateService.getCurrentDate());
     this.getExercisesByDate(this.date);
     this.dateForm.controls.date.setValue(this.date);
     this.getUserData();
@@ -113,7 +113,6 @@ export class RecordComponent implements OnInit {
       successMessage: '',
       errorMessage: ''
     });
-    console.log(this.uiState);
   }
 
   subscribeToCalendarHoverState() {
@@ -294,7 +293,6 @@ export class RecordComponent implements OnInit {
   // Date form
   listenToDateFormChanges() {
     this.dateForm.controls.date.valueChanges.subscribe(val => {
-      console.log('Selected date: ' + val);
       this.date = val;
       this.getExercisesByDate(this.date);
     });
