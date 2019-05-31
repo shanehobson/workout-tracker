@@ -144,6 +144,23 @@ export class DateService {
     return moment(mostRecentSunday).subtract(365, 'days').format('YYYY-MM-DD');
   }
 
+  getOneYearAgoSundayToToday(): Array<string> {
+    const dates = [];
+    let hitOneYearAgoSunday = false;
+    let i = 0;
+    while (!hitOneYearAgoSunday) {
+      const date = this.getCurrentDateMinusXDays(i);
+      if (date === this.getMostRecentSundayMinusOneYear()) {
+        hitOneYearAgoSunday = true;
+        break;
+      } else {
+        dates.unshift(date);
+        i++;
+      }
+    }
+    return dates;
+  }
+
   getcurrentDateTwoDigitNumber() {
     return this.today.substr(8, 2);
   }

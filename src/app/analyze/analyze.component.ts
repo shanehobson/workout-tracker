@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../services/exercise.service';
 import { DateService } from '../services/date.service';
+import { HelperService } from '../services/helper.service';
 import { BodyPart } from '../../interfaces/BodyPart';
 import { Exercise } from '../../interfaces/Exercise';
 import { TrackerDate } from '../../interfaces/TrackerDate';
@@ -13,7 +14,7 @@ import { TrackerDate } from '../../interfaces/TrackerDate';
 export class AnalyzeComponent implements OnInit {
 
   exercises: Array<Exercise>;
-  trackerDates = [];
+  trackerDates: Array<TrackerDate> = [];
 
   currentDate: string;
   mostRecentSunday: string;
@@ -21,7 +22,8 @@ export class AnalyzeComponent implements OnInit {
 
   constructor(
     private exerciseService: ExerciseService,
-    private dateService: DateService
+    private dateService: DateService,
+    private helperService: HelperService
   ) { }
 
   ngOnInit() {
@@ -42,65 +44,42 @@ export class AnalyzeComponent implements OnInit {
   getExercisesForPastYear(): Promise<Array<Exercise>> {
     return new Promise((resolve) => {
       this.exerciseService.getExercisesByDateRange(this.mostRecentSundayMinusOneYear, this.currentDate).then(response => {    
-        const exercises = this.parseServerResponseIntoArray(response);
+        const exercises = this.helperService.parseServerResponseIntoArray(response);
         resolve(exercises);
       });
     });
   }
 
   constructTrackerDates(): Array<TrackerDate> {
-    const datesArray = this.getOneYearAgoSundayToToday();
-    const trackerDates = this.populateWithExercises(datesArray);
+    const datesArray: Array<string> = this.dateService.getOneYearAgoSundayToToday();
+    const datesWithExercises = this.populateWithExercises(datesArray);
+    const trackerDates: Array<TrackerDate> = this.populateWithColorScale(datesWithExercises);
     return trackerDates;
   }
 
-  getOneYearAgoSundayToToday(): Array<string> {
-    const dates = [];
-    let hitOneYearAgoSunday = false;
-    let i = 0;
-    while (!hitOneYearAgoSunday) {
-      const date = this.dateService.getCurrentDateMinusXDays(i);
-      if (date === this.mostRecentSundayMinusOneYear) {
-        hitOneYearAgoSunday = true;
-        break;
-      } else {
-        dates.unshift(date);
-        i++;
-      }
-    }
-    return dates;
-  }
-
-  populateWithExercises(datesArray: Array<string>): Array<TrackerDate> {
-    return datesArray.map(date => {
-      let exercises = [];
-      this.exercises.forEach(exercise => {
-        if (exercise.date === date) {
-          exercises.push(exercise);
-        }
-      });
+  populateWithExercises(datesWithExercises: Array<string>): Array<any> {
+    return datesWithExercises.map(date => {
+      let exercises = this.exercises.filter(exercise => exercise.date.slice(0, 10) === date); 
       return { date, exercises };
     });
   }
 
-  parseServerResponseIntoArray(response): Array<any> {
-    let exercises = [];
-    for (let key in response) {
-      exercises.push(response[key]);
-    }
-    return exercises;
+  populateWithColorScale(datesArray: Array<any>): Array<any> {
+    return datesArray.map(date => Object.assign(date, { colorScale: date.exercises.length }));
   }
 
-  calculateOneYearAgo(currentDate: string): string {
-    const currentDateArray = currentDate.split('');
-    const oneYearAgoDateArray = currentDateArray.map((char, i) => {
-      if (i === 3) {
-        return (parseInt(char) - 1).toString();
-      } else {
-        return char;
-      }
-    });
-    return oneYearAgoDateArray.join('');
+  getColorScale(date: TrackerDate): string {
+    if (date.colorScale === 0) {
+      return 'tracker-item_none';
+    } else if (date.colorScale < 2) {
+      return 'tracker-item_low';
+    } else if (date.colorScale < 4) {
+      return 'tracker-item_medium';
+    } else if (date.colorScale < 6) {
+      return 'tracker-item_high';
+    } else {
+      return 'tracker-item_max';
+    }
   }
    
 }

@@ -19,5 +19,25 @@
         height: 12px;
         border: 2px solid #fff;
         background-color: $tracker-gray;
+
+        &_none {
+            background-color: #ebedf0;
+        }
+
+        &_low {
+            background-color: #c6e48b;
+        }
+
+        &_medium {
+            background-color: #7bc96f;
+        }
+
+        &_high {
+            background-color: #239a3b;
+        }
+
+        &_max {
+            background-color: #196127;
+        }
     }
 }

@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { CanActivateViaAuthGuard } from './services/canActivateAuth.service';
 import { DateService } from './services/date.service';
 import { ColorService } from './services/color.service';
+import { HelperService } from './services/helper.service';
 import { Globals } from './globals';
 
 @NgModule({
