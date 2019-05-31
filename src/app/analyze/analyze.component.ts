@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../services/exercise.service';
 import { DateService } from '../services/date.service';
-import { BodyPart } from '../../interfaces/bodyPart';
-import { Exercise } from '../../interfaces/exercise';
+import { BodyPart } from '../../interfaces/BodyPart';
+import { Exercise } from '../../interfaces/Exercise';
+import { TrackerDate } from '../../interfaces/TrackerDate';
 
 @Component({
   selector: 'app-analyze',
@@ -15,7 +16,8 @@ export class AnalyzeComponent implements OnInit {
   trackerDates = [];
 
   currentDate: string;
-  oneYearAgo: string;
+  mostRecentSunday: string;
+  mostRecentSundayMinusOneYear: string;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -24,31 +26,61 @@ export class AnalyzeComponent implements OnInit {
 
   ngOnInit() {
     this.setDateInformation();
-    this.getExercisesForPastYear();
-    this.trackerDates = this.constructTrackerDates();
-    console.log(this.trackerDates);
+    this.getExercisesForPastYear().then((exercises) => {
+      this.exercises = exercises;
+      this.trackerDates = this.constructTrackerDates();
+      console.log(this.trackerDates);
+    });
   }
 
   setDateInformation() {
     this.currentDate = this.dateService.getCurrentDate();
-    this.oneYearAgo = this.dateService.getCurrentDateMinusXDays(365);
+    this.mostRecentSunday = this.dateService.getMostRecentSunday();
+    this.mostRecentSundayMinusOneYear = this.dateService.getMostRecentSundayMinusOneYear();
   }
 
-  getExercisesForPastYear() {
-    this.exerciseService.getExercisesByDateRange(this.oneYearAgo, this.currentDate).then(response => {    
-      const exercises = this.parseServerResponseIntoArray(response);
-      console.log(exercises);
-      this.exercises = exercises;
+  getExercisesForPastYear(): Promise<Array<Exercise>> {
+    return new Promise((resolve) => {
+      this.exerciseService.getExercisesByDateRange(this.mostRecentSundayMinusOneYear, this.currentDate).then(response => {    
+        const exercises = this.parseServerResponseIntoArray(response);
+        resolve(exercises);
+      });
     });
   }
 
-  constructTrackerDates(): Array<any> {
-    const trackerDates = [];
-    for (let i = 364; i >= 0; i--) {
-      const date = this.dateService.getCurrentDateMinusXDays(i);
-      trackerDates.push(date);
-    }
+  constructTrackerDates(): Array<TrackerDate> {
+    const datesArray = this.getOneYearAgoSundayToToday();
+    const trackerDates = this.populateWithExercises(datesArray);
     return trackerDates;
+  }
+
+  getOneYearAgoSundayToToday(): Array<string> {
+    const dates = [];
+    let hitOneYearAgoSunday = false;
+    let i = 0;
+    while (!hitOneYearAgoSunday) {
+      const date = this.dateService.getCurrentDateMinusXDays(i);
+      if (date === this.mostRecentSundayMinusOneYear) {
+        hitOneYearAgoSunday = true;
+        break;
+      } else {
+        dates.unshift(date);
+        i++;
+      }
+    }
+    return dates;
+  }
+
+  populateWithExercises(datesArray: Array<string>): Array<TrackerDate> {
+    return datesArray.map(date => {
+      let exercises = [];
+      this.exercises.forEach(exercise => {
+        if (exercise.date === date) {
+          exercises.push(exercise);
+        }
+      });
+      return { date, exercises };
+    });
   }
 
   parseServerResponseIntoArray(response): Array<any> {

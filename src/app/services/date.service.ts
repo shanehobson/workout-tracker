@@ -109,13 +109,39 @@ export class DateService {
     return this.today;
   }
 
-  getCurrentDateMoment() {
+  // Moment
+  private getCurrentDateMoment() {
     return moment(this.today);
   }
 
   getCurrentDateMinusXDays(x: number): string {
     const moment = this.getCurrentDateMoment().subtract(x, 'days');
     return moment.format('YYYY-MM-DD');
+  }
+
+  getMostRecentSunday() {
+    const today = this.getCurrentDateMoment();
+    for (let i = 0; i < 7; i++) {
+      const pastDate = moment(today).subtract(i, 'days');
+      if (pastDate.day() === 0) {
+       return pastDate.format('YYYY-MM-DD');
+      }
+    }
+  }
+
+  getMostRecentSundayMoment() {
+    const today = this.getCurrentDateMoment();
+    for (let i = 0; i < 7; i++) {
+      const pastDate = moment(today).subtract(i, 'days');
+      if (pastDate.day() === 0) {
+        return pastDate;
+      }
+    }
+  }
+
+  getMostRecentSundayMinusOneYear() {
+    const mostRecentSunday = this.getMostRecentSundayMoment();
+    return moment(mostRecentSunday).subtract(365, 'days').format('YYYY-MM-DD');
   }
 
   getcurrentDateTwoDigitNumber() {
