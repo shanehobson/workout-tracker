@@ -4,7 +4,7 @@ import { DateService } from '../services/date.service';
 import { HelperService } from '../services/helper.service';
 import { BodyPart } from '../../interfaces/BodyPart';
 import { Exercise } from '../../interfaces/Exercise';
-import { TrackerDate } from '../../interfaces/TrackerDate';
+import { YearTrackerDate } from '../../interfaces/YearTrackerDate';
 
 @Component({
   selector: 'app-analyze',
@@ -14,8 +14,7 @@ import { TrackerDate } from '../../interfaces/TrackerDate';
 export class AnalyzeComponent implements OnInit {
 
   exercises: Array<Exercise>;
-  trackerDates: Array<TrackerDate> = [];
-
+  
   currentDate: string;
   mostRecentSunday: string;
   mostRecentSundayMinusOneYear: string;
@@ -30,8 +29,6 @@ export class AnalyzeComponent implements OnInit {
     this.setDateInformation();
     this.getExercisesForPastYear().then((exercises) => {
       this.exercises = exercises;
-      this.trackerDates = this.constructTrackerDates();
-      console.log(this.trackerDates);
     });
   }
 
@@ -50,36 +47,5 @@ export class AnalyzeComponent implements OnInit {
     });
   }
 
-  constructTrackerDates(): Array<TrackerDate> {
-    const datesArray: Array<string> = this.dateService.getOneYearAgoSundayToToday();
-    const datesWithExercises = this.populateWithExercises(datesArray);
-    const trackerDates: Array<TrackerDate> = this.populateWithColorScale(datesWithExercises);
-    return trackerDates;
-  }
-
-  populateWithExercises(datesWithExercises: Array<string>): Array<any> {
-    return datesWithExercises.map(date => {
-      let exercises = this.exercises.filter(exercise => exercise.date.slice(0, 10) === date); 
-      return { date, exercises };
-    });
-  }
-
-  populateWithColorScale(datesArray: Array<any>): Array<any> {
-    return datesArray.map(date => Object.assign(date, { colorScale: date.exercises.length }));
-  }
-
-  getColorScale(date: TrackerDate): string {
-    if (date.colorScale === 0) {
-      return 'tracker-item_none';
-    } else if (date.colorScale < 2) {
-      return 'tracker-item_low';
-    } else if (date.colorScale < 4) {
-      return 'tracker-item_medium';
-    } else if (date.colorScale < 6) {
-      return 'tracker-item_high';
-    } else {
-      return 'tracker-item_max';
-    }
-  }
    
 }

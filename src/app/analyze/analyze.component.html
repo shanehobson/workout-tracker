@@ -1,13 +1,8 @@
 <div class="analyze-section-container">
-
-    <!-- Tracker -->
-    <div class="tracker-container">
-        <div class="tracker card" style="padding: 30px;">
-            <div *ngFor="let date of trackerDates">
-                <div class="tracker-item" [ngClass]="getColorScale(date)">
-        
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-year-tracker
+        [exercises]="exercises"
+        [currentDate]="currentDate"
+        [mostRecentSunday]="mostRecentSunday"
+        [mostRecentSundayMinusOneYear]="mostRecentSundayMinusOneYear"
+    ></app-year-tracker>
 </div>

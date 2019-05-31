@@ -1,6 +1,6 @@
 import { Exercise } from './Exercise';
 
-export interface TrackerDate {
+export interface YearTrackerDate {
     date: string,
     exercises: Array<Exercise>,
     colorScale: number

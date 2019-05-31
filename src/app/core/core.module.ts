@@ -14,6 +14,7 @@ import { LoginComponent } from '../login/login.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RecordComponent } from '../record/record.component';
 import { AnalyzeComponent } from '../analyze/analyze.component';
+import { YearTrackerComponent } from '../analyze/year-tracker/year-tracker.component';
 import { ExerciseItemComponent } from '../exercise-item/exercise-item.component';
 
 // Directives
@@ -27,7 +28,8 @@ import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
     RecordComponent,
     AnalyzeComponent,
     ExerciseItemComponent,
-    CalendarHoverDirective
+    CalendarHoverDirective,
+    YearTrackerComponent
   ],
   imports: [
     CommonModule,

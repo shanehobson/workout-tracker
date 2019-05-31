@@ -1,0 +1,9 @@
+<div class="tracker-container">
+  <div class="tracker card" style="padding: 30px;">
+      <div *ngFor="let date of yearTrackerDates">
+          <div class="tracker-item" [ngClass]="getColorScale(date)">
+  
+          </div>
+      </div>
+  </div>
+</div>
