@@ -36,6 +36,7 @@ export class RecordComponent implements OnInit {
   bodyParts = [];
   liftingExercises: Array<string> = [];
   cardioExercises: Array<string> = [];
+  bodyPartsMap;
 
   date;
   dateForm: FormGroup;
@@ -217,6 +218,20 @@ export class RecordComponent implements OnInit {
     });
   }
 
+  handleSelectedExerciseChange(event, form: FormGroup) {
+    const exercise = event.target.value;
+    const bodyParts = this.bodyPartsMap[exercise] || [];
+    this.bodyParts = this.setSelectedBodyParts(bodyParts);
+  }
+
+  setSelectedBodyParts(selectedBodyParts: Array<string>): Array<BodyPart> {
+    return this.bodyParts.map(part => {
+      const bodyPart = part.bodyPart;
+      const selected = selectedBodyParts.includes(bodyPart);
+      return { bodyPart, selected };
+    });
+  }
+
   deleteExercise(exercise: Exercise) {
     const id = exercise._id;
     delete exercise.createdAt;
@@ -262,10 +277,12 @@ export class RecordComponent implements OnInit {
 
   getUserData() {
     this.exerciseService.getUserData().then((userData: UserData) => {
-      const { bodyParts, liftingExercises, cardioExercises } = userData;
+      const { bodyParts, liftingExercises, cardioExercises, bodyPartsMap } = userData;
       this.bodyParts = this.parseBodyParts(bodyParts);
+      this.bodyPartsMap = bodyPartsMap;
       this.liftingExercises = liftingExercises;
       this.cardioExercises = cardioExercises;
+      console.log(this.bodyPartsMap);
     });
   }
 

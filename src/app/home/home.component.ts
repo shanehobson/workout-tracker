@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  viewState = { // change before prod
-    record: false,
-    analyze: true
+  viewState = {
+    record: true,
+    analyze: false
   }
 
   authState: AuthState;
@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeToAuthState();
-    
   }
 
   // View State 

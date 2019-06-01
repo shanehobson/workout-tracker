@@ -55,10 +55,12 @@
               style="margin-left: auto; margin-right: auto; max-width: 400px;">
 
       <section class="accordion-card-body">
-
+        <div class="d-flex j-center align-center" style="margin: 12px auto 0 auto;">
+            <img class="exercise-form-image" src="../../assets/logo-green.png">
+        </div>
         <h2 class="page-title page-title_h2 page-title_green"
-            style="margin: 20px auto; text-align: center; font-weight: normal;">
-          Lifting Exercise
+            style="margin: 10px auto 20px auto; text-align: center; font-weight: normal;">
+          Add Lifting Exercise
         </h2>
 
         <!-- Form -->
@@ -70,7 +72,7 @@
               Exercise Name
               <i class="fa fa-plus add-exercise-icon status" (click)="toggleAddExerciseInput('lifting')"></i>
               <div class="status__tooltip status__tooltip_right">
-                <i class="fa fa-arrow-left" style="color: #fff"></i> Add new exercise.
+                <i class="fa fa-arrow-left" style="color: #fff"></i> Add exercise to list.
                 </div>
             </label>
 
@@ -92,10 +94,11 @@
             </div>
             
             <select class="input-control"
-                formControlName="name">
+                formControlName="name"
+                (change)="handleSelectedExerciseChange($event, createLiftingExerciseForm)">
               <option *ngFor="let exercise of liftingExercises"
-                  [value]="exercise">
-                {{exercise}}
+                      [value]="exercise">
+                  {{exercise}}
               </option>
             </select>
           </div>
@@ -160,10 +163,13 @@
   
         <section class="accordion-card-body">
   
-          <h2 class="page-title page-title_h2 page-title_green"
-              style="margin: 20px auto; text-align: center; font-weight: normal;">
-            Cardio Exercise
-          </h2>
+            <div class="d-flex j-center align-center" style="margin: 8px auto 0 auto;">
+                <img class="exercise-form-image" style="height: 80px; width: 85px" src="../../assets/cardio.png">
+            </div>
+            <h2 class="page-title page-title_h2 page-title_green"
+                style="margin: 5px auto 20px auto; text-align: center; font-weight: normal;">
+              Add Cardio Exercise
+            </h2>
   
           <!-- Form -->
           <form [formGroup]="createCardioExerciseForm">
@@ -174,7 +180,7 @@
                 Exercise Name
                 <i class="fa fa-plus add-exercise-icon" (click)="toggleAddExerciseInput('cardio')"></i>
                 <div class="status__tooltip status__tooltip_right">
-                    <i class="fa fa-arrow-left" style="color: #fff"></i> Add new exercise.
+                    <i class="fa fa-arrow-left" style="color: #fff"></i> Add exercise to list.
                 </div>
               </label>
 
@@ -197,7 +203,8 @@
             </div>
 
               <select class="input-control"
-                  formControlName="name">
+                      formControlName="name"
+                      (change)="handleSelectedExerciseChange($event, createCardioExerciseForm)">
                 <option *ngFor="let exercise of cardioExercises"
                     [value]="exercise">
                   {{exercise}}

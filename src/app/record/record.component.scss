@@ -27,6 +27,8 @@
     font-size: 22px;
     border-bottom: 3px solid $slate-gray;
     padding: 5px 50px 5px 10px;
+    width: 130px;
+    color: darken($slate-gray, 10);
 
     &_selected {
         border-bottom: 3px solid lighten($slate-gray, 10);
@@ -85,6 +87,12 @@
 .record-form-container {
     padding: 20px;
     margin-top: 0;
+}
+
+.exercise-form-image {
+    height: 70px;
+    width: 78px;
+    border-radius: 6px 0 0 6px;
 }
 
 .add-exercise-icon {
