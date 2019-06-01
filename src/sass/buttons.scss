@@ -36,25 +36,25 @@
   }
 
   &_blue {
-    border: 1px solid lighten($blue, 10);
+    border: 1px solid lighten($light-slate-gray, 10);
     color: #fff;
     fill: #fff;
-    background-color: lighten($blue, 10);
+    background-color: lighten($light-slate-gray, 10);
 
     &:hover, &:focus {
-      border: 1px solid $blue;
-      background-color: $blue;
+      border: 1px solid $light-slate-gray;
+      background-color: $light-slate-gray;
     }
 
     &_invert {
-      color: lighten($blue, 10);
-      fill: lighten($blue, 10);
+      color: lighten($light-slate-gray, 10);
+      fill: lighten($light-slate-gray, 10);
       background-color: #fff;
 
       &:hover, &:focus {
-        border: 1px solid $blue;
-        color: $blue;
-        fill: $blue;
+        border: 1px solid $light-slate-gray;
+        color: $light-slate-gray;
+        fill: $light-slate-gray;
         background-color: #fff;
       }
     }

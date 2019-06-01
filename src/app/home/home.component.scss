@@ -24,21 +24,22 @@
     padding-top: 60px;
 
     &-tab {
-        width: 350px;
-        height: 70px;
+        width: 280px;
+        height: 60px;
         text-align: center;
-        font-size: 32px;
+        font-size: 28px;
         cursor: pointer;
         border-radius: 6px 6px 0 0;
         display: flex;
         justify-content: center;
         align-items: center;
         border-bottom: none;
-        padding-top: 10px;
+        padding-top: 6px;
+        color: darken($slate-gray, 3);
 
         &_selected {
             border-bottom-color: transparent;
-            background-color: $light-slate-gray;
+            background-color: $medium-gray;
             margin-bottom: -3px;
             border-bottom: 3px solid transparent;
         }
@@ -46,13 +47,11 @@
         > span {
             padding-bottom: 10px;
             display: inline-block;
-            color: darken($light-slate-gray, 7);
         }
 
         > span.selected {
             padding-bottom: 8px;
             display: inline-block;
-            color: #fff;
         }
 
         &_buffer {
@@ -66,6 +65,6 @@
 
 .record-and-analyze-content-container {
     margin: 0 auto;
-    background-color: $light-slate-gray;
+    background-color: $medium-gray;
     border-radius: 6px;
 }

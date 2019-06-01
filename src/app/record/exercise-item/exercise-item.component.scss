@@ -1,4 +1,4 @@
-@import '../../sass/colors';
+@import '../../../sass/colors';
 
 .exercise-card {
     width: 578px;
@@ -68,7 +68,7 @@
 
         i {
             &:hover {
-                color: $light-slate-gray;
+                color: $slate-gray;
             }
         }
     }

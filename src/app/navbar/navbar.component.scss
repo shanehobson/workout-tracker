@@ -25,11 +25,12 @@
         font-size: 17px;
         cursor: pointer;
         padding: 5px 10px;
+        border-radius: 6px;        
+        transition: all .4s ease;
 
         &:hover {
             background-color: #fff;
-            color: $light-slate-gray;
-            border-radius: 6px;
+            color: $slate-gray;
         }
     }
 

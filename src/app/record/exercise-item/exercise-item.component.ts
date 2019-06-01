@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Exercise } from '../../interfaces/Exercise';
+import { Exercise } from '../../../interfaces/Exercise';
 
 @Component({
   selector: 'app-exercise-item',

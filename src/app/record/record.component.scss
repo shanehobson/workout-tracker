@@ -25,11 +25,11 @@
 
 .record-page-title {
     font-size: 22px;
-    border-bottom: 3px solid darken($light-slate-gray, 7);
+    border-bottom: 3px solid $slate-gray;
     padding: 5px 50px 5px 10px;
 
     &_selected {
-        border-bottom: 3px solid darken($blue, 5);
+        border-bottom: 3px solid lighten($slate-gray, 10);
     }
 }
 
@@ -54,14 +54,14 @@
     z-index: 5;
     font-size: 34px;
     cursor: pointer;
-    color: darken($light-slate-gray, 7);
+    color: $slate-gray;
 
     &:hover {
-        color: darken($blue, 5);
+        color: lighten($slate-gray, 10);
     }
 
     &_selected {
-        color: darken($blue, 5);
+        color: lighten($slate-gray, 10);
     }
 }
 
@@ -91,7 +91,7 @@
     position: absolute;
     top: 0;
     left: 115px;
-    background-color: $light-slate-gray;
+    background-color: $slate-gray;
     color: #fff;
     border-radius: 100%;
     padding: 3px;
