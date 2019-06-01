@@ -46,7 +46,7 @@ export class YearTrackerComponent implements OnInit, OnChanges {
     });
   }
 
-  populateWithColorScale(datesArray: Array<any>): Array<any> {
+  populateWithColorScale(datesArray: Array<any>): Array<YearTrackerDate> {
     return datesArray.map(date => Object.assign(date, { colorScale: date.exercises.length }));
   }
 
