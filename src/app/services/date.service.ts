@@ -48,6 +48,8 @@ export class DateService {
     {'month': 'December', 'value': '12'}
   ];
 
+  monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
   constructor() {
 
   }
@@ -114,6 +116,11 @@ export class DateService {
     return moment(this.today);
   }
 
+  getCurrentDayOfMonth() {
+    const today = this.getCurrentDateMoment();
+    return moment(today).date();
+  }
+
   getCurrentDateMinusXDays(x: number): string {
     const moment = this.getCurrentDateMoment().subtract(x, 'days');
     return moment.format('YYYY-MM-DD');
@@ -159,6 +166,21 @@ export class DateService {
       }
     }
     return dates;
+  }
+
+  getLastTwelveMonths(): Array<string> {
+    const today = this.getCurrentDateMoment();
+    let lastTwelveMonths = [];
+    for (let i = 0; i < 12; i++) {
+      const monthNumber =  moment(today).subtract(i, 'months').month();
+      const monthName = this.parseMonthNumberToName(monthNumber);
+      lastTwelveMonths.push(monthName);
+    }
+    return lastTwelveMonths.reverse();
+  }
+
+  parseMonthNumberToName(monthNumber) {
+    return this.monthAbbreviations[monthNumber];
   }
 
   getcurrentDateTwoDigitNumber() {

@@ -1,9 +1,24 @@
-<div class="tracker-container">
-  <div class="tracker card" style="padding: 30px;">
-      <div *ngFor="let date of yearTrackerDates">
-          <div class="tracker-item" [ngClass]="getColorScale(date)">
-  
-          </div>
-      </div>
-  </div>
+<!-- Tracker Card -->
+<div class="tracker card">
+
+    <!-- X-Axis -->
+    <div class="x-axis" [ngClass]="getXAxisPosition()">
+        <div *ngFor="let month of lastTwelveMonths" class="axis-text">
+            {{month | titlecase}}
+        </div>
+    </div>
+
+    <!-- Y-Axis -->
+    <div class="y-axis">
+        <div *ngFor="let day of daysOfWeek" class="axis-text">
+            {{day | titlecase}}
+        </div>
+    </div>
+
+    <!-- Tracker Items -->
+    <div *ngFor="let item of yearTrackerDates">
+        <div class="tracker-item"
+            [ngClass]="getColorScale(item)">
+        </div>
+    </div>
 </div>
