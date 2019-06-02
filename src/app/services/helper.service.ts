@@ -14,4 +14,12 @@ export class HelperService {
     }
     return exercises;
   }
+
+  shortenString(input: string, length: number): string {
+    if (input.length > length) {
+      return input.slice(0, length - 2) + '...';
+    } else {
+      return input;
+    }
+  }
 }

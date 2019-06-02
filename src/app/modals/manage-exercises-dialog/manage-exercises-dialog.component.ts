@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExerciseService } from '../../services/exercise.service';
+import { HelperService } from '../../services/helper.service';
 import { UserData } from '../../../interfaces/UserData';
 
 @Component({
@@ -11,7 +12,8 @@ import { UserData } from '../../../interfaces/UserData';
 export class ManageExercisesDialogComponent implements OnInit {
 
   uiState = {
-    selectedExercise: ''
+    selectedExercise: '',
+    addExercise: ''
   }
 
   userData: UserData;
@@ -25,7 +27,8 @@ export class ManageExercisesDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private helperService: HelperService
   ) {
     this.editExerciseForm = this.fb.group({
       name: ['', Validators.required]
@@ -47,8 +50,15 @@ export class ManageExercisesDialogComponent implements OnInit {
   }
 
   onEditExerciseClicked(exercise: string) {
+    this.uiState.addExercise = '';
     this.populateEditExerciseForm(exercise);
     this.toggleSelectedExercise(exercise);
+  }
+
+  onAddExerciseClicked(type) {
+    this.uiState.selectedExercise = '';
+    this.initBlankEditExerciseForm();
+    this.toggleAddExercise(type);
   }
 
   populateEditExerciseForm(exercise: string) {
@@ -56,8 +66,20 @@ export class ManageExercisesDialogComponent implements OnInit {
     this.editExerciseForm.controls.name.setValue(exercise);
   }
 
+  initBlankEditExerciseForm() {
+    this.selectedExerciseBodyParts = this.getBodyPartsAsUnselected();
+    this.editExerciseForm.controls.name.setValue('');
+  }
+
   getSelectedExerciseBodyParts(exercise: string): Array<any> {
     return this.addUILogicToBodyParts(this.bodyParts, exercise);
+  }
+
+  getBodyPartsAsUnselected() {
+    return this.bodyParts.map(bodyPart => ({
+      bodyPart,
+      selected: false
+    }));
   }
 
   addUILogicToBodyParts(bodyParts: Array<string>, exercise: string) {
@@ -69,6 +91,10 @@ export class ManageExercisesDialogComponent implements OnInit {
   }
 
   // UI State
+  toggleAddExercise(type) {
+    this.uiState.addExercise = this.uiState.addExercise === type ? '' : type;
+  }
+
   onBodyPartSelected(i: number) {
     this.editExerciseForm.markAsDirty();
     this.toggleSelectedBodyPart(i);
@@ -89,10 +115,27 @@ export class ManageExercisesDialogComponent implements OnInit {
   resetEditExerciseUI() {
     this.editExerciseForm.reset();
     this.uiState.selectedExercise = '';
+    this.uiState.addExercise = '';
     this.selectedExerciseBodyParts = [];
   }
 
   // Lifting Form
+  submitAddLiftingExerciseForm(formValue) {
+    const updatedExerciseName = formValue.name;
+    const bodyParts = this.filterSelectedExerciseBodyParts();
+
+    this.addLiftingExerciseData(updatedExerciseName, bodyParts);
+
+    this.exerciseService.updateUserData({ liftingExercises: this.liftingExercises, bodyPartsMap: this.bodyPartsMap }).then(() => {
+      this.resetEditExerciseUI();
+    });
+  }
+
+  addLiftingExerciseData(updatedExerciseName: string, bodyParts: Array<string>) {
+    this.liftingExercises.unshift(updatedExerciseName);
+    this.bodyPartsMap[updatedExerciseName] = bodyParts;
+  }
+
   submitEditLiftingExerciseForm(formValue) {
     const updatedExerciseName = formValue.name;
     const bodyParts = this.filterSelectedExerciseBodyParts();
@@ -165,8 +208,7 @@ export class ManageExercisesDialogComponent implements OnInit {
   }
 
   removeCardioExercise(exercise: string) {
-    this.cardioExercises = this.liftingExercises.filter(item => item !== exercise);
-    delete this.bodyPartsMap[exercise];
+    this.removeCardioExerciseFromLocalData(exercise);
 
     this.exerciseService.updateUserData({ 
       cardioxercises: this.cardioExercises,
@@ -195,11 +237,7 @@ export class ManageExercisesDialogComponent implements OnInit {
 
   // Utility Functions
   shortenExercise(exercise: string): string {
-    if (exercise.length > 30) {
-      return exercise.slice(0, 28) + '...';
-    } else {
-      return exercise;
-    }
+    return this.helperService.shortenString(exercise, 30);
   }
 
 }
