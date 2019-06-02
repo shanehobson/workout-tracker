@@ -326,6 +326,9 @@ export class RecordComponent implements OnInit {
   // Manage Exercises Dialog
   openManageExercisesDialog(): void {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.panelClass = 'dialog-background';
+
     const dialogRef = this.dialog.open(ManageExercisesDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       this.getUserData();
