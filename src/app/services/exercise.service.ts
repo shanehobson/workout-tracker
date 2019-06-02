@@ -108,7 +108,7 @@ export class ExerciseService {
     });
   }
 
-  updateUserData(updates: UserData) {
+  updateUserData(updates) {
     return new Promise((resolve, reject) => {
       this.http.patch(this.getUserDataUrl, updates, this.getRequestOptions())
         .subscribe(response => {

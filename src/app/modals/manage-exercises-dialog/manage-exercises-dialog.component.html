@@ -13,11 +13,49 @@
         </h5>
     </div>
 
-    <table class="data-table">
-        <tr *ngFor="let exercise of liftingExercises">
-          <td>
-            {{exercise}}
+    <table class="data-table" [formGroup]="editExerciseForm">
+        <tr *ngFor="let exercise of liftingExercises"
+            >
+
+          <!--  Exercise Name and Controls -->
+          <td class="d-flex j-space-between align-center">
+            <span *ngIf="!isExpanded(exercise)">{{shortenExercise(exercise)}}</span>
+            <input *ngIf="isExpanded(exercise)" formControlName="name" class="input-control">
+            <div class="d-flex j-space-between align-center" style="width: 100px;">
+                <button class="rect-btn rect-btn_extra-small rect-btn_blue"
+                        (click)="handleEditExercise(exercise)">
+                  Edit
+                </button>
+                <button class="rect-btn rect-btn_extra-small rect-btn_red"
+                        (click)="removeLiftingExercise(exercise)">
+                  Remove
+                </button>
+            </div>
           </td>
+
+          <!-- Edit -->
+          <div *ngIf="isExpanded(exercise)">
+
+            <!--  Form  -->
+              <div class="d-flex j-center" style="flex-wrap: wrap; padding: 5px;">
+                <div *ngFor="let bodyPart of selectedExerciseBodyParts; let i = index;" style="padding: 5px">
+                    <input type="checkbox"
+                            [checked]="bodyPart.selected"
+                            style="margin-right: 0"
+                            (change)="onBodyPartSelected(i)">
+                          {{bodyPart.bodyPart}}
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div class="d-flex j-center" style="margin: 5px auto 15px auto">
+                  <button class="rect-btn rect-btn_small rect-btn_green"
+                          (click)="submitEditLiftingExerciseForm(editExerciseForm.value)"
+                          [disabled]="(!editExerciseForm.dirty || !editExerciseForm.valid)">
+                          Save Changes
+                  </button>
+              </div>
+          </div>
         </tr>              
     </table>
   </div>

@@ -79,8 +79,6 @@ export class RecordComponent implements OnInit {
     this.getUserData();
     this.listenToDateFormChanges();
     this.subscribeToCalendarHoverState();
-
-    // this.openManageExercisesDialog();
   }
 
   // UI State
@@ -287,7 +285,6 @@ export class RecordComponent implements OnInit {
       this.bodyPartsMap = bodyPartsMap;
       this.liftingExercises = liftingExercises;
       this.cardioExercises = cardioExercises;
-      console.log(this.bodyPartsMap);
     });
   }
 
