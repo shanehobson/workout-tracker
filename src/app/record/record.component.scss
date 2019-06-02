@@ -14,7 +14,17 @@
     justify-content: space-between;
     width: 536px;
     margin: 40px auto 20px auto;
-    padding: 22px 20px;
+    padding: 22px 45px 22px 20px;
+    position: relative;
+}
+
+.edit-exercises-button {
+    position: absolute;
+    top: 37px;
+    right: 25px;
+    font-size: 28px;
+    color: $slate-gray;
+    cursor: pointer;
 }
 
 .title-and-datepicker-container {
@@ -71,7 +81,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 300px;
+    width: 270px;
+    padding-right: 30px;
     height: 68px;
     background-color: #fff;
     margin: 0 auto;

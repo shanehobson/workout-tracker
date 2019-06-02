@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ExerciseService } from '../services/exercise.service';
 import { ColorService } from '../services/color.service';
 import { DateService } from '../services/date.service';
@@ -7,6 +8,7 @@ import { BodyPart } from '../../interfaces/bodyPart';
 import { Exercise } from '../../interfaces/exercise';
 import { UserData } from '../../interfaces/UserData';
 import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
+import { ManageExercisesDialogComponent } from '../modals/manage-exercises-dialog/manage-exercises-dialog.component';
 
 @Component({
   selector: 'app-record',
@@ -47,7 +49,8 @@ export class RecordComponent implements OnInit {
     private fb: FormBuilder,
     private exerciseService: ExerciseService,
     private dateService: DateService,
-    private colorService: ColorService
+    private colorService: ColorService,
+    private dialog: MatDialog
   ) { 
     this.dateForm = this.fb.group({
       date: [{}, Validators.required]
@@ -318,6 +321,15 @@ export class RecordComponent implements OnInit {
   // Helper functions
   isFormFieldPopulated(form: FormGroup, field: string): boolean {
     return !form.controls[field].value;
+  }
+
+  // Manage Exercises Dialog
+  openManageExercisesDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this.dialog.open(ManageExercisesDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      this.getUserData();
+    });
   }
 
   parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {

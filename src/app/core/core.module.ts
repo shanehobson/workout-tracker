@@ -16,6 +16,7 @@ import { RecordComponent } from '../record/record.component';
 import { AnalyzeComponent } from '../analyze/analyze.component';
 import { YearTrackerComponent } from '../analyze/year-tracker/year-tracker.component';
 import { ExerciseItemComponent } from '../record/exercise-item/exercise-item.component';
+import { ManageExercisesDialogComponent } from '../modals/manage-exercises-dialog/manage-exercises-dialog.component';
 
 // Directives
 import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
@@ -29,7 +30,8 @@ import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
     AnalyzeComponent,
     ExerciseItemComponent,
     CalendarHoverDirective,
-    YearTrackerComponent
+    YearTrackerComponent,
+    ManageExercisesDialogComponent
   ],
   imports: [
     CommonModule,
@@ -53,6 +55,7 @@ import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
     NgbModule,
     ClickOutsideModule,
     CalendarHoverDirective
-  ]
+  ],
+  entryComponents: [ ManageExercisesDialogComponent ]
 })
 export class CoreModule { }

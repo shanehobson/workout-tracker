@@ -47,6 +47,15 @@
         </div>
       </div>
     </div>
+
+    <!--  Tools Button  -->
+    <span class="edit-exercises-button status" style="cursor: pointer" (click)="openManageExercisesDialog()">
+        <i class="fas fa-cog"></i>
+        <div class="status__tooltip status__tooltip_bottom" style="font-size: 16px; left: -50px;">
+            Manage exercises.
+          </div>
+    </span>
+
   </div>
 
   <!-- Weights Form -->
@@ -73,7 +82,7 @@
               <i class="fa fa-plus add-exercise-icon status" (click)="toggleAddExerciseInput('lifting')"></i>
               <div class="status__tooltip status__tooltip_right">
                 <i class="fa fa-arrow-left" style="color: #fff"></i> Add exercise to list.
-                </div>
+              </div>
             </label>
 
             <div *ngIf="uiState.addExerciseInput === 'lifting'"
