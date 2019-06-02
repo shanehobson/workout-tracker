@@ -2,8 +2,9 @@
 @import '../../../sass/tables';
 
 .manage-exercises {
-    max-height: 80vh;
-    overflow: scroll;
+    height: 600px;
+    max-height: 70vh;
+    overflow-y: scroll;
 
     &-title {
         font-size: 28px;
