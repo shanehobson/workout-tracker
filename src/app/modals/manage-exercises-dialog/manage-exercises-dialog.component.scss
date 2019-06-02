@@ -1,0 +1,29 @@
+@import '../../../sass/colors';
+
+.manage-exercises {
+
+    &-title {
+        font-size: 28px;
+        color: darken($slate-gray, 3);
+        font-weight: normal;
+        margin: 0 auto 20px auto;
+        text-align: center;
+        padding-top: 0;
+    }
+
+    &-section {
+        width: 90%;
+        margin: 20px auto;
+
+        &-header {
+            display: flex;
+            justify-content: flex-start;
+
+            &-image {
+                width: 40px;
+                height: 37px;
+                padding-right: 20px;
+            }
+        }
+    }
+}
