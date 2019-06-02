@@ -180,6 +180,22 @@ export class ManageExercisesDialogComponent implements OnInit {
   }
 
   // Cardio Form
+  submitAddCardioExerciseForm(formValue) {
+    const updatedExerciseName = formValue.name;
+    const bodyParts = this.filterSelectedExerciseBodyParts();
+
+    this.addCardioExerciseData(updatedExerciseName, bodyParts);
+
+    this.exerciseService.updateUserData({ cardioExercises: this.cardioExercises, bodyPartsMap: this.bodyPartsMap }).then(() => {
+      this.resetEditExerciseUI();
+    });
+  }
+
+  addCardioExerciseData(updatedExerciseName: string, bodyParts: Array<string>) {
+    this.cardioExercises.unshift(updatedExerciseName);
+    this.bodyPartsMap[updatedExerciseName] = bodyParts;
+  }
+
   submitEditCardioExerciseForm(formValue) {
     const updatedExerciseName = formValue.name;
     const bodyParts = this.filterSelectedExerciseBodyParts();
@@ -211,7 +227,7 @@ export class ManageExercisesDialogComponent implements OnInit {
     this.removeCardioExerciseFromLocalData(exercise);
 
     this.exerciseService.updateUserData({ 
-      cardioxercises: this.cardioExercises,
+      cardioExercises: this.cardioExercises,
       bodyPartsMap: this.bodyPartsMap
      }).then((res) => {
       console.log(res);
