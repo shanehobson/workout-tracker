@@ -1,9 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
 import { ExerciseService } from '../../services/exercise.service';
-import { BodyPart } from '../../../interfaces/bodyPart';
-import { Exercise } from '../../../interfaces/exercise';
 import { UserData } from '../../../interfaces/UserData';
 
 @Component({
@@ -31,19 +28,17 @@ export class ManageExercisesDialogComponent implements OnInit {
     private exerciseService: ExerciseService
   ) {
     this.editExerciseForm = this.fb.group({
-      name: ['', Validators.required],
-      bodyParts: [[]]
+      name: ['', Validators.required]
     });
   }
 
   ngOnInit() {
     this.exerciseService.getUserData().then((userData: UserData) => {
       this.parseUserData(userData);
-      console.log(this.userData);
     });
   }
 
-  parseUserData(userData) {
+  parseUserData(userData: UserData) {
     this.userData = userData;
     this.liftingExercises = userData.liftingExercises || [];
     this.cardioExercises = userData.cardioExercises || [];
@@ -51,10 +46,9 @@ export class ManageExercisesDialogComponent implements OnInit {
     this.bodyPartsMap = userData.bodyPartsMap;
   }
 
-  // UI State
-  handleEditExercise(exercise) {
+  onEditExerciseClicked(exercise: string) {
     this.populateEditExerciseForm(exercise);
-    this.toggleselectedExercise(exercise);
+    this.toggleSelectedExercise(exercise);
   }
 
   populateEditExerciseForm(exercise: string) {
@@ -74,6 +68,7 @@ export class ManageExercisesDialogComponent implements OnInit {
     }));
   }
 
+  // UI State
   onBodyPartSelected(i: number) {
     this.editExerciseForm.markAsDirty();
     this.toggleSelectedBodyPart(i);
@@ -83,7 +78,7 @@ export class ManageExercisesDialogComponent implements OnInit {
     this.selectedExerciseBodyParts[i].selected = !this. selectedExerciseBodyParts[i].selected;
   }
 
-  toggleselectedExercise(exercise: string) {
+  toggleSelectedExercise(exercise: string) {
     this.uiState.selectedExercise = this.uiState.selectedExercise === exercise ? '' : exercise;
   }
 
@@ -91,10 +86,16 @@ export class ManageExercisesDialogComponent implements OnInit {
     return this.uiState.selectedExercise === exercise;
   }
 
+  resetEditExerciseUI() {
+    this.editExerciseForm.reset();
+    this.uiState.selectedExercise = '';
+    this.selectedExerciseBodyParts = [];
+  }
+
   // Lifting Form
   submitEditLiftingExerciseForm(formValue) {
     const updatedExerciseName = formValue.name;
-    const bodyParts = this.selectedExerciseBodyParts.filter(bodyPart => bodyPart.selected).map(bodyPart => bodyPart.bodyPart);
+    const bodyParts = this.filterSelectedExerciseBodyParts();
     const initialExerciseName = this.uiState.selectedExercise;
 
     this.editLiftingExerciseData(initialExerciseName, updatedExerciseName, bodyParts);
@@ -119,10 +120,26 @@ export class ManageExercisesDialogComponent implements OnInit {
     });
   }
 
+  removeLiftingExercise(exercise: string) {
+    this.removeLiftingExerciseFromLocalData(exercise);
+
+    this.exerciseService.updateUserData({ 
+      liftingExercises: this.liftingExercises,
+      bodyPartsMap: this.bodyPartsMap
+    }).then((res) => {
+      console.log(res);
+    });
+  }
+
+  removeLiftingExerciseFromLocalData(exercise: string) {
+    this.liftingExercises = this.liftingExercises.filter(item => item !== exercise);
+    delete this.bodyPartsMap[exercise];
+  }
+
   // Cardio Form
-  onSubmitEditCardioExerciseForm(formValue) {
+  submitEditCardioExerciseForm(formValue) {
     const updatedExerciseName = formValue.name;
-    const bodyParts = this.selectedExerciseBodyParts.filter(bodyPart => bodyPart.selected);
+    const bodyParts = this.filterSelectedExerciseBodyParts();
     const initialExerciseName = this.uiState.selectedExercise;
 
     this.editCardioExerciseData(initialExerciseName, updatedExerciseName, bodyParts);
@@ -147,32 +164,6 @@ export class ManageExercisesDialogComponent implements OnInit {
     });
   }
 
-  updateBodyPartsMap(initialExerciseName: string, updatedExerciseName: string, bodyParts: Array<string>) {
-    const bodyPartsMap = this.bodyPartsMap;
-    delete bodyPartsMap[initialExerciseName];
-    bodyPartsMap[updatedExerciseName] = bodyParts;
-    console.log(bodyPartsMap);
-    return bodyPartsMap;
-  }
-
-  resetEditExerciseUI() {
-    this.editExerciseForm.reset();
-    this.uiState.selectedExercise = '';
-    this.selectedExerciseBodyParts = [];
-  }
-
-  // CRUD Actions
-  removeLiftingExercise(exercise: string) {
-    this.removeLiftingExerciseFromLocalData(exercise);
-
-    this.exerciseService.updateUserData({ 
-      liftingExercises: this.liftingExercises,
-      bodyPartsMap: this.bodyPartsMap
-    }).then((res) => {
-      console.log(res);
-    });
-  }
-
   removeCardioExercise(exercise: string) {
     this.cardioExercises = this.liftingExercises.filter(item => item !== exercise);
     delete this.bodyPartsMap[exercise];
@@ -185,9 +176,21 @@ export class ManageExercisesDialogComponent implements OnInit {
     });
   }
 
-  removeLiftingExerciseFromLocalData(exercise: string) {
-    this.liftingExercises = this.liftingExercises.filter(item => item !== exercise);
+  removeCardioExerciseFromLocalData(exercise: string) {
+    this.cardioExercises = this.cardioExercises.filter(item => item !== exercise);
     delete this.bodyPartsMap[exercise];
+  }
+
+  // Body Parts
+  updateBodyPartsMap(initialExerciseName: string, updatedExerciseName: string, bodyParts: Array<string>) {
+    const bodyPartsMap = this.bodyPartsMap;
+    delete bodyPartsMap[initialExerciseName];
+    bodyPartsMap[updatedExerciseName] = bodyParts;
+    return bodyPartsMap;
+  }
+
+  filterSelectedExerciseBodyParts(): Array<string> {
+    return this.selectedExerciseBodyParts.filter(bodyPart => bodyPart.selected).map(bodyPart => bodyPart.bodyPart);
   }
 
   // Utility Functions

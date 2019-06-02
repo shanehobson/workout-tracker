@@ -23,7 +23,7 @@
             <input *ngIf="isExpanded(exercise)" formControlName="name" class="input-control">
             <div class="d-flex j-space-between align-center" style="width: 100px;">
                 <button class="rect-btn rect-btn_extra-small rect-btn_blue"
-                        (click)="handleEditExercise(exercise)">
+                        (click)="onEditExerciseClicked(exercise)">
                   Edit
                 </button>
                 <button class="rect-btn rect-btn_extra-small rect-btn_red"
@@ -61,38 +61,57 @@
   </div>
 
   <div class="manage-exercises-section">
-    <div class="manage-exercises-section-header">
-        <img class="manage-exercises-section-header-image" src="../../assets/logo-green-gray-background.png">
-        <h5 class="manage-exercises-section-header-text">
-          Lifting Exercises
-        </h5>
+      <div class="manage-exercises-section-header">
+          <img class="manage-exercises-section-header-image" src="../../assets/cardio.png">
+          <h5 class="manage-exercises-section-header-text">
+            Cardio Exercises
+          </h5>
+      </div>
+  
+      <table class="data-table" [formGroup]="editExerciseForm">
+          <tr *ngFor="let exercise of cardioExercises">
+  
+            <!--  Exercise Name and Controls -->
+            <td class="d-flex j-space-between align-center">
+              <span *ngIf="!isExpanded(exercise)">{{shortenExercise(exercise)}}</span>
+              <input *ngIf="isExpanded(exercise)" formControlName="name" class="input-control">
+              <div class="d-flex j-space-between align-center" style="width: 100px;">
+                  <button class="rect-btn rect-btn_extra-small rect-btn_blue"
+                          (click)="onEditExerciseClicked(exercise)">
+                    Edit
+                  </button>
+                  <button class="rect-btn rect-btn_extra-small rect-btn_red"
+                          (click)="removeCardioExercise(exercise)">
+                    Remove
+                  </button>
+              </div>
+            </td>
+  
+            <!-- Edit -->
+            <div *ngIf="isExpanded(exercise)">
+  
+              <!--  Form  -->
+                <div class="d-flex j-center" style="flex-wrap: wrap; padding: 5px;">
+                  <div *ngFor="let bodyPart of selectedExerciseBodyParts; let i = index;" style="padding: 5px">
+                      <input type="checkbox"
+                              [checked]="bodyPart.selected"
+                              style="margin-right: 0"
+                              (change)="onBodyPartSelected(i)">
+                            {{bodyPart.bodyPart}}
+                  </div>
+                </div>
+  
+                <!-- Submit -->
+                <div class="d-flex j-center" style="margin: 5px auto 15px auto">
+                    <button class="rect-btn rect-btn_small rect-btn_green"
+                            (click)="submitEditCardioExerciseForm(editExerciseForm.value)"
+                            [disabled]="(!editExerciseForm.dirty || !editExerciseForm.valid)">
+                            Save Changes
+                    </button>
+                </div>
+            </div>
+          </tr>              
+      </table>
     </div>
 
-    <table class="data-table">
-        <tr *ngFor="let exercise of liftingExercises">
-          <td>
-            {{exercise}}
-          </td>
-        </tr>              
-    </table>
-
-  </div>
-
-  <div class="manage-exercises-section">
-    <div class="manage-exercises-section-header">
-        <img class="manage-exercises-section-header-image" src="../../assets/logo-green-gray-background.png">
-        <h5 class="manage-exercises-section-header-text">
-          Lifting Exercises
-        </h5>
-    </div>
-
-    <table class="data-table">
-        <tr *ngFor="let exercise of liftingExercises">
-          <td>
-            {{exercise}}
-          </td>
-        </tr>              
-    </table>
-
-  </div>
 </section>
