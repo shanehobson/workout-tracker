@@ -14,6 +14,9 @@ import { UserData } from '../../../interfaces/UserData';
 export class ManageExercisesDialogComponent implements OnInit {
 
   userData: UserData;
+  liftingExercises: Array<string> = [];
+  cardioExercises: Array<string> = [];
+  bodyParts: Array<string> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -24,9 +27,18 @@ export class ManageExercisesDialogComponent implements OnInit {
 
   ngOnInit() {
     this.exerciseService.getUserData().then((userData: UserData) => {
-      this.userData = userData;
+      this.parseUserData(userData);
       console.log(this.userData);
     });
   }
+
+  parseUserData(userData) {
+    this.userData = userData;
+    this.liftingExercises = userData.liftingExercises || [];
+    this.cardioExercises = userData.cardioExercises || [];
+    this.bodyParts = userData.bodyParts || [];
+
+    console.log(this.liftingExercises);
+   }
 
 }

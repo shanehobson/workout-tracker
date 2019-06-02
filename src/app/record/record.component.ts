@@ -79,6 +79,8 @@ export class RecordComponent implements OnInit {
     this.getUserData();
     this.listenToDateFormChanges();
     this.subscribeToCalendarHoverState();
+
+    // this.openManageExercisesDialog();
   }
 
   // UI State

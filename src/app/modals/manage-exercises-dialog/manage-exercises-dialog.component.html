@@ -3,21 +3,58 @@
     Manage Exercises
   </h3>
 
+  <div class="divider" style="width: 80%; margin-bottom: 20px; margin-top: 5px;"></div>
+
   <div class="manage-exercises-section">
     <div class="manage-exercises-section-header">
-        <img class="manage-exercises-section-header-image" src="../../assets/logo-green.png">
+        <img class="manage-exercises-section-header-image" src="../../assets/logo-green-gray-background.png">
+        <h5 class="manage-exercises-section-header-text">
+          Lifting Exercises
+        </h5>
     </div>
+
+    <table class="data-table">
+        <tr *ngFor="let exercise of liftingExercises">
+          <td>
+            {{exercise}}
+          </td>
+        </tr>              
+    </table>
   </div>
 
   <div class="manage-exercises-section">
-      <div class="manage-exercises-section-header">
+    <div class="manage-exercises-section-header">
+        <img class="manage-exercises-section-header-image" src="../../assets/logo-green-gray-background.png">
+        <h5 class="manage-exercises-section-header-text">
+          Lifting Exercises
+        </h5>
+    </div>
 
-      </div>
+    <table class="data-table">
+        <tr *ngFor="let exercise of liftingExercises">
+          <td>
+            {{exercise}}
+          </td>
+        </tr>              
+    </table>
+
   </div>
 
   <div class="manage-exercises-section">
-      <div class="manage-exercises-section-header">
+    <div class="manage-exercises-section-header">
+        <img class="manage-exercises-section-header-image" src="../../assets/logo-green-gray-background.png">
+        <h5 class="manage-exercises-section-header-text">
+          Lifting Exercises
+        </h5>
+    </div>
 
-      </div>
+    <table class="data-table">
+        <tr *ngFor="let exercise of liftingExercises">
+          <td>
+            {{exercise}}
+          </td>
+        </tr>              
+    </table>
+
   </div>
 </section>

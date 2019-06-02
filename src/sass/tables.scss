@@ -1,0 +1,81 @@
+@import './colors';
+
+.data {
+
+  &-container {
+    overflow-x: auto;
+  }
+
+  &-title {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: $blue;
+    color: #fff;
+    font-family: monospace;
+    font-size: 1.5rem;
+  }
+
+  &-table {
+    border-spacing: 1px 0;
+    font-family: monospace;
+    color: $slate-gray;
+
+    tr {
+        background-color: lighten($blue, 15);
+    }
+
+    tr:nth-child(2n) {
+        background-color: lighten($medium-gray, 10);
+    }
+
+    th {
+      padding: 10px 10px 10px 0;
+      color: $blue;
+      font-size: 1rem;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 10px;
+      width: calc(100% - 20px);
+    }
+  }
+
+  &-list {
+    margin: 0;
+    padding-left: 25px;
+
+    li {
+      margin-bottom: 8px;
+      padding-right: 10px;
+      list-style: decimal;
+      line-height: 1.2;
+      text-transform: uppercase;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &_square {
+      padding-left: 13px;
+
+      li {
+        list-style: square;
+      }
+    }
+
+    &_leading-zero {
+      padding-left: 33px;
+
+      li {
+        list-style: decimal-leading-zero;
+      }
+    }
+  }
+
+  &_no-value {
+    color: $disabledGray;
+  }
+}
