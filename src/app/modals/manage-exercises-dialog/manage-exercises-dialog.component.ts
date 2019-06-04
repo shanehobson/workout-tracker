@@ -13,7 +13,9 @@ export class ManageExercisesDialogComponent implements OnInit {
 
   uiState = {
     selectedExercise: '',
-    addExercise: ''
+    selectedBodyPart: '',
+    addExercise: '',
+    addBodyPart: false
   }
 
   userData: UserData;
@@ -24,6 +26,7 @@ export class ManageExercisesDialogComponent implements OnInit {
   selectedExerciseBodyParts = [];
 
   editExerciseForm: FormGroup;
+  editBodyPartForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +34,9 @@ export class ManageExercisesDialogComponent implements OnInit {
     private helperService: HelperService
   ) {
     this.editExerciseForm = this.fb.group({
+      name: ['', Validators.required]
+    });
+    this.editBodyPartForm = this.fb.group({
       name: ['', Validators.required]
     });
   }
@@ -54,6 +60,100 @@ export class ManageExercisesDialogComponent implements OnInit {
     this.populateEditExerciseForm(exercise);
     this.toggleSelectedExercise(exercise);
   }
+
+  /* Body Part Form, move later */
+  onAddBodyPartClicked() {
+    this.uiState.selectedBodyPart = '';
+    this.uiState.addBodyPart = true;
+    this.editBodyPartForm.controls.name.setValue('');
+  }
+
+  initBlankEditBodyPartForm() {
+    this.editBodyPartForm.controls.name.setValue('');
+  }
+
+  submitAddBodyPartForm(formValue) {
+    const updatedName = formValue.name;
+
+    this.bodyParts.push(updatedName);
+
+    this.exerciseService.updateUserData({ bodyParts: this.bodyParts }).then(() => {
+      this.resetEditBodyPartsUI();
+    });
+  }
+
+  resetEditBodyPartsUI() {
+    this.editBodyPartForm.reset();
+    this.uiState.selectedBodyPart = '';
+    this.uiState.addBodyPart = false
+  }
+
+  toggleOpenedBodyPart(bodyPart: string) {
+    this.uiState.selectedBodyPart = this.uiState.selectedBodyPart === bodyPart ? '' : bodyPart;
+  }
+
+  isBodyPartExpanded(bodyPart: string): boolean {
+    return this.uiState.selectedBodyPart === bodyPart;
+  }
+
+  onEditBodyPartClicked(bodyPart: string) {
+    this.uiState.addBodyPart = false;
+    this.editBodyPartForm.controls.name.setValue(bodyPart);
+    this.toggleOpenBodyPart(bodyPart);
+  }
+
+  toggleOpenBodyPart(bodyPart: string) {
+    this.uiState.selectedBodyPart = this.uiState.selectedBodyPart === bodyPart ? '' : bodyPart;
+  }
+
+  removeBodyPart(bodyPart: string) {
+    this.removeBodyPartsFromLocalData(bodyPart);
+
+    this.exerciseService.updateUserData({ 
+      bodyParts: this.bodyParts,
+      bodyPartsMap: this.bodyPartsMap
+    }).then((res) => {
+      console.log(res);
+    });
+  }
+
+  removeBodyPartsFromLocalData(bodyPart: string) {
+    this.bodyParts = this.bodyParts.filter(item => item !== bodyPart);
+    this.removeBodyPartFromBodyPartsMap(bodyPart);
+  }
+
+  removeBodyPartFromBodyPartsMap(bodyPart) {
+    for (let exercise in this.bodyPartsMap) {
+      const bodyParts = this.bodyPartsMap[exercise];
+      const matchIndex = bodyParts.indexOf(bodyPart);
+
+      if (matchIndex) {
+        bodyParts.splice(matchIndex, 1);
+      }
+    }
+  }
+
+  onSubmitEditBodyPart(formValue) {
+    const updatedName = formValue.name;
+    const initialName = this.uiState.selectedBodyPart;
+
+    this.updateBodyPartData(initialName, updatedName);
+
+    this.exerciseService.updateUserData({ bodyParts: this.bodyParts, bodyPartsMap: this.bodyPartsMap }).then(() => {
+      this.resetEditBodyPartsUI();
+    });
+  }
+
+  updateBodyPartData(initialName: string, updatedName: string) {
+    this.bodyParts = this.bodyParts.map(bodyPart => {
+      if (bodyPart === initialName) {
+        return updatedName;
+      } else {
+        return bodyPart;
+      }
+    });
+  }
+  // end of body parts form
 
   onAddExerciseClicked(type) {
     this.uiState.selectedExercise = '';
@@ -254,6 +354,10 @@ export class ManageExercisesDialogComponent implements OnInit {
   // Utility Functions
   shortenExercise(exercise: string): string {
     return this.helperService.shortenString(exercise, 30);
+  }
+
+  shortenString(string) {
+    return this.helperService.shortenString(string, 30);
   }
 
 }

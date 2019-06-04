@@ -183,4 +183,66 @@
       </table>
     </div>
 
+    <!--  Manage Body Parts  -->
+  <div class="manage-exercises-section">
+    <div class="manage-exercises-section-header">
+        <h5 class="manage-exercises-section-header-text">
+          Body Parts
+        </h5>
+        <div class="manage-exercises-section-header-button">
+          <button class="rect-btn rect-btn_green rect-btn_extra-small"
+                  (click)="onAddBodyPartClicked()">
+            Add <i class="fa fa-plus"></i>
+          </button>
+        </div>
+    </div>
+
+    <table class="data-table" [formGroup]="editBodyPartForm">
+
+      <!--  Add New Body Part -->
+      <tr *ngIf="uiState.addBodyPart">
+          <td class="d-flex j-space-between align-center">
+            <input formControlName="name" class="input-control" style="width: 100%;">
+          </td>
+
+          <!-- Submit -->
+          <div class="d-flex j-center" style="margin: 5px auto 15px auto">
+              <button class="rect-btn rect-btn_small rect-btn_green"
+                      (click)="submitAddBodyPartForm(editBodyPartForm.value)"
+                      [disabled]="(!editBodyPartForm.dirty || !editBodyPartForm.valid)">
+                      Save Changes
+              </button>
+          </div>
+        </tr>
+
+        <tr *ngFor="let bodyPart of bodyParts">
+
+          <!--  Exercise Name and Controls -->
+          <td class="d-flex j-space-between align-center">
+            <span *ngIf="!isBodyPartExpanded(bodyPart)">{{shortenString(bodyPart, 30)}}</span>
+            <input *ngIf="isBodyPartExpanded(bodyPart)"
+            formControlName="name"
+            [ngStyle]="{ 'width': isBodyPartExpanded(bodyPart) ? '200px' : '220px' }"
+            class="input-control">
+            <div class="d-flex j-space-between align-center"
+                 [ngStyle]="{ 'width': isBodyPartExpanded(bodyPart) ? '118px' : '100px' }">
+                <button *ngIf="isBodyPartExpanded(bodyPart)" class="rect-btn rect-btn_extra-small rect-btn_green"
+                  (click)="onSubmitEditBodyPart(editBodyPartForm.value)">
+                  Submit
+                </button>
+                <button *ngIf="!isBodyPartExpanded(bodyPart)"
+                        class="rect-btn rect-btn_extra-small rect-btn_blue"
+                        (click)="onEditBodyPartClicked(bodyPart)">
+                  Edit
+                </button>
+                <button class="rect-btn rect-btn_extra-small rect-btn_red"
+                        (click)="removeBodyPart(bodyPart)">
+                  Remove
+                </button>
+            </div>
+          </td>
+        </tr>              
+    </table>
+  </div>
+
 </section>
