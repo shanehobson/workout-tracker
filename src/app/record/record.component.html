@@ -96,7 +96,8 @@
               type="text">
               <div class="d-flex j-center align-center" style="padding: 5px;">
                 <button class="add-exercise-button add-exercise-button_green"
-                  [disabled]="isFormFieldPopulated(createLiftingExerciseForm, 'addExercise')">
+                        (click)="addExerciseToUserData('lifting')"
+                        [disabled]="isFormFieldPopulated(createLiftingExerciseForm, 'addExercise')">
                   Add <i class="fa fa-plus"></i>
                 </button>
               </div>
@@ -205,7 +206,8 @@
               type="text">
               <div class="d-flex j-center align-center" style="padding: 5px;">
                 <button class="add-exercise-button add-exercise-button_red"
-                  [disabled]="isFormFieldPopulated(createCardioExerciseForm, 'addExercise')">
+                        (click)="addExerciseToUserData('cardio')"
+                        [disabled]="isFormFieldPopulated(createCardioExerciseForm, 'addExercise')">
                   Add <i class="fa fa-plus"></i>
                 </button>
               </div>

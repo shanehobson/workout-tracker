@@ -104,10 +104,10 @@ export class RecordComponent implements OnInit {
   openEditExerciseForm(exercise: Exercise) {
     if (exercise.type === 'weights') {
       const { name, sets, reps, bodyParts } = exercise;
-      this.createLiftingExerciseForm.setValue({ name, sets, reps, bodyParts });
+      this.createLiftingExerciseForm.setValue(Object.assign(this.createLiftingExerciseForm.value, { name, sets, reps, bodyParts }));
     } else {
       const { name, miles, bodyParts } = exercise;
-      this.createCardioExerciseForm.setValue({ name, miles, bodyParts });
+      this.createCardioExerciseForm.setValue(Object.assign(this.createCardioExerciseForm.value, { name, miles, bodyParts }));
     }
 
     this.uiState = Object.assign(this.uiState, {
@@ -207,13 +207,11 @@ export class RecordComponent implements OnInit {
     });
   }
 
-  editExercise(exercise: Exercise): Promise<boolean> {
+  editExercise(input: Exercise): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const id = exercise._id;
-      delete exercise.createdAt;
-      delete exercise._id;
+      const { _id, date, type, name, sets, reps, miles, bodyParts } = input;
   
-      this.exerciseService.updateExercise(id, exercise).then((res) => {
+      this.exerciseService.updateExercise(_id,  { date, type, name, sets, reps, miles, bodyParts }).then((res) => {
         this.setSuccessMessage('Exercise added!');
         this.uiState.showForm = '';
         resolve(true);
