@@ -102,13 +102,31 @@ export class RecordComponent implements OnInit {
   }
 
   openEditExerciseForm(exercise: Exercise) {
-    if (exercise.type === 'weights') {
-      const { name, sets, reps, bodyParts } = exercise;
-      this.createLiftingExerciseForm.setValue(Object.assign(this.createLiftingExerciseForm.value, { name, sets, reps, bodyParts }));
+    if (exercise.type === 'cardio') {
+      this.openEditCardioExerciseForm(exercise);
     } else {
-      const { name, miles, bodyParts } = exercise;
-      this.createCardioExerciseForm.setValue(Object.assign(this.createCardioExerciseForm.value, { name, miles, bodyParts }));
+      this.openEditLiftingExerciseForm(exercise);
     }
+  }
+
+  openEditLiftingExerciseForm(exercise: Exercise) {
+    const { name, sets, reps, bodyParts } = exercise;
+    this.createLiftingExerciseForm.setValue(Object.assign(this.createLiftingExerciseForm.value, { name, sets, reps, bodyParts }));
+    this.createLiftingExerciseForm.markAsDirty();
+
+    this.uiState = Object.assign(this.uiState, {
+      showForm: exercise.type,
+      exerciseBeingEdited: exercise._id,
+      showDateInput: false,
+      successMessage: '',
+      errorMessage: ''
+    });
+  }
+
+  openEditCardioExerciseForm(exercise: Exercise) {
+    const { name, miles, bodyParts } = exercise;
+    this.createCardioExerciseForm.setValue(Object.assign(this.createCardioExerciseForm.value, { name, miles, bodyParts }));
+    this.createCardioExerciseForm.markAsDirty();
 
     this.uiState = Object.assign(this.uiState, {
       showForm: exercise.type,
