@@ -17,8 +17,18 @@
 
     <!-- Tracker Items -->
     <div *ngFor="let item of yearTrackerDates">
-        <div class="tracker-item"
-            [ngClass]="getColorScale(item)">
-        </div>
+        <span class="status">
+            <div class="tracker-item"
+                [ngClass]="getColorScale(item)">
+            </div>
+            <div class="status__tooltip status__tooltip_bottom tracker-item-tooltip" style="font-size: 16px; left: -50px;">
+                <div>
+                    {{item.date | date}}
+                </div>
+                <div>
+                    {{item.exercises.length}} Exercises
+                </div>
+            </div>
+        </span>
     </div>
 </div>
