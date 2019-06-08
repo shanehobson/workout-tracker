@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ExerciseService } from '../services/exercise.service';
@@ -16,6 +16,8 @@ import { ManageExercisesDialogComponent } from '../modals/manage-exercises-dialo
   styleUrls: ['./record.component.scss']
 })
 export class RecordComponent implements OnInit {
+
+  @ViewChild('formTopAnchor') formTopAnchor: ElementRef;
 
   uiState = {
     showDateInput: false,
@@ -107,6 +109,7 @@ export class RecordComponent implements OnInit {
     } else {
       this.openEditLiftingExerciseForm(exercise);
     }
+    this.formTopAnchor.nativeElement.scrollIntoView({ scrollBehavior: 'smooth' });
   }
 
   openEditLiftingExerciseForm(exercise: Exercise) {
