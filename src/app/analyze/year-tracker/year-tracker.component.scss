@@ -4,17 +4,28 @@
 
 .tracker {
     display: grid;
-    grid-template-columns: repeat(53, 14px);
-    grid-template-rows: repeat(7, 14px);
+    grid-template-columns: repeat(53, 15px);
+    grid-template-rows: repeat(7, 15px);
     grid-auto-flow: column;
     margin: 30px auto;
-    width: 730px;
-    padding: 30px;
+    width: 795px;
+    padding: 85px 20px 30px 40px;
     position: relative;
 
+    &-header {
+        color: $light-slate-gray;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 865px;
+        height: 50px;
+        text-align: center;
+        padding-top: 20px;
+    }
+
     &-item {
-        width: 14px;
-        height: 14px;
+        width: 13px;
+        height: 13px;
         border: 2px solid #fff;
         cursor: pointer;
 
@@ -53,31 +64,31 @@
     }
 
     .x-axis {
-        width: 710px;
+        width: 752px;
         position: absolute;
-        top: 10px;
+        top: 62px;
         display: flex;
         justify-content: space-between;
         align-items: center;
     
         &_left {
-           left:  46px;
+           left:  58px;
         }
     
         &_center {
-            left:  54px;
+            left:  68px;
          }
     
          &_right {
-            left:  61px;
+            left:  78px;
          }
     }
     
     .y-axis {
         height: 72px;
         position: absolute;
-        top: 43px;
-        left: 6px;
+        top: 101px;
+        left: 12px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;

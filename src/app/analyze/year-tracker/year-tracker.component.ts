@@ -28,7 +28,6 @@ export class YearTrackerComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.exercises) {
       this.yearTrackerDates = this.constructYearTrackerDates();
-      console.log(this.yearTrackerDates);
     }
   }
 
@@ -50,15 +49,39 @@ export class YearTrackerComponent implements OnInit, OnChanges {
     return datesArray.map(date => Object.assign(date, { colorScale: date.exercises.length }));
   }
 
+  getNumberOfDaysWithExercise(): number {
+    const daysWithExercise = this.yearTrackerDates.filter(date => date.exercises.length > 0);
+    return daysWithExercise.length;
+  }
+
+  userHasExercisedThisYear(): boolean {
+    return !!(this.getNumberOfDaysWithExercise());
+  }
+
+  getDateOfFirstExercise(): string {
+    let dateOfFirstExercise = '';
+    this.yearTrackerDates.forEach(item => {
+
+      if (!dateOfFirstExercise) {
+
+        if (item.exercises.length > 0) {
+          dateOfFirstExercise = item.date;
+        }
+      }
+    });
+
+    return dateOfFirstExercise;
+  }
+
   // Directive-Related Functions
   getColorScale(date: YearTrackerDate): string {
     if (date.colorScale === 0) {
       return 'tracker-item_none';
     } else if (date.colorScale < 2) {
       return 'tracker-item_low';
-    } else if (date.colorScale < 4) {
+    } else if (date.colorScale < 7) {
       return 'tracker-item_medium';
-    } else if (date.colorScale < 6) {
+    } else if (date.colorScale < 11) {
       return 'tracker-item_high';
     } else {
       return 'tracker-item_max';
@@ -75,5 +98,4 @@ export class YearTrackerComponent implements OnInit, OnChanges {
       return 'x-axis_right';
     }
   }
-
 }
