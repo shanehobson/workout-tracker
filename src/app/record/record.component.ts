@@ -302,8 +302,8 @@ export class RecordComponent implements OnInit {
       const { bodyParts, liftingExercises, cardioExercises, bodyPartsMap } = userData;
       this.bodyParts = this.parseBodyParts(bodyParts);
       this.bodyPartsMap = bodyPartsMap;
-      this.liftingExercises = liftingExercises;
-      this.cardioExercises = cardioExercises;
+      this.liftingExercises = liftingExercises.sort();
+      this.cardioExercises = cardioExercises.sort();
     });
   }
 
@@ -336,25 +336,25 @@ export class RecordComponent implements OnInit {
     });
   }
 
+    // Manage Exercises Dialog
+    openManageExercisesDialog(): void {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.width = '500px';
+      dialogConfig.panelClass = 'dialog-background';
+  
+      const dialogRef = this.dialog.open(ManageExercisesDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(data => {
+        this.getUserData();
+      });
+    }
+
   // Helper functions
   isFormFieldPopulated(form: FormGroup, field: string): boolean {
     return !form.controls[field].value;
   }
 
-  // Manage Exercises Dialog
-  openManageExercisesDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '500px';
-    dialogConfig.panelClass = 'dialog-background';
-
-    const dialogRef = this.dialog.open(ManageExercisesDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(data => {
-      this.getUserData();
-    });
-  }
-
   parseBodyParts(bodyParts: Array<string>): Array<BodyPart> {
-    return bodyParts.map(bodyPart => {
+    return bodyParts.sort().map(bodyPart => {
       return { bodyPart, selected: false };
     });
   }

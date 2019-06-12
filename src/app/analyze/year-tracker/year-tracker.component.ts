@@ -93,7 +93,7 @@ export class YearTrackerComponent implements OnInit, OnChanges {
     if (dayOfMonth > 20) {
       return 'x-axis_left';
     } else if (dayOfMonth < 20 && dayOfMonth > 9) {
-      return 'x-axis_centered';
+      return 'x-axis_center';
     } else {
       return 'x-axis_right';
     }

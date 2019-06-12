@@ -268,8 +268,13 @@
   <!-- Exercises Display -->
   <div class="exercises-display"
         *ngIf="exercises && exercises.length > 0"
-       [ngClass]="uiState.showDateInput ? 'exercises-display_lowered' : ''">
-    <div class="divider" style="margin-bottom: 35px; width: 64%;"></div>
+        [ngClass]="uiState.showDateInput ? 'exercises-display_lowered' : ''">
+    <div class="divider" style="margin-bottom: 25px; width: 64%;"></div>
+
+    <div class="exercises-display-header">
+      Your Workout For {{parseDateIntoISO(date) | date : 'longDate'}}
+    </div>
+
     <div *ngFor="let exercise of exercises" class="exercises-display-exercise">
         <app-exercise-item
         [exercise]="exercise"
