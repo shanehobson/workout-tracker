@@ -85,9 +85,9 @@ export class AnalyzeComponent implements OnInit {
     return bodyParts.sort((a, b) => {
       const aName = Object.keys(a)[0];
       const bName = Object.keys(b)[0];
+      console.log(aName, bName);
       return aName > bName;
     });
   }
 
-   
 }

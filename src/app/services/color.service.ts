@@ -11,24 +11,24 @@ export class ColorService {
     });
 
   private colors = {
-    $btGreen: '#88b068',
+    $green: '#6fa86f',
     $lightGreen: '#3CB371',
     $warrantyBlue: '#6596B7',
-    $toyotaRed: '#cc2229',
-    $purple: '#9102ff',
+    $red: '#C25B56',
+    $purple: '#BF5FFF',
     $turquoise: '#00CED1',
-    $yellow: '#F0E68C',
+    $yellow: '#BDB76B',
     $aqua: '#66CCCC',
-    $skyBlue: '#499DF5',
+    $skyBlue: '#778899',
     $gray: '#C0C0C0',
     $orange: '#FFA07A',
-    $brown: '#BC8F8F',
+    $brown: '#856363',
     $aquaMarine: '#20B2AA',
-    $pink: 'pink',
+    $pink: '#FFB6C1',
     $olive: '#808000'
   };
 
-  private graphColorArray = [this.colors.$skyBlue, this.colors.$purple, this.colors.$lightGreen, '#e8c3b9', '#c45850', '#C0C0C0', this.colors.$olive, '#3e95cd', this.colors.$yellow, this.colors.$turquoise, this.colors.$btGreen];
+  private graphColorArray = [this.colors.$skyBlue, this.colors.$purple, this.colors.$green, this.colors.$yellow, this.colors.$red, '#C0C0C0'];
 
  constructor(private router: Router){}
 
@@ -49,7 +49,7 @@ export class ColorService {
   }
 
   getGraphColorArray() {
-    return this.graphColorArray;
+    return this.graphColorArray.concat(...this.graphColorArray).concat(...this.graphColorArray);
   }
 }
 
