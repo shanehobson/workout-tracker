@@ -15,6 +15,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { RecordComponent } from '../record/record.component';
 import { AnalyzeComponent } from '../analyze/analyze.component';
 import { YearTrackerComponent } from '../analyze/year-tracker/year-tracker.component';
+import { BodyPartsGraphComponent } from '../analyze/body-parts-graph/body-parts-graph.component';
 import { ExerciseItemComponent } from '../record/exercise-item/exercise-item.component';
 import { ManageExercisesDialogComponent } from '../modals/manage-exercises-dialog/manage-exercises-dialog.component';
 
@@ -31,7 +32,8 @@ import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
     ExerciseItemComponent,
     CalendarHoverDirective,
     YearTrackerComponent,
-    ManageExercisesDialogComponent
+    ManageExercisesDialogComponent,
+    BodyPartsGraphComponent
   ],
   imports: [
     CommonModule,

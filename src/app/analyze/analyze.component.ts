@@ -14,6 +14,11 @@ import { YearTrackerDate } from '../../interfaces/YearTrackerDate';
 export class AnalyzeComponent implements OnInit {
 
   exercises: Array<Exercise>;
+
+  bodyPartsGraph = {
+    bodyParts: [],
+    sets: []
+  };
   
   currentDate: string;
   mostRecentSunday: string;
@@ -29,6 +34,7 @@ export class AnalyzeComponent implements OnInit {
     this.setDateInformation();
     this.getExercisesForPastYear().then((exercises) => {
       this.exercises = exercises;
+      this.constructBodyPartsGraph(exercises);
     });
   }
 
@@ -44,6 +50,42 @@ export class AnalyzeComponent implements OnInit {
         const exercises = this.helperService.parseServerResponseIntoArray(response);
         resolve(exercises);
       });
+    });
+  }
+
+  constructBodyPartsGraph(exercises: Array<Exercise>): void {
+      const bodyPartsMap = this.parseExercisesIntoBodyPartsMap(exercises);
+      const bodyParts = [];
+      const sets = [];
+
+      for (let item in bodyPartsMap) {
+        bodyParts.push(item);
+        sets.push(bodyPartsMap[item]);
+      }
+
+      this.bodyPartsGraph = { bodyParts, sets };
+  }
+
+  parseExercisesIntoBodyPartsMap(exercises: Array<Exercise>): Array<any> {
+    const bodyPartsMap = Object.create({});
+    exercises.forEach(exercise => {
+      exercise.bodyParts.forEach(bodyPart => {
+        if (bodyPartsMap[bodyPart]) {
+          bodyPartsMap[bodyPart]++;
+        } else {
+          bodyPartsMap[bodyPart] = 1;
+        }
+      });
+    });
+
+    return bodyPartsMap;
+  }
+
+  sortBodyPartsAlphabetically(bodyParts): Array<any> {
+    return bodyParts.sort((a, b) => {
+      const aName = Object.keys(a)[0];
+      const bName = Object.keys(b)[0];
+      return aName > bName;
     });
   }
 

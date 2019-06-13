@@ -1,8 +1,17 @@
 <div class="analyze-section-container">
+
     <app-year-tracker
         [exercises]="exercises"
         [currentDate]="currentDate"
         [mostRecentSunday]="mostRecentSunday"
-        [mostRecentSundayMinusOneYear]="mostRecentSundayMinusOneYear"
-    ></app-year-tracker>
+        [mostRecentSundayMinusOneYear]="mostRecentSundayMinusOneYear">
+    </app-year-tracker>
+
+    <div class="card body-parts-graph-card">
+        <app-body-parts-graph
+            [bodyParts]="bodyPartsGraph.bodyParts"
+            [sets]="bodyPartsGraph.sets">
+        </app-body-parts-graph>
+    </div>
+
 </div>
