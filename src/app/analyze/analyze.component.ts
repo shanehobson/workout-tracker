@@ -68,7 +68,7 @@ export class AnalyzeComponent implements OnInit {
         sets.push(bodyPartsMap[item]);
       }
 
-      this.bodyPartsGraph = { bodyParts, sets };
+      this.bodyPartsGraph = this.filterTopTenBodyParts(bodyParts, sets);
   }
 
   parseExercisesIntoBodyPartsMap(exercises: Array<Exercise>): Array<any> {
@@ -84,6 +84,26 @@ export class AnalyzeComponent implements OnInit {
     });
 
     return bodyPartsMap;
+  }
+
+  filterTopTenBodyParts(bodyParts: Array<string>, sets: Array<number>) {
+    const bodyPartsWithSets = bodyParts.map((bodyPart, i) => {
+      return { bodyPart, sets: sets[i] };
+    });
+
+    const sortedArray = bodyPartsWithSets.sort((a, b) => {
+      if (a.sets > b.sets) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+
+    const topTenArray = sortedArray.slice(0, 10);
+    
+    bodyParts = topTenArray.map(el => el.bodyPart);
+    sets = topTenArray.map(el => el.sets);
+    return { bodyParts, sets };
   }
 
 }
