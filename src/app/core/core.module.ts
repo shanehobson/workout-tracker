@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { SharedModule } from '../shared/shared.module';
 
 // Components
 import { HomeComponent } from '../home/home.component';
@@ -44,7 +45,8 @@ import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    SharedModule
   ],
   exports: [
     CommonModule,

@@ -13,6 +13,10 @@ import { YearTrackerDate } from '../../interfaces/YearTrackerDate';
 })
 export class AnalyzeComponent implements OnInit {
 
+  uiState = {
+    loading: true
+  };
+
   exercises: Array<Exercise>;
 
   bodyPartsGraph = {
@@ -35,6 +39,7 @@ export class AnalyzeComponent implements OnInit {
     this.getExercisesForPastYear().then((exercises) => {
       this.exercises = exercises;
       this.constructBodyPartsGraph(exercises);
+      this.uiState.loading = false;
     });
   }
 
@@ -71,23 +76,14 @@ export class AnalyzeComponent implements OnInit {
     exercises.forEach(exercise => {
       exercise.bodyParts.forEach(bodyPart => {
         if (bodyPartsMap[bodyPart]) {
-          bodyPartsMap[bodyPart]++;
+          bodyPartsMap[bodyPart] += exercise.sets;
         } else {
-          bodyPartsMap[bodyPart] = 1;
+          bodyPartsMap[bodyPart] = exercise.sets;
         }
       });
     });
 
     return bodyPartsMap;
-  }
-
-  sortBodyPartsAlphabetically(bodyParts): Array<any> {
-    return bodyParts.sort((a, b) => {
-      const aName = Object.keys(a)[0];
-      const bName = Object.keys(b)[0];
-      console.log(aName, bName);
-      return aName > bName;
-    });
   }
 
 }

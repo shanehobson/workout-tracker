@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularMaterialModule } from './shared/angular-material.module';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 
 // Services
@@ -21,7 +22,8 @@ import { Globals } from './globals';
   imports: [
     AppRoutingModule,
     AngularMaterialModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [ Globals, ColorService, CanActivateViaAuthGuard, DateService ],
   exports: [],

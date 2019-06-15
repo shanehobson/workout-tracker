@@ -1,17 +1,23 @@
 <div class="analyze-section-container">
 
-    <app-year-tracker
-        [exercises]="exercises"
-        [currentDate]="currentDate"
-        [mostRecentSunday]="mostRecentSunday"
-        [mostRecentSundayMinusOneYear]="mostRecentSundayMinusOneYear">
-    </app-year-tracker>
+    <div *ngIf="uiState.loading" class="d-flex j-center align-center" style="margin: 200px auto;">
+        <app-spinner></app-spinner>
+    </div>
 
-    <div class="card body-parts-graph-card">
-        <app-body-parts-graph
-            [bodyParts]="bodyPartsGraph.bodyParts"
-            [sets]="bodyPartsGraph.sets">
-        </app-body-parts-graph>
+    <div *ngIf="!uiState.loading">
+        <app-year-tracker
+            [exercises]="exercises"
+            [currentDate]="currentDate"
+            [mostRecentSunday]="mostRecentSunday"
+            [mostRecentSundayMinusOneYear]="mostRecentSundayMinusOneYear">
+        </app-year-tracker>
+    
+        <div class="card body-parts-graph-card">
+            <app-body-parts-graph
+                [bodyParts]="bodyPartsGraph.bodyParts"
+                [sets]="bodyPartsGraph.sets">
+            </app-body-parts-graph>
+        </div>
     </div>
 
 </div>

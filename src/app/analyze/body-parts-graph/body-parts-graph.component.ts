@@ -97,7 +97,7 @@ export class BodyPartsGraphComponent implements OnInit, OnChanges {
     const keys = ['Units'];
 
     // Config
-    const margin = ({top: 40, right: 10, bottom: 40, left: 30});
+    const margin = ({top: 40, right: 10, bottom: 40, left: 60});
     const height = 300;
     const width = 580;
     const innerHeight = height - margin.bottom;
@@ -142,6 +142,23 @@ export class BodyPartsGraphComponent implements OnInit, OnChanges {
         .attr('text-anchor', 'start')
         .attr('font-weight', 'bold')
         .text(data.y));
+
+    // Y Axis Label
+    const yAxisLabel = svg => {
+      const g16 = svg
+        .attr('class', 'g16')
+        .attr("transform", "rotate(270)")
+
+      g16.append('text')
+        .attr('class', 'text16')
+        .attr('font-family', 'visbyLight, sans-serif')
+        .attr('font-size', 14)
+        .attr('font-weight', 500)
+        .attr('x', -190)
+        .attr('y', 20)
+        .attr('dy', '0.35em')
+        .text('Number of Sets');
+    };
 
     // Title
     const title = svg => {
@@ -262,6 +279,10 @@ export class BodyPartsGraphComponent implements OnInit, OnChanges {
     svg16.append('g')
       .attr('class', 'g16')
       .call(title);
+
+    svg16.append('g')
+      .attr('class', 'g16')
+      .call(yAxisLabel);
     return svg16.node();
   }
 }
