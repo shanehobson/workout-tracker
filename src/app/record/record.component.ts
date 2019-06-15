@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ExerciseService } from '../services/exercise.service';
 import { ColorService } from '../services/color.service';
 import { DateService } from '../services/date.service';
+import { HelperService } from '../services/helper.service';
 import { BodyPart } from '../../interfaces/bodyPart';
 import { Exercise } from '../../interfaces/exercise';
 import { UserData } from '../../interfaces/UserData';
@@ -52,6 +53,7 @@ export class RecordComponent implements OnInit {
     private exerciseService: ExerciseService,
     private dateService: DateService,
     private colorService: ColorService,
+    private helperService: HelperService,
     private dialog: MatDialog
   ) { 
     this.dateForm = this.fb.group({
@@ -201,6 +203,8 @@ export class RecordComponent implements OnInit {
     exercise['bodyParts'] = this.unParseBodyParts(this.bodyParts);
     exercise['type'] = type;
 
+    this.updateBodyPartsMap(exercise);
+
     if (this.uiState.exerciseBeingEdited) {
       exercise['_id'] = this.uiState.exerciseBeingEdited;
       this.editExercise(exercise).then(() => {
@@ -212,6 +216,16 @@ export class RecordComponent implements OnInit {
         this.resetExerciseData();
         this.getExercisesByDate(this.date);
       });
+    }
+  }
+
+  updateBodyPartsMap(exercise) {
+    const existingBodyParts = this.bodyPartsMap[exercise.name];
+    const updatedBodyParts = exercise['bodyParts']
+    
+    if (!this.helperService.arraysAreEqual(existingBodyParts, updatedBodyParts)) {
+      this.bodyPartsMap[exercise.name] = updatedBodyParts;
+      this.updateUserData({ bodyPartsMap: this.bodyPartsMap });
     }
   }
 

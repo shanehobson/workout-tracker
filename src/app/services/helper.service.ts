@@ -43,4 +43,17 @@ export class HelperService {
     return { items, amounts };
   }
 
+  arraysAreEqual(array1: Array<string | number>, array2:  Array<string | number>) : boolean {
+    if (array1.length !== array2.length) { return false; }
+
+    let equal = true;
+    for (let i = 0; i < array1.length && equal === true; i++) {
+      if (array1[i] !== array2[i]) {
+        equal = false;
+      }
+    }
+
+    return equal;
+  }
+
 }

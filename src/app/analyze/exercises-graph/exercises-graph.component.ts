@@ -54,7 +54,7 @@ export class ExercisesGraphComponent implements OnInit, OnChanges {
   }
 
   shortenExercises(exercises) {
-    return exercises.map(exercise => exercise.slice(0, 20));
+    return exercises.map(exercise => exercise.slice(0, 15));
   }
 
   constructJSON(keys: Array<string>, units: Array<number>): void {
