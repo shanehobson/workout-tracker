@@ -26,6 +26,16 @@
                 [sets]="bodyPartsGraph.sets">
             </app-body-parts-graph>
         </div>
+
+        <div class="card graph-card">
+            <div class="d-flex j-space-between align-center" style="width: 680px; margin: 0 auto;">
+                <app-lifting-cardio-comparison-graph [data]="exerciseComparisonGraph">
+                </app-lifting-cardio-comparison-graph>
+
+                <app-upper-lower-body-comparison-graph [data]="upperLowerBodyComparisonGraph">
+                </app-upper-lower-body-comparison-graph>
+            </div>
+        </div>
     </div>
 
 </div>

@@ -1,0 +1,25 @@
+@import '../../../sass/colors';
+
+.legend {
+    width: 240px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 20px auto;
+
+    &-box {
+        width: 20px;
+        height: 20px;
+
+        &_blue {
+            background-color: $skyBlue;
+        }
+
+        &_gray {
+            background-color: $lightGray;
+        }
+    }
+
+    &-text {
+        padding-left: 5px;
+    }
+}

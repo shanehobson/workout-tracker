@@ -28,6 +28,9 @@ export class AnalyzeComponent implements OnInit {
     exercises: [],
     sets: []
   };
+
+  exerciseComparisonGraph = [0, 0];
+  upperLowerBodyComparisonGraph = [0, 0];
   
   currentDate: string;
   mostRecentSunday: string;
@@ -45,6 +48,8 @@ export class AnalyzeComponent implements OnInit {
       this.exercises = exercises;
       this.constructBodyPartsGraph(exercises);
       this.constructExercisesGraph(exercises);
+      this.constructExerciseComparisonGraph(exercises);
+      this.constructUpperLowerBodyComparisonGraph(exercises);
       this.uiState.loading = false;
     });
   }
@@ -126,5 +131,35 @@ export class AnalyzeComponent implements OnInit {
     });
 
     return exerciseMap;
+  }
+
+  constructExerciseComparisonGraph(exercises: Array<Exercise>): void {
+    let lifting = 0;
+    let cardio = 0;
+
+    exercises.forEach(exercise => {
+      if (exercise.type === 'weights') {
+        lifting++;
+      } else if (exercise.type === 'cardio') {
+        cardio++;
+      }
+    });
+
+    this.exerciseComparisonGraph = [lifting, cardio];
+  }
+
+  constructUpperLowerBodyComparisonGraph(exercises: Array<Exercise>): void {
+    let upper = 0;
+    let lower = 0;
+
+    exercises.forEach(exercise => {
+      if (exercise.bodyParts.includes('Legs')) {
+        lower++;
+      } else if (exercise.bodyParts.length > 0) {
+        upper++;
+      }
+    });
+
+    this.upperLowerBodyComparisonGraph = [upper, lower];
   }
 }

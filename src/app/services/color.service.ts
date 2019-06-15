@@ -29,6 +29,8 @@ export class ColorService {
   };
 
   private graphColorArray = [this.colors.$skyBlue, this.colors.$purple, this.colors.$green, this.colors.$yellow, this.colors.$red, '#C0C0C0'];
+  private pieChartColorArray = [this.colors.$green, this.colors.$red];
+  private pieChartColorArray2 = [this.colors.$skyBlue, '#C0C0C0'];
 
  constructor(private router: Router){}
 
@@ -50,6 +52,14 @@ export class ColorService {
 
   getGraphColorArray() {
     return this.graphColorArray.concat(...this.graphColorArray).concat(...this.graphColorArray);
+  }
+
+  getPieChartColorArray() {
+    return this.pieChartColorArray;
+  }
+
+  getPieChartColorArray2() {
+    return this.pieChartColorArray2;
   }
 }
 

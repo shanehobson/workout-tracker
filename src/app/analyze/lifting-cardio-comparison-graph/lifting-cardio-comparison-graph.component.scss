@@ -1,0 +1,25 @@
+@import '../../../sass/colors';
+
+.legend {
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 20px auto;
+
+    &-box {
+        width: 20px;
+        height: 20px;
+
+        &_green {
+            background-color: $green;
+        }
+
+        &_red {
+            background-color: $red;
+        }
+    }
+
+    &-text {
+        padding-left: 5px;
+    }
+}

@@ -18,6 +18,8 @@ import { AnalyzeComponent } from '../analyze/analyze.component';
 import { YearTrackerComponent } from '../analyze/year-tracker/year-tracker.component';
 import { BodyPartsGraphComponent } from '../analyze/body-parts-graph/body-parts-graph.component';
 import { ExercisesGraphComponent } from '../analyze/exercises-graph/exercises-graph.component';
+import { LiftingCardioComparisonGraphComponent } from '../analyze/lifting-cardio-comparison-graph/lifting-cardio-comparison-graph.component';
+import { UpperLowerBodyComparisonGraphComponent } from '../analyze/upper-lower-body-comparison-graph/upper-lower-body-comparison-graph.component';
 import { ExerciseItemComponent } from '../record/exercise-item/exercise-item.component';
 import { ManageExercisesDialogComponent } from '../modals/manage-exercises-dialog/manage-exercises-dialog.component';
 
@@ -36,7 +38,9 @@ import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
     YearTrackerComponent,
     ManageExercisesDialogComponent,
     BodyPartsGraphComponent,
-    ExercisesGraphComponent
+    ExercisesGraphComponent,
+    LiftingCardioComparisonGraphComponent,
+    UpperLowerBodyComparisonGraphComponent
   ],
   imports: [
     CommonModule,
