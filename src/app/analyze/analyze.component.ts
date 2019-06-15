@@ -23,6 +23,11 @@ export class AnalyzeComponent implements OnInit {
     bodyParts: [],
     sets: []
   };
+
+  exercisesGraph = {
+    exercises: [],
+    sets: []
+  };
   
   currentDate: string;
   mostRecentSunday: string;
@@ -39,6 +44,7 @@ export class AnalyzeComponent implements OnInit {
     this.getExercisesForPastYear().then((exercises) => {
       this.exercises = exercises;
       this.constructBodyPartsGraph(exercises);
+      this.constructExercisesGraph(exercises);
       this.uiState.loading = false;
     });
   }
@@ -67,13 +73,18 @@ export class AnalyzeComponent implements OnInit {
         bodyParts.push(item);
         sets.push(bodyPartsMap[item]);
       }
-
-      this.bodyPartsGraph = this.filterTopTenBodyParts(bodyParts, sets);
+      const { items, amounts } = this.helperService.filterTopXItems(bodyParts, sets, 10);
+      this.bodyPartsGraph = { bodyParts: items, sets: amounts }
   }
 
   parseExercisesIntoBodyPartsMap(exercises: Array<Exercise>): Array<any> {
     const bodyPartsMap = Object.create({});
     exercises.forEach(exercise => {
+
+      if (exercise.type === 'cardio') {
+        exercise.sets = 1;
+      }
+            
       exercise.bodyParts.forEach(bodyPart => {
         if (bodyPartsMap[bodyPart]) {
           bodyPartsMap[bodyPart] += exercise.sets;
@@ -86,24 +97,34 @@ export class AnalyzeComponent implements OnInit {
     return bodyPartsMap;
   }
 
-  filterTopTenBodyParts(bodyParts: Array<string>, sets: Array<number>) {
-    const bodyPartsWithSets = bodyParts.map((bodyPart, i) => {
-      return { bodyPart, sets: sets[i] };
-    });
+  constructExercisesGraph(exercisesArray: Array<Exercise>): void {
+    const exercisesMap = this.parseExercisesIntoExerciseMap(exercisesArray);
+    const exercises = [];
+    const sets = [];
 
-    const sortedArray = bodyPartsWithSets.sort((a, b) => {
-      if (a.sets > b.sets) {
-        return -1;
+    for (let item in exercisesMap) {
+      exercises.push(item);
+      sets.push(exercisesMap[item]);
+    }
+    const { items, amounts } = this.helperService.filterTopXItems(exercises, sets, 10);
+    this.exercisesGraph = {exercises: items, sets: amounts }
+  }
+
+  parseExercisesIntoExerciseMap(exercises: Array<Exercise>): Array<any> {
+    const exerciseMap = Object.create({});
+    exercises.forEach(exercise => {
+
+      if (exercise.type === 'cardio') {
+        exercise.sets = 1;
+      }
+
+      if (exerciseMap[exercise.name]) {
+        exerciseMap[exercise.name] += exercise.sets;
       } else {
-        return 1;
+        exerciseMap[exercise.name] = exercise.sets;
       }
     });
 
-    const topTenArray = sortedArray.slice(0, 10);
-    
-    bodyParts = topTenArray.map(el => el.bodyPart);
-    sets = topTenArray.map(el => el.sets);
-    return { bodyParts, sets };
+    return exerciseMap;
   }
-
 }

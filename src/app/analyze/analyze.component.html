@@ -5,14 +5,22 @@
     </div>
 
     <div *ngIf="!uiState.loading">
+
         <app-year-tracker
             [exercises]="exercises"
             [currentDate]="currentDate"
             [mostRecentSunday]="mostRecentSunday"
             [mostRecentSundayMinusOneYear]="mostRecentSundayMinusOneYear">
         </app-year-tracker>
-    
-        <div class="card body-parts-graph-card">
+
+        <div class="card graph-card">
+            <app-exercises-graph
+                [exercises]="exercisesGraph.exercises"
+                [sets]="exercisesGraph.sets">
+            </app-exercises-graph>
+        </div>
+
+        <div class="card graph-card">
             <app-body-parts-graph
                 [bodyParts]="bodyPartsGraph.bodyParts"
                 [sets]="bodyPartsGraph.sets">
