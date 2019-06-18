@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import * as d3 from 'd3';
 import { ColorService } from '../../services/color.service';
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-lifting-cardio-comparison-graph',
@@ -11,7 +12,10 @@ export class LiftingCardioComparisonGraphComponent implements OnInit, OnChanges 
 
   @Input() data;
 
-  constructor(private colorService: ColorService) { }
+  constructor(
+    private colorService: ColorService,
+    private helperService: HelperService
+  ) { }
 
   ngOnInit() {
     this.constructGraph();
@@ -53,6 +57,17 @@ export class LiftingCardioComparisonGraphComponent implements OnInit, OnChanges 
             return color(i);
         })
         .attr("d", arc);
+
+    // Text inside of slices
+    arcs.append('svg:text')
+        .attr('transform', function(d) {
+          d['innerRadius'] = 0;
+          d['outerRadius'] = radius;
+          return 'translate(' + arc.centroid(d) + ')';
+        })
+        .attr('text-anchor', 'middle')
+        .text((d, i) => `${this.helperService.getPercentage(d, this.data)}`)
+        .attr('fill', '#fff');
   }
 
 }

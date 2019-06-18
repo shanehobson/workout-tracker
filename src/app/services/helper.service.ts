@@ -36,14 +36,16 @@ export class HelperService {
       }
     });
 
-    const topTenArray = sortedArray.slice(0, numberToFilter);
+    const topXArray = sortedArray.slice(0, numberToFilter);
 
-    items = topTenArray.map(el => el.item);
-    amounts = topTenArray.map(el => el.amount);
+    items = topXArray.map(el => el.item);
+    amounts = topXArray.map(el => el.amount);
     return { items, amounts };
   }
 
   arraysAreEqual(array1: Array<string | number>, array2:  Array<string | number>) : boolean {
+    console.log(array1, array2)
+
     if (array1.length !== array2.length) { return false; }
 
     let equal = true;
@@ -56,4 +58,19 @@ export class HelperService {
     return equal;
   }
 
+  getPercentage(item, data): string {
+    if (!data) { return ''; }
+
+    let total = 0;
+    for (let key in data) {
+      total += data[key];
+    }
+
+    const fraction = item['value'] / total;
+    if (fraction > .1) {
+      return `${Math.round(fraction * 100).toString()}%`;
+    } else {
+      return '';
+    }
+  }
 }

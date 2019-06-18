@@ -220,7 +220,7 @@ export class RecordComponent implements OnInit {
   }
 
   updateBodyPartsMap(exercise) {
-    const existingBodyParts = this.bodyPartsMap[exercise.name];
+    const existingBodyParts = this.bodyPartsMap[exercise.name] || [];
     const updatedBodyParts = exercise['bodyParts']
     
     if (!this.helperService.arraysAreEqual(existingBodyParts, updatedBodyParts)) {
@@ -230,6 +230,7 @@ export class RecordComponent implements OnInit {
   }
 
   addExercise(exercise): Promise<boolean> {
+    console.log(exercise);
     return new Promise((resolve) => {
       this.exerciseService.addExercise(exercise).then((res) => {
         this.setSuccessMessage('Exercise added!');
