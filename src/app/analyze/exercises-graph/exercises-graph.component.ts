@@ -179,7 +179,7 @@ export class ExercisesGraphComponent implements OnInit, OnChanges {
         .attr('x', (width / 2) + 30)
         .attr('y', 9.5)
         .attr('dy', '0.35em')
-        .text('Your Top 10 Exercises');
+        .text('Your Top Exercises');
     };
 
     // Construct Chart

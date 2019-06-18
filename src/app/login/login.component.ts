@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
     this.subscribeToAuthState();
 
     this.getUser().then((res) => {
-      console.log(res);
       this.router.navigate(['/', 'home']);
     }).catch((err) => {
       console.log('User not authenticated.');

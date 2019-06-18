@@ -4,7 +4,11 @@
         <app-spinner></app-spinner>
     </div>
 
-    <div *ngIf="!uiState.loading">
+    <div *ngIf="uiState.noData" class="d-flex j-center align-center" style="margin: 100px auto;">
+        You don't have any recorded workouts on file. Please go to the "Record" section to add some exercises!
+    </div>
+
+    <div *ngIf="!uiState.loading && !uiState.noData">
 
         <app-year-tracker
             [exercises]="exercises"

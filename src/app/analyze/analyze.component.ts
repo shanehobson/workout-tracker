@@ -14,7 +14,8 @@ import { YearTrackerDate } from '../../interfaces/YearTrackerDate';
 export class AnalyzeComponent implements OnInit {
 
   uiState = {
-    loading: true
+    loading: true,
+    noData: false
   };
 
   exercises: Array<Exercise>;
@@ -46,6 +47,9 @@ export class AnalyzeComponent implements OnInit {
     this.setDateInformation();
     this.getExercisesForPastYear().then((exercises) => {
       this.exercises = exercises;
+      if (exercises.length === 0) {
+        this.uiState.noData = true;
+      }
       this.constructBodyPartsGraph(exercises);
       this.constructExercisesGraph(exercises);
       this.constructExerciseComparisonGraph(exercises);

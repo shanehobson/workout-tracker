@@ -15,7 +15,6 @@ export class ExerciseItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.exercise);
     this.exercise['imageUrl'] = this.exercise.type === 'cardio' ? '../../assets/cardio.png' : '../../assets/logo-green.png';
   }
 

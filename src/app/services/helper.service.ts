@@ -44,8 +44,6 @@ export class HelperService {
   }
 
   arraysAreEqual(array1: Array<string | number>, array2:  Array<string | number>) : boolean {
-    console.log(array1, array2)
-
     if (array1.length !== array2.length) { return false; }
 
     let equal = true;

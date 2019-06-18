@@ -3,7 +3,7 @@
 
     <div class="tracker-header">
         <span *ngIf="userHasExercisedThisYear()">
-            You've worked out {{getNumberOfDaysWithExercise()}} times since {{getDateOfFirstExercise() | date : 'longDate'}}.
+            You've worked out {{getNumberOfDaysWithExercise()}} {{getNumberOfDaysWithExercise() === 1 ? 'time' : 'times'}} since {{getDateOfFirstExercise() | date : 'longDate'}}.
         </span>
     </div>
 
