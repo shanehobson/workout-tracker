@@ -18,7 +18,7 @@ import { ManageExercisesDialogComponent } from '../modals/manage-exercises-dialo
 })
 export class RecordComponent implements OnInit {
 
-  @ViewChild('formTopAnchor', { static: true }) formTopAnchor: ElementRef;
+  @ViewChild('formTopAnchor') formTopAnchor: ElementRef;
 
   uiState = {
     showDateInput: false,
