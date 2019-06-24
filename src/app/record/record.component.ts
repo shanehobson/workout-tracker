@@ -5,10 +5,9 @@ import { ExerciseService } from '../services/exercise.service';
 import { ColorService } from '../services/color.service';
 import { DateService } from '../services/date.service';
 import { HelperService } from '../services/helper.service';
-import { BodyPart } from '../../interfaces/bodyPart';
-import { Exercise } from '../../interfaces/exercise';
+import { BodyPart } from '../../interfaces/BodyPart';
+import { Exercise } from '../../interfaces/Exercise';
 import { UserData } from '../../interfaces/UserData';
-import { CalendarHoverDirective } from '../directives/calendar-hover.directive';
 import { ManageExercisesDialogComponent } from '../modals/manage-exercises-dialog/manage-exercises-dialog.component';
 
 @Component({
