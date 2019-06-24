@@ -8,5 +8,6 @@ export interface Exercise {
     bodyParts: Array<string>,
     _id?: string,
     createdAt?: string,
-    updatedAt?: string
+    updatedAt?: string,
+    imageUrl?: string
 }
