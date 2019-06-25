@@ -8,7 +8,7 @@
         You don't have any recorded workouts on file. Please go to the "Record" section to add some exercises!
     </div>
 
-    <div *ngIf="!uiState.loading || !uiState.noData">
+    <div *ngIf="!uiState.loading && !uiState.noData">
 
         <app-year-tracker
             [exercises]="exercises"

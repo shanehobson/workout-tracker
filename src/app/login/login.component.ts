@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
     this.resetUIErrorState();
 
     this.login(user).then(res => {
+      console.log(res);
       this.router.navigate(['/home']);
     })
     .catch((err) => {
