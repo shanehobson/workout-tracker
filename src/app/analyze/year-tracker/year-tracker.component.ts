@@ -79,9 +79,9 @@ export class YearTrackerComponent implements OnInit, OnChanges {
       return 'tracker-item_none';
     } else if (date.colorScale < 2) {
       return 'tracker-item_low';
-    } else if (date.colorScale < 7) {
+    } else if (date.colorScale < 5) {
       return 'tracker-item_medium';
-    } else if (date.colorScale < 11) {
+    } else if (date.colorScale < 7) {
       return 'tracker-item_high';
     } else {
       return 'tracker-item_max';
