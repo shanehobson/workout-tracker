@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ColorService {
 
-  private calendarHoverState = new BehaviorSubject<CalendarHoverState>({
-      hover: false
-    });
+  private calendarHoverState = new BehaviorSubject<CalendarHoverState>({ hover: false });
 
   private colors = {
+    $btGreen: '#88b068',
     $green: '#6fa86f',
     $lightGreen: '#3CB371',
     $warrantyBlue: '#6596B7',
@@ -28,7 +27,7 @@ export class ColorService {
     $olive: '#808000'
   };
 
-  private graphColorArray = [this.colors.$skyBlue, this.colors.$purple, this.colors.$green, this.colors.$yellow, this.colors.$red, '#C0C0C0'];
+  private graphColorArray = [this.colors.$skyBlue, this.colors.$purple, this.colors.$lightGreen, '#e8c3b9', this.colors.$aquaMarine, this.colors.$orange, this.colors.$brown, '#3e95cd', '#FF7F50', this.colors.$turquoise, this.colors.$btGreen];
   private pieChartColorArray = [this.colors.$green, this.colors.$red];
   private pieChartColorArray2 = [this.colors.$skyBlue, '#C0C0C0'];
 

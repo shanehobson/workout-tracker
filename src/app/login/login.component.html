@@ -2,10 +2,10 @@
 
   <!--  Top Image -->
   <div *ngIf="uiState.view === 'login'" class="sign-in-image-container">
-      <img src="../../../assets/logo-blue-alt.png" style="height: 60px; width: 80px">
+      <img src="../../../assets/logo-green-alt.png" style="height: 60px; width: 80px">
   </div>
   <div *ngIf="uiState.view === 'createUser'" class="sign-in-image-container">
-      <img src="../../../assets/logo-green-alt.png" style="height: 60px; width: 80px">
+      <img src="../../../assets/logo-blue-alt.png" style="height: 60px; width: 80px">
   </div>
 
   <div class="sign-in-text-container">
@@ -121,7 +121,7 @@
     </div>
 
     <div class="d-flex j-center">
-        <button class="rect-btn rect-btn_green"
+        <button class="rect-btn rect-btn_blue"
           type="button"
           [disabled]="!createUserForm.valid"
           (click)="submitCreateUserForm(createUserForm.value)">
